@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Live-Ops Dashboard — Unity Supabase Toolkit</title>
+  <meta name="description" content="Operate announcements, feature flags, remote config, rewards, moderation and player support from the self-hostable Live-Ops Dashboard included with Unity Supabase Toolkit." />
+  <meta name="theme-color" content="#070a09" />
+  <link rel="canonical" href="https://shipit-unity.github.io/live-ops.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Live-Ops Dashboard — Unity Supabase Toolkit" />
+  <meta property="og:description" content="A self-hostable operator console for the game systems installed in your Supabase project." />
+  <meta property="og:url" content="https://shipit-unity.github.io/live-ops.html" />
+  <meta property="og:image" content="https://shipit-unity.github.io/assets/toolkit-game-patterns.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" type="image/svg+xml" href="assets/shipit-logo.svg" />
+  <link rel="stylesheet" href="styles.css?v=20260707a" />
+  <script src="site-config.js" defer></script>
+  <script src="site.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <nav class="site-nav" aria-label="Primary navigation">
+    <div class="shell nav-inner">
+      <a class="brand" href="index.html" aria-label="ShipIt Unity Supabase Toolkit home"><span class="brand-mark" aria-hidden="true"></span><span>ShipIt</span><span class="brand-product">Unity Supabase Toolkit</span></a>
+      <div class="nav-links">
+        <a href="index.html">Overview</a>
+        <a href="documentation.html">Documentation</a>
+        <a href="live-ops.html" aria-current="page">Live-Ops</a>
+        <a href="privacy.html">Privacy</a>
+        <a data-support-link href="mailto:shiptit.unity@gmail.com">Support</a>
+        <a class="button small" data-store-link href="store.html"><span data-store-label>Asset Store listing</span></a>
+      </div>
+      <details class="mobile-nav">
+        <summary>Menu</summary>
+        <div class="mobile-nav-panel">
+          <a href="index.html">Overview</a>
+          <a href="documentation.html">Documentation</a>
+          <a href="live-ops.html" aria-current="page">Live-Ops</a>
+          <a href="privacy.html">Privacy</a>
+          <a data-support-link href="mailto:shiptit.unity@gmail.com">Email support</a>
+          <a class="button" data-store-link href="store.html"><span data-store-label>Asset Store listing</span></a>
+        </div>
+      </details>
+    </div>
+  </nav>
+
+  <main id="main-content">
+    <header class="page-hero">
+      <div class="shell">
+        <div class="eyebrow">Included operator console</div>
+        <h1>Run the live game. <span class="gradient-text">Skip the emergency build.</span></h1>
+        <p>
+          Publish content, tune configuration, support players and review activity against the
+          systems installed in your Supabase project—without routing credentials through ShipIt.
+        </p>
+        <div class="hero-actions">
+          <a class="button" data-store-link href="store.html"><span data-store-label>Asset Store listing</span></a>
+          <a class="button secondary" href="documentation.html#dashboard">Read the dashboard guide</a>
+        </div>
+
+        <figure class="dashboard-preview" aria-labelledby="dashboard-preview-caption">
+          <div class="window-bar" aria-hidden="true"><span class="window-dot"></span><span class="window-dot"></span><span class="window-dot"></span><span class="window-title">ShipIt / Live-Ops Dashboard</span></div>
+          <div class="ops-ui" aria-hidden="true">
+            <div class="ops-sidebar">
+              <strong>Live-Ops</strong>
+              <span class="active">Overview</span>
+              <span>Announcements</span>
+              <span>Feature Flags</span>
+              <span>Remote Config</span>
+              <span>Rewards &amp; Mail</span>
+              <span>Moderation</span>
+              <span>Leaderboard</span>
+              <span>Players</span>
+            </div>
+            <div class="ops-content">
+              <div class="ops-title">
+                <div><h3>Sample workspace</h3><p>Illustrative project data</p></div>
+                <span class="ops-preview-badge">Interface preview</span>
+              </div>
+              <div class="ops-stats">
+                <div class="ops-stat"><small>Players</small><strong>24,891</strong></div>
+                <div class="ops-stat"><small>Active today</small><strong>3,204</strong></div>
+                <div class="ops-stat"><small>Events today</small><strong>18.2k</strong></div>
+                <div class="ops-stat"><small>Open reports</small><strong>12</strong></div>
+              </div>
+              <div class="ops-table">
+                <div class="ops-table-row"><span>Live configuration</span><span>Audience</span><span>Status</span></div>
+                <div class="ops-table-row"><b>Weekend double XP</b><span>100% of players</span><em>Live</em></div>
+                <div class="ops-table-row"><b>New inventory UI</b><span>25% rollout</span><em>Testing</em></div>
+                <div class="ops-table-row"><b>Season maintenance</b><span>All regions</span><em>Scheduled</em></div>
+                <div class="ops-table-row"><b>Ranked matchmaking v2</b><span>Internal</span><em>Off</em></div>
+              </div>
+            </div>
+          </div>
+          <figcaption id="dashboard-preview-caption">Illustrative local interface with sample data. The shipped dashboard reads from your own Supabase project.</figcaption>
+        </figure>
+      </div>
+    </header>
+
+    <section class="section">
+      <div class="shell">
+        <div class="section-label">Operating model</div>
+        <h2 class="section-heading">A static console that works against your own Supabase project.</h2>
+        <p class="section-lead">
+          The dashboard is included as a self-hostable HTML console. It does not require a ShipIt account,
+          a ShipIt server, or a separate backend deployment. You choose which key to enter depending on the task.
+        </p>
+        <div class="ops-model-grid">
+          <article><strong>Read-only review</strong><p>Use an anon/publishable key for views protected by your RLS policies.</p></article>
+          <article><strong>Trusted operations</strong><p>Use service-role only on a trusted machine for admin actions like bans, rewards and global config.</p></article>
+          <article><strong>Self-hosted delivery</strong><p>Keep it local, place it behind your internal tooling, or host it on your own static site.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-tinted">
+      <div class="shell">
+        <div class="section-label">Operator workflows</div>
+        <h2 class="section-heading">The controls a small team actually needs.</h2>
+        <div class="feature-lines">
+          <article class="feature-line"><h3>Announcements</h3><p>Publish news, maintenance notices, events and promotions with scheduling and priority.</p></article>
+          <article class="feature-line"><h3>Remote configuration</h3><p>Retune values and flip feature flags without waiting for store review or a player update.</p></article>
+          <article class="feature-line"><h3>Rewards and mail</h3><p>Send trusted reward payloads through the secure mailbox workflow installed by the backend pack.</p></article>
+          <article class="feature-line"><h3>Player support</h3><p>Find player records, review account state, and move directly into a support or moderation action.</p></article>
+          <article class="feature-line"><h3>Moderation</h3><p>Review reports, ban or unban players, and preserve an auditable administrative trail.</p></article>
+          <article class="feature-line"><h3>Operational visibility</h3><p>See game KPIs and inspect the tables created by the packs your project actually uses.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="boundary">
+          <strong>Security boundary</strong>
+          <p>
+            The dashboard and source are delivered inside the paid toolkit. Administrative
+            credentials remain on the operator's machine, and player-facing builds never receive
+            service-role access.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell">
+      <div class="footer-grid">
+        <a class="brand" href="index.html" aria-label="ShipIt home"><span class="brand-mark" aria-hidden="true"></span><span>ShipIt</span></a>
+        <div class="footer-links">
+          <a data-store-link href="store.html"><span data-store-label>Asset Store listing</span></a>
+          <a href="documentation.html">Documentation</a>
+          <a href="privacy.html">Privacy</a>
+          <a data-support-link href="mailto:shiptit.unity@gmail.com">Support</a>
+        </div>
+      </div>
+      <div class="legal"><span>Unity Supabase Toolkit v1.44.0 · self-hostable operator tooling</span><span>© 2026 ShipIt</span></div>
+    </div>
+  </footer>
+</body>
+</html>

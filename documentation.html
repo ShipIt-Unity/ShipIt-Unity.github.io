@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Documentation — Unity Supabase Toolkit</title>
+<meta name="description" content="Full documentation for the Unity Supabase Toolkit: setup, auth, database, realtime, storage, backend packs, game services, live-ops, AI, UI, troubleshooting." />
+<meta name="theme-color" content="#070a09" />
+<link rel="canonical" href="https://shipit-unity.github.io/documentation.html" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Unity Supabase Toolkit documentation" />
+<meta property="og:description" content="Setup, API examples, backend packs, game services, security and troubleshooting." />
+<meta property="og:url" content="https://shipit-unity.github.io/documentation.html" />
+<meta property="og:image" content="https://shipit-unity.github.io/assets/toolkit-database.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="icon" type="image/svg+xml" href="assets/shipit-logo.svg" />
+<link rel="stylesheet" href="styles.css?v=20260707a" />
+<script src="site-config.js" defer></script>
+<script src="site.js" defer></script>
+</head>
+<body class="doc-page">
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<nav class="site-nav" aria-label="Primary navigation">
+  <div class="shell nav-inner">
+    <a class="brand" href="index.html" aria-label="ShipIt Unity Supabase Toolkit home"><span class="brand-mark" aria-hidden="true"></span><span>ShipIt</span><span class="brand-product">Unity Supabase Toolkit</span></a>
+    <div class="nav-links">
+      <a href="index.html">Overview</a>
+      <a href="documentation.html" aria-current="page">Documentation</a>
+      <a href="live-ops.html">Live-Ops</a>
+      <a href="privacy.html">Privacy</a>
+      <a data-support-link href="mailto:shiptit.unity@gmail.com">Support</a>
+      <a class="button small" data-store-link href="store.html"><span data-store-label>Asset Store listing</span></a>
+    </div>
+    <details class="mobile-nav">
+      <summary>Menu</summary>
+      <div class="mobile-nav-panel">
+        <a href="index.html">Overview</a>
+        <a href="documentation.html" aria-current="page">Documentation</a>
+        <a href="live-ops.html">Live-Ops</a>
+        <a href="privacy.html">Privacy</a>
+        <a data-support-link href="mailto:shiptit.unity@gmail.com">Email support</a>
+        <a class="button" data-store-link href="store.html"><span data-store-label>Asset Store listing</span></a>
+      </div>
+    </details>
+  </div>
+</nav>
+
+<header class="docs-hero">
+  <div class="shell">
+    <div class="eyebrow">v1.44.0 · Unity 2022.3+</div>
+    <h1>Unity Supabase Toolkit <span class="gradient-text">documentation.</span></h1>
+    <p>Find setup steps, API examples, game backend patterns, security guidance and troubleshooting.</p>
+    <div class="docs-search">
+      <label for="docs-search">Search documentation</label>
+      <input id="docs-search" type="search" placeholder="Search auth, realtime, RLS, storage…" autocomplete="off" />
+      <div id="docs-search-results" class="docs-search-results" hidden></div>
+    </div>
+    <div class="docs-quicklinks" aria-label="Popular documentation links">
+      <a href="#before-you-start">Before you start</a>
+      <a href="#security">Security model</a>
+      <a href="#packs">Backend packs</a>
+      <a href="#ai">AI assistant</a>
+      <a href="#troubleshooting">Troubleshooting</a>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+  <aside class="docs-sidebar">
+    <details open>
+      <summary>On this page</summary>
+      <nav aria-label="Documentation sections">
+    <h4>Start</h4>
+    <a href="#before-you-start" aria-current="location">Before you start</a>
+    <a href="#install">Install &amp; configure</a>
+    <a href="#init">Initialize</a>
+    <a href="#workflows">Common workflows</a>
+    <h4>Core services</h4>
+    <a href="#auth">Authentication</a>
+    <a href="#database">Database</a>
+    <a href="#realtime">Realtime</a>
+    <a href="#storage">Storage</a>
+    <a href="#functions">Edge Functions &amp; RPC</a>
+    <h4>Backend</h4>
+    <a href="#packs">Backend packs</a>
+    <a href="#provision">Provisioning</a>
+    <h4>Game systems</h4>
+    <a href="#leaderboards">Leaderboards</a>
+    <a href="#economy">Economy &amp; trading</a>
+    <a href="#seasons">Seasons / live-ops</a>
+    <a href="#social">Social &amp; progression</a>
+    <a href="#liveops">Remote config &amp; flags</a>
+    <a href="#dashboard">Live-Ops Dashboard</a>
+    <h4>AI</h4>
+    <a href="#ai">AI &amp; agents</a>
+    <h4>UI</h4>
+    <a href="#ui">UI kit</a>
+    <h4>Reference</h4>
+    <a href="#offline">Offline &amp; caching</a>
+    <a href="#platforms">Platforms</a>
+    <a href="#security">Security</a>
+    <a href="#troubleshooting">Troubleshooting</a>
+      </nav>
+    </details>
+  </aside>
+
+  <main id="main-content">
+    <section id="before-you-start">
+      <h2>Before you start</h2>
+      <p>
+        ShipIt is designed for teams that want Supabase as their game backend while keeping the Unity workflow
+        practical. The runtime talks to your Supabase project directly; editor-only tools use privileged keys
+        only when you explicitly configure them.
+      </p>
+      <div class="docs-prereq-grid">
+        <article><strong>Runtime configuration</strong><p>Project URL and anon/publishable key live in the runtime settings asset and are safe for client builds when RLS is configured correctly.</p></article>
+        <article><strong>Editor-only administration</strong><p>Secret or legacy service-role keys are stored locally for schema browsing, SQL provisioning, migrations and AI context generation.</p></article>
+        <article><strong>Backend responsibility</strong><p>Scores, economy, entitlements and moderation actions should be validated by Postgres functions, Edge Functions or service-role workflows.</p></article>
+      </div>
+      <div class="note">If you are new to Supabase, create a development project first. Apply backend packs and verify RLS in dev before connecting a production game.</div>
+    </section>
+
+    <section id="install">
+      <h2>Install &amp; configure</h2>
+      <ol>
+        <li>Import the package (Package Manager → My Assets), then open <code>Tools → ShipIt → Supabase Toolkit</code>.</li>
+        <li>Open <strong>Setup Wizard</strong> and enter your Project URL plus anon/publishable key (Supabase dashboard → Project Settings → API Keys).</li>
+        <li>Add a Secret key or legacy service-role key for schema and admin tools. It stays in machine-local editor preferences and is never written to runtime assets or builds.</li>
+        <li>Click <strong>Test Connection</strong>.</li>
+        <li>Click <strong>Create / Update Settings Asset</strong> — it's stored in a <code>Resources</code> folder so it loads at runtime.</li>
+      </ol>
+      <div class="note">Use the <strong>Environments</strong> tab to keep separate Dev / Staging / Prod
+        profiles and switch between them with one click.</div>
+    </section>
+
+    <section id="init">
+      <h2>Initialize</h2>
+      <pre><code>using ShipIt.Supabase;
+
+void Awake()
+{
+    SupabaseClient.InitializeFromResources();
+}</code></pre>
+      <p class="muted">Everything hangs off <code>SupabaseClient.Instance</code>:
+        <code>.Auth</code>, <code>.Database</code>, <code>.Realtime</code>, <code>.Storage</code>,
+        <code>.Functions</code>, <code>.Rpc</code>, plus the <code>.Http</code> layer the feature services use.</p>
+    </section>
+
+    <section id="workflows">
+      <h2>Common workflows</h2>
+      <table>
+        <tr><th>Goal</th><th>Use these tabs</th><th>Result</th></tr>
+        <tr><td>Connect a new project</td><td>Setup Wizard, Environments, Diagnostics</td><td>Runtime settings asset plus editor-local admin credentials.</td></tr>
+        <tr><td>Generate safe C# models</td><td>Schema Browser, Code Generator, AI Assistant</td><td>Serializable model classes and typed query snippets based on your schema.</td></tr>
+        <tr><td>Add a game backend system</td><td>SQL Packs, Provision, RLS Simulator</td><td>Tables, RLS policies, helper functions and usage notes for the selected feature.</td></tr>
+        <tr><td>Debug live network behavior</td><td>Request Inspector, Realtime Monitor, Error Explainer</td><td>Readable requests, responses, channel state and actionable troubleshooting hints.</td></tr>
+        <tr><td>Prepare launch operations</td><td>Live-Ops Dashboard, Remote Config, Feature Flags</td><td>Config, announcements, rewards and moderation flows without a new client build.</td></tr>
+      </table>
+    </section>
+
+    <section id="auth">
+      <h2>Authentication</h2>
+      <pre><code>var auth = SupabaseClient.Instance.Auth;
+
+await auth.SignUpWithEmailAsync(email, password);
+var session = await auth.SignInWithEmailAsync(email, password);
+
+var oauthUrl = auth.BuildOAuthSignInUrl("google", "mygame://auth");
+Application.OpenURL(oauthUrl);
+var oauthSession = await auth.HandleOAuthCallbackAsync(callbackUrl);
+
+var nativeSession = await auth.SignInWithIdTokenAsync("apple", identityToken, nonce: rawNonce);
+
+await auth.SendMagicLinkAsync(email);
+await auth.SendPhoneOtpAsync("+14155551234");
+await auth.VerifyPhoneOtpAsync("+14155551234", "123456");
+
+var user = auth.CurrentSession?.User;
+await auth.SendPasswordResetAsync(email);
+await auth.SignOutAsync();
+
+string export = await auth.ExportMyDataAsync();
+await auth.DeleteAccountAsync();</code></pre>
+      <p class="muted">Browser OAuth uses PKCE and Unity deep links. The drop-in Auth screen completes callbacks automatically.
+        Auth also supports CAPTCHA-protected flows, MFA (TOTP), native identity linking and unlinking,
+        reauthentication, resilient token refresh, and session persistence.</p>
+    </section>
+
+    <section id="database">
+      <h2>Database</h2>
+      <p>A typed query builder with lambda filters, ordering, pagination, full-text search and resource embedding.</p>
+      <pre><code>var db = SupabaseClient.Instance.Database;
+
+var top = await db.From&lt;Player&gt;("players")
+    .Where(p =&gt; p.score &gt; 1000)
+    .OrderByDescending(p =&gt; p.score)
+    .Limit(50)
+    .ExecuteAsync();
+
+var posts = await db.From&lt;Post&gt;("posts")
+    .TextSearch("body", "dragon OR wizard")
+    .ExecuteAsync();
+
+var active = await db.From&lt;Player&gt;("players")
+    .WhereNot("status", FilterOperator.Equals, "banned")
+    .Or("tier.eq.gold,tier.eq.platinum")
+    .ExecuteAsync();
+
+var members = await db.From&lt;GuildMemberRow&gt;("guild_members")
+    .Select("role", "guilds(name,tag)")
+    .ExecuteAsync();</code></pre>
+      <div class="note"><strong>Update</strong> and <strong>Delete</strong> require a <code>.Where(...)</code>
+        filter — the toolkit refuses to mutate the whole table by accident.</div>
+      <figure class="doc-figure">
+        <a class="doc-figure-link" href="assets/toolkit-database.png" target="_blank" rel="noopener" aria-label="Open the Database playground screenshot at full size">
+          <img src="assets/toolkit-database.png" width="1942" height="1325" loading="lazy" alt="Database query playground inside the Unity Editor" />
+        </a>
+        <figcaption><span>Build a query, inspect its URL and review the response without leaving Unity.</span><span>Open full size ↗</span></figcaption>
+      </figure>
+    </section>
+
+    <section id="realtime">
+      <h2>Realtime</h2>
+      <pre><code>await SupabaseClient.Instance.Realtime.ConnectAsync();
+
+var channel = SupabaseClient.Instance.Realtime.FromTable("players");
+channel.OnInsert&lt;Player&gt;(p =&gt; Debug.Log($"New: {p.name}"));
+await channel.SubscribeAsync();
+
+var room = SupabaseClient.Instance.Realtime.Channel("room:42");
+room.OnBroadcast("move", json =&gt; HandleMove(json));
+await room.SubscribeAsync();
+await room.SendBroadcastAsync("move", new { x = 1, y = 2 });
+
+var priv = SupabaseClient.Instance.Realtime.Channel("room:42", isPrivate: true);
+await priv.SubscribeAsync();</code></pre>
+      <p class="muted">The client reconnects with bounded exponential backoff, rejoins known channels and pushes refreshed
+        session tokens to private channels automatically. WebGL uses the browser's native WebSocket.</p>
+      <figure class="doc-figure">
+        <a class="doc-figure-link" href="assets/toolkit-realtime.png" target="_blank" rel="noopener" aria-label="Open the Realtime workspace screenshot at full size">
+          <img src="assets/toolkit-realtime.png" width="1942" height="1325" loading="lazy" alt="Realtime channel workspace inside the Unity Editor" />
+        </a>
+        <figcaption><span>Exercise Postgres changes, broadcast and presence while watching connection health.</span><span>Open full size ↗</span></figcaption>
+      </figure>
+    </section>
+
+    <section id="storage">
+      <h2>Storage</h2>
+      <pre><code>var bucket = SupabaseClient.Instance.Storage.FromBucket("avatars");
+
+await bucket.UploadFileAsync("user/avatar.png", localPath, upsert: true);
+
+var files = await bucket.ListAsync("user", new StorageListOptions {
+    Search = "avatar",
+    Limit = 50
+});
+
+Texture2D tex = await bucket.DownloadTextureAsync("user/avatar.png");
+Sprite icon   = await bucket.DownloadSpriteAsync("user/avatar.png");
+AudioClip sfx = await bucket.DownloadAudioClipAsync("sfx/hit.mp3", AudioType.MPEG);
+
+string thumb = bucket.GetPublicTransformUrl("user/avatar.png",
+    new ImageTransform(128, 128, ImageResize.Cover, 80));
+
+await bucket.UploadResumableAsync("clips/replay.bin", bytes,
+    onProgress: (sent, total) =&gt; Debug.Log($"{sent}/{total}"));</code></pre>
+      <p class="muted">TUS upload locations are persisted locally. Repeating the same upload after an interruption
+        probes the server offset and continues from the confirmed byte.</p>
+    </section>
+
+    <section id="functions">
+      <h2>Edge Functions &amp; RPC</h2>
+      <pre><code>var result = await SupabaseClient.Instance.Functions
+    .InvokeAsync&lt;MyResponse&gt;("hello-world", new { name = "Unity" });
+
+var rows = await SupabaseClient.Instance.Rpc
+    .CallListAsync&lt;LeaderboardRow&gt;("get_leaderboard", new { limit_n = 10 });</code></pre>
+      <p class="muted">The <strong>Edge Function gallery</strong> ships ready-to-deploy templates:
+        GDPR account (export/delete), FCM push, IAP receipt validation, anti-cheat score,
+        AI NPC streaming proxy, and AI content moderation.</p>
+    </section>
+
+    <section id="packs">
+      <h2>Backend packs</h2>
+      <p>33 drop-in, RLS-secured SQL recipes. Each creates tables, policies and helper functions for a
+        common game system. Browse them in the <strong>Backend Packs</strong> tab; every pack lists exactly
+        what it creates and how to use it.</p>
+      <table>
+        <tr><th>Area</th><th>Packs</th></tr>
+        <tr><td>Players</td><td>Profiles, Cloud Saves, Cloud Save Versioning &amp; History</td></tr>
+        <tr><td>Progression</td><td>Leaderboard, Anti-Cheat Scores, Achievements, Daily Rewards, Quests, Seasons &amp; Battle Pass</td></tr>
+        <tr><td>Economy</td><td>Inventory &amp; Economy, Economy: Ledger &amp; Trading, Auction House / Marketplace, In-App Purchases</td></tr>
+        <tr><td>Social</td><td>Friends, Guilds/Clans, Mailbox/Gifts, Moderation (reports &amp; blocks), Referrals / Invite Codes</td></tr>
+        <tr><td>Multiplayer</td><td>Lobbies &amp; Matchmaking, Ranked Matchmaking (ELO), Tournaments &amp; Brackets, Realtime Authorization (private channels)</td></tr>
+        <tr><td>Live-ops</td><td>Remote Config, A/B Experiments, Localization, Announcements, Push Notifications, Seasons &amp; scheduled jobs, Webhooks / Event Outbox</td></tr>
+        <tr><td>AI</td><td>Semantic Search (pgvector)</td></tr>
+        <tr><td>Security</td><td>Realtime Authorization (private channels), Rate Limiting / Abuse Guard, Idempotency Keys, Audit Log / Admin Action Trail</td></tr>
+      </table>
+      <figure class="doc-figure">
+        <a class="doc-figure-link" href="assets/toolkit-game-patterns.png" target="_blank" rel="noopener" aria-label="Open the Game Patterns screenshot at full size">
+          <img src="assets/toolkit-game-patterns.png" width="1942" height="1325" loading="lazy" alt="Game backend patterns inside the Unity Supabase Toolkit" />
+        </a>
+        <figcaption><span>The package includes grounded implementation patterns for the systems the backend packs create.</span><span>Open full size ↗</span></figcaption>
+      </figure>
+    </section>
+
+    <section id="provision">
+      <h2>Provisioning</h2>
+      <p>Three ways to apply a pack to your project:</p>
+      <ul>
+        <li><strong>Copy SQL</strong> from the Backend Packs tab into the Supabase SQL editor.</li>
+        <li><strong>One-click Provision</strong> tab — tick the packs you need and apply them (uses your editor-only service_role key; idempotent).</li>
+        <li><strong>MCP</strong> — let an AI agent apply packs for you (see <a href="#ai">AI &amp; agents</a>).</li>
+      </ul>
+    </section>
+
+    <section id="leaderboards">
+      <h2>Leaderboards</h2>
+      <pre><code>var lb = new LeaderboardService(settings, SupabaseClient.Instance.Http);
+await lb.SubmitAsync("Aria", 12345);
+var top10 = await lb.GetTopAsync(10);
+int rank   = await lb.GetRankAsync(12345);
+long total = await lb.GetCountAsync();</code></pre>
+      <p class="muted">For tamper-proof boards use <code>SecureLeaderboardService</code> + the Anti-Cheat
+        Scores pack (server-validated range, ceiling and rate limit).</p>
+    </section>
+
+    <section id="economy">
+      <h2>Economy &amp; trading</h2>
+      <p>Server-authoritative and auditable — built on a double-entry currency ledger. Apply the
+        Inventory &amp; Economy and Economy: Ledger &amp; Trading packs.</p>
+      <pre><code>var econ = new EconomyService(settings, SupabaseClient.Instance.Http);
+
+long bal = await econ.AdjustCurrencyAsync("gold", 500, "quest_reward");
+await econ.TransferCurrencyAsync(toUserId, "gold", 100);
+
+var offer   = new TradeBundle().Currency("gold", 50).Item("sword", 1);
+var request = new TradeBundle().Item("shield", 2);
+var tradeId = await econ.CreateTradeAsync(toUserId, offer, request);
+await econ.AcceptTradeAsync(tradeId);</code></pre>
+    </section>
+
+    <section id="seasons">
+      <h2>Seasons / live-ops automation</h2>
+      <pre><code>var seasons = new SeasonService(settings, SupabaseClient.Instance.Http);
+var current = await seasons.GetCurrentSeasonAsync("leaderboard");
+var mine    = await seasons.GetMyResultsAsync();</code></pre>
+      <p class="muted">Rollover and reward payout run automatically via <code>pg_cron</code> (or your
+        service_role key) — they pay into the currency ledger. Admin-only by design.</p>
+    </section>
+
+    <section id="social">
+      <h2>Social &amp; progression services</h2>
+      <p>First-class C# services wrap each pack so you never hand-write REST/RPC. All are RLS-scoped to the caller.</p>
+      <table>
+        <tr><th>Service</th><th>Highlights</th></tr>
+        <tr><td><code>FriendService</code></td><td>send/accept/decline requests, block, list friends</td></tr>
+        <tr><td><code>GuildService</code></td><td>create/join/leave, members &amp; roles</td></tr>
+        <tr><td><code>MailboxService</code></td><td>inbox, claim reward payloads</td></tr>
+        <tr><td><code>QuestService</code></td><td>catalog + per-player progress (<code>increment_quest</code>)</td></tr>
+        <tr><td><code>AchievementService</code></td><td>unlock + list achievements</td></tr>
+        <tr><td><code>DailyRewardService</code></td><td>claim + streak (server-validated)</td></tr>
+        <tr><td><code>InventoryService</code></td><td>atomic grant/consume, wallet</td></tr>
+        <tr><td><code>MatchmakingService</code></td><td>lobbies / matchmaking</td></tr>
+        <tr><td><code>TournamentService</code></td><td>single-elim / round-robin brackets, auto-advance</td></tr>
+        <tr><td><code>RankedMatchmakingService</code></td><td>ELO queue, closest-rating pairing, ladder</td></tr>
+        <tr><td><code>AuctionHouseService</code></td><td>marketplace listings, escrow + atomic buyout</td></tr>
+        <tr><td><code>RateLimitService</code></td><td>server-side throttle for abusable/expensive actions</td></tr>
+        <tr><td><code>CloudSaveHistoryService</code></td><td>cloud-save version history + non-destructive restore</td></tr>
+        <tr><td><code>WebhookService</code></td><td>outbound webhooks (outbox, retries, HMAC) — service-role</td></tr>
+        <tr><td><code>ReferralService</code></td><td>invite codes + referral attribution</td></tr>
+        <tr><td><code>IdempotencyService</code></td><td>retry-safe actions (run-once keys, cached result)</td></tr>
+        <tr><td><code>AuditService</code></td><td>append-only admin action trail (service-role)</td></tr>
+        <tr><td><code>BattlePassService</code></td><td>XP, tiers, claim free/premium</td></tr>
+        <tr><td><code>PresenceService</code></td><td>online heartbeat + "who's online"</td></tr>
+        <tr><td><code>ModerationService</code></td><td>report, block, ban check, AI <code>AnalyzeAsync</code></td></tr>
+      </table>
+    </section>
+
+    <section id="liveops">
+      <h2>Remote config, flags, experiments, localization</h2>
+      <pre><code>var config = new RemoteConfigService(settings, SupabaseClient.Instance.Http);
+await config.RefreshAsync();
+float coin = config.GetFloat("coin_multiplier", 1f);
+
+var flags = new FeatureFlagService(settings, http);
+await flags.RefreshAsync();
+bool newUi = flags.IsEnabled("new_inventory_ui");
+var variant = await new ExperimentService(settings, http).GetVariantAsync("new_ui");
+var loc = new LocalizationService(settings, http);
+await loc.LoadAsync("es");
+title.text = loc.Get("welcome");</code></pre>
+      <p class="muted">Retune balance, toggle features, run A/B tests, and translate UI without shipping a build.</p>
+    </section>
+
+    <section id="dashboard">
+      <h2>Live-Ops Dashboard (web console)</h2>
+      <p class="lead">A self-hostable, zero-dependency web console for running your live game
+        straight against Supabase — no backend to deploy.</p>
+      <p>It is a single static HTML file shipped at <code>Documentation~/LiveOpsDashboard/index.html</code>
+        (a hosted copy is linked from this site as <a href="live-ops.html">Live-Ops</a>). Open it,
+        paste your <strong>Project URL</strong> and an API key, and operate the systems the toolkit
+        already creates:</p>
+      <table>
+        <thead><tr><th>Tab</th><th>Backend pack</th><th>What you can do</th></tr></thead>
+        <tbody>
+          <tr><td>Overview</td><td><code>analytics</code>, <code>players</code>, Auth</td><td>KPIs: auth users, player rows, active users today, events today, bans</td></tr>
+          <tr><td>Announcements</td><td><code>announcements</code></td><td>Publish / delete server-driven news, events, maintenance notices</td></tr>
+          <tr><td>Feature Flags</td><td><code>feature_flags</code></td><td>Toggle flags, set percentage rollouts, add / delete</td></tr>
+          <tr><td>Remote Config</td><td><code>app_config</code></td><td>Edit live tunables (balance, toggles, copy)</td></tr>
+          <tr><td>Rewards &amp; Mail</td><td><code>mailbox</code></td><td>Send mail and gift reward payloads (claimed in-game)</td></tr>
+          <tr><td>Moderation</td><td><code>moderation</code></td><td>Ban / unban players, review and resolve reports</td></tr>
+          <tr><td>Leaderboard</td><td><code>players</code></td><td>Read the default name/score board</td></tr>
+          <tr><td>Players</td><td>Auth admin API</td><td>Look up users, copy ids, jump to reward / ban</td></tr>
+        </tbody>
+      </table>
+      <div class="note"><strong>Security:</strong> admin actions need the <strong>service_role</strong> key,
+        which bypasses Row-Level Security — use it only on a machine you trust. The key is entered at
+        runtime and kept in the browser tab's <code>sessionStorage</code> (cleared on close); nothing is
+        baked into the file. Connect with the <code>anon</code> key for read-only views. Install the
+        matching backend pack from the SQL Packs tab before using a tab.</div>
+    </section>
+
+    <section id="ai">
+      <h2>AI &amp; agents (bring your own key)</h2>
+      <h3>Chat &amp; streaming NPCs</h3>
+      <pre><code>npc.Say("Got any swords for sale?");
+
+var ai = new AiChatClient(config);
+await ai.CompleteStreamAsync(system, user, token =&gt; appendToUi(token));</code></pre>
+      <h3>Semantic search, RAG &amp; moderation</h3>
+      <pre><code>var search = new SemanticSearchService(settings, http);
+var rag    = new RagService(search, embedder, chat);
+var mod    = new ModerationService(settings, http);
+var verdict = await mod.AnalyzeAsync(playerChatText);</code></pre>
+      <h3>MCP server (agent-operable backend)</h3>
+      <p class="muted">A bundled Model Context Protocol server (<code>Documentation~/McpServer</code>) lets
+        Claude, Cursor, Kiro or Copilot list/apply backend packs, run SQL, inspect your schema, and
+        generate C# models — against your project, with your service_role key. See its README for setup.</p>
+      <div class="note">AI helpers include opt-in <strong>guardrails</strong>: PII redaction,
+        prompt-injection hardening, input clamping, and a reply cache to control cost.</div>
+    </section>
+
+    <section id="ui">
+      <h2>UI kit</h2>
+      <p>Two ways to get gameplay UI fast:</p>
+      <ul>
+        <li><strong>Themeable UI Toolkit screens</strong> — drop-in <code>SupabaseAuthScreen</code>,
+          <code>SupabaseLeaderboardScreen</code>, <code>SupabaseProfileScreen</code>, restyled from a single
+          <code>SupabaseTheme.uss</code> (light/dark).</li>
+        <li><strong>uGUI prefab builders</strong> — one-click menu items for Auth, Leaderboard, Profile, Chat,
+          Inventory, Cloud Save, and an achievement toast.</li>
+      </ul>
+    </section>
+
+    <section id="offline">
+      <h2>Offline &amp; caching</h2>
+      <p class="muted">Enable the offline cache in settings for stale-while-revalidate reads plus a mutation
+        queue that replays writes when the network returns. Useful for flaky mobile connections.</p>
+    </section>
+
+    <section id="platforms">
+      <h2>Platforms</h2>
+      <p class="muted">Windows, macOS, Linux, Android, iOS, and WebGL. Mono and IL2CPP (AOT-safe; a bundled
+        <code>link.xml</code> protects data types from code stripping). See <code>Documentation~/PlatformSupport.md</code>
+        for the full matrix and WebGL specifics. Run your own device QA per platform, especially consoles.</p>
+    </section>
+
+    <section id="security">
+      <h2>Security best practices</h2>
+      <ul>
+        <li>Ship only the <strong>anon/publishable key</strong> in clients. The toolkit stores the <strong>Secret or legacy service-role key</strong> in machine-local editor preferences, never in the runtime settings asset.</li>
+        <li>Enable <strong>RLS</strong> on every table (the packs do this) and verify with the RLS Simulator + coverage checker.</li>
+        <li>Use <strong>private channels</strong> for sensitive realtime. Currency grants, quest progress and battle-pass XP require a trusted service-role context; client-reported scores still need game-specific validation.</li>
+        <li>The SQL Console / Provisioner executor runs arbitrary SQL — it's <strong>dev-only</strong>. Remove it before production:
+          <code>drop function if exists public.shipit_exec_sql_json(text);</code></li>
+      </ul>
+    </section>
+
+    <section id="troubleshooting">
+      <h2>Troubleshooting</h2>
+      <table>
+        <tr><th>Symptom</th><th>Fix</th></tr>
+        <tr><td>401 on runtime data</td><td>Check the anon/publishable key and your RLS policies. The error message includes the server response + a hint.</td></tr>
+        <tr><td>Schema access is forbidden</td><td>Add a Secret key or legacy service-role key in Setup Wizard. Supabase requires privileged authentication for OpenAPI schema introspection.</td></tr>
+        <tr><td>Connection failed</td><td>Use the API URL (ends in <code>.supabase.co</code>), not the dashboard URL.</td></tr>
+        <tr><td>Update/Delete throws</td><td>Add a <code>.Where(...)</code> filter — required for mutations.</td></tr>
+        <tr><td>Realtime joins do nothing</td><td>Subscribe after connecting; for private channels apply the Realtime Authorization pack and sign in.</td></tr>
+        <tr><td>Provision says executor missing</td><td>Run the SQL Console one-time setup once, then provision.</td></tr>
+        <tr><td>IL2CPP/WebGL build issues</td><td>The bundled <code>link.xml</code> covers DTOs; see PlatformSupport.md.</td></tr>
+      </table>
+      <div class="note">Still stuck? Use the in-editor <strong>Error Explainer</strong> and
+        <strong>Diagnostics</strong> tabs, or email support (see the <a href="index.html#support">Support</a> page).</div>
+    </section>
+  </main>
+</div>
+<footer class="site-footer">
+  <div class="shell">
+    <div class="footer-grid">
+      <a class="brand" href="index.html" aria-label="ShipIt home"><span class="brand-mark" aria-hidden="true"></span><span>ShipIt</span></a>
+      <div class="footer-links">
+        <a data-store-link href="store.html"><span data-store-label>Asset Store listing</span></a>
+        <a href="index.html">Overview</a>
+        <a href="live-ops.html">Live-Ops</a>
+        <a href="privacy.html">Privacy</a>
+        <a data-support-link href="mailto:shiptit.unity@gmail.com">Support</a>
+      </div>
+    </div>
+    <div class="legal"><span>Unity Supabase Toolkit v1.44.0 · public documentation</span><span>© 2026 ShipIt</span></div>
+  </div>
+</footer>
+</body>
+</html>
