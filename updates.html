@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Release notes — Unity Supabase Toolkit</title>
+  <meta name="description" content="What changed in each version of the ShipIt Unity Supabase Toolkit: new backend packs, reliability fixes and editor tooling updates." />
+  <meta name="theme-color" content="#070a09" />
+  <link rel="canonical" href="https://shipit-unity.github.io/updates.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Unity Supabase Toolkit release notes" />
+  <meta property="og:description" content="Version history for the ShipIt Unity Supabase Toolkit." />
+  <meta property="og:url" content="https://shipit-unity.github.io/updates.html" />
+  <link rel="icon" type="image/svg+xml" href="assets/shipit-logo.svg" />
+  <link rel="stylesheet" href="styles.css?v=20260822a" />
+  <script src="site-config.js" defer></script>
+  <script src="site.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <nav class="site-nav" aria-label="Primary navigation">
+    <div class="shell nav-inner">
+      <a class="brand" href="index.html" aria-label="ShipIt Unity Supabase Toolkit home">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>ShipIt</span>
+        <span class="brand-product">Unity Supabase Toolkit</span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Overview</a>
+        <a href="documentation.html">Documentation</a>
+        <a href="updates.html" aria-current="page">Updates</a>
+        <a href="live-ops.html">Live-Ops</a>
+        <a href="privacy.html">Privacy</a>
+        <a data-support-link href="mailto:shiptit.unity@gmail.com">Support</a>
+        <a class="button small" data-store-link href="store.html"><span data-store-label>Asset Store listing</span></a>
+      </div>
+      <details class="mobile-nav">
+        <summary>Menu</summary>
+        <div class="mobile-nav-panel">
+          <a href="index.html">Overview</a>
+          <a href="documentation.html">Documentation</a>
+          <a href="updates.html" aria-current="page">Updates</a>
+          <a href="live-ops.html">Live-Ops</a>
+          <a href="privacy.html">Privacy</a>
+          <a data-support-link href="mailto:shiptit.unity@gmail.com">Email support</a>
+          <a class="button" data-store-link href="store.html"><span data-store-label>Asset Store listing</span></a>
+        </div>
+      </details>
+    </div>
+  </nav>
+
+  <header class="hero hero-compact">
+    <div class="shell">
+      <div class="eyebrow">Changelog · latest first</div>
+      <h1>What's new in the <span class="gradient-text">Unity Supabase Toolkit.</span></h1>
+      <p class="hero-copy">
+        Every update keeps full C# source, idempotent SQL packs and your project data untouched.
+        The complete engineering changelog ships inside the package as <code>CHANGELOG.md</code>.
+      </p>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <section class="section section-compact">
+      <div class="shell">
+
+        <article class="decision-card update-entry">
+          <div class="section-label">Current · August 22, 2026</div>
+          <h3>v1.46.3 — SRP-safe text shader</h3>
+          <ul class="check-list">
+            <li>The bundled TextMeshPro distance-field shader now declares separate SubShaders with single-value render-pipeline tags (URP, HDRP) plus an untagged Built-in fallback, so text renders identically in every pipeline and passes modern Asset Store validation.</li>
+          </ul>
+        </article>
+
+        <article class="decision-card update-entry">
+          <div class="section-label">August 21, 2026</div>
+          <h3>v1.46.2 / v1.46.1 — Validation hardening</h3>
+          <ul class="check-list">
+            <li><strong>Fast Enter Play Mode support:</strong> all toolkit static state (client singleton, request and realtime inspectors, logger buffers, test transports, editor caches) now resets between Play sessions via <code>RuntimeInitializeOnLoadMethod(SubsystemRegistration)</code>; static event subscribers are unregistered automatically.</li>
+            <li><strong>Cleaner sample scenes:</strong> demo scenes no longer embed uGUI or Input System component references. The demo runner builds its Canvas, UI panel and EventSystem at runtime, so scenes import with zero missing components in any project.</li>
+            <li><strong>Bundled text shader:</strong> the Poppins SDF font material now uses a shader that ships inside the package, so UI text works without importing TMP Essentials.</li>
+          </ul>
+        </article>
+
+        <article class="decision-card update-entry">
+          <div class="section-label">August 2026</div>
+          <h3>v1.46.0 — Analytics pack (34th pack)</h3>
+          <ul class="check-list">
+            <li>New <code>analytics</code> drop-in SQL pack: a batched <code>analytics_events</code> table for DAU, funnels and retention, secured so clients can only insert their own events while dashboards read with the service role.</li>
+            <li>Pairs with <code>AnalyticsService.Track()</code> and auto-flush; indexes on event + time and user + time are included.</li>
+            <li>Every feature service in the toolkit now maps to a SQL pack.</li>
+          </ul>
+        </article>
+
+        <article class="decision-card update-entry">
+          <div class="section-label">August 2026</div>
+          <h3>v1.45.0 — Production reliability release</h3>
+          <ul class="check-list">
+            <li><strong>AOT-safe typed queries:</strong> lambda filters no longer use <code>Expression.Compile()</code>, keeping IL2CPP and console targets safe.</li>
+            <li><strong>Resilient auth refresh:</strong> transient network failures retry with bounded backoff instead of dropping sessions.</li>
+            <li><strong>Realtime auth lifecycle:</strong> sign-in, sign-out and token refresh propagate automatically to private channels.</li>
+            <li><strong>Complete OAuth PKCE:</strong> deep-link callbacks, code exchange and legacy token import handled end to end.</li>
+            <li><strong>Truly resumable uploads:</strong> TUS locations survive app restarts and ambiguous failures reconcile before retrying.</li>
+            <li>The automated test suite grew to <strong>130 EditMode tests</strong>.</li>
+          </ul>
+        </article>
+
+        <article class="decision-card update-entry">
+          <div class="section-label">July 2026 · current store listing</div>
+          <h3>v1.44.0 — SDK parity and security hardening</h3>
+          <ul class="check-list">
+            <li>Auth: persisted-session expiry fixes, CAPTCHA-aware sign-ins, Apple/Google ID-token flows and identity linking.</li>
+            <li>Database: negated filters, OR expressions, culture-invariant dates, offline-cache correctness.</li>
+            <li>Realtime: per-filter channels, join acknowledgements, serialized connects, DELETE payloads delivered.</li>
+            <li>Storage: object listing with prefix/search/pagination/sorting, normalized signed URLs, path-traversal rejection.</li>
+            <li>Security: service-role keys moved to machine-local editor storage, privileged economy/quest/battle-pass mutations became service-role-only RPCs.</li>
+          </ul>
+        </article>
+
+        <article class="decision-card update-entry">
+          <div class="section-label">Note</div>
+          <h3>Updating an existing project</h3>
+          <ul class="check-list">
+            <li>Asset Store buyers: download the new .unitypackage from your Purchases page and re-import; nothing is overwritten outside the <code>Assets/ShipIt/Supabase</code> folder.</li>
+            <li>UPM users: refresh the package in Package Manager or point the manifest at the new tarball.</li>
+            <li>SQL packs are idempotent — re-running them is safe and picks up policy/function improvements.</li>
+          </ul>
+        </article>
+
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell">
+      <div class="footer-grid">
+        <a class="brand" href="index.html" aria-label="ShipIt home"><span class="brand-mark" aria-hidden="true"></span><span>ShipIt</span></a>
+        <div class="footer-links">
+          <a data-store-link href="store.html"><span data-store-label>Asset Store listing</span></a>
+          <a href="documentation.html">Documentation</a>
+          <a href="updates.html" aria-current="page">Updates</a>
+          <a href="live-ops.html">Live-Ops</a>
+          <a href="privacy.html">Privacy</a>
+          <a data-support-link href="mailto:shiptit.unity@gmail.com">Support</a>
+        </div>
+      </div>
+      <div class="legal"><span>Unity Supabase Toolkit v1.46.3 · Unity 2022.3 LTS and Unity 6</span><span>© 2026 ShipIt</span></div>
+    </div>
+  </footer>
+</body>
+</html>

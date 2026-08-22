@@ -2127,3 +2127,19 @@ tr:last-child td {
     transform: none;
   }
 }
+
+/* Release notes page */
+.hero-compact {
+  padding: 96px 0 48px;
+}
+.hero-compact .hero-copy {
+  max-width: 640px;
+  margin: 0;
+}
+.update-entry {
+  display: block;
+  max-width: 760px;
+}
+.update-entry + .update-entry {
+  margin-top: 24px;
+}
