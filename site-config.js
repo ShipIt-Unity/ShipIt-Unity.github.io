@@ -1,4 +1,4 @@
 window.SHIPIT_SITE = Object.freeze({
-  assetStoreUrl: "",
+  assetStoreUrl: "https://assetstore.unity.com/packages/tools/network/shipit-supabase-toolkit-390774",
   supportEmail: "shiptit.unity@gmail.com"
 });
