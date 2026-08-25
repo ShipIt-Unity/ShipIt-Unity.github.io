@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>AWS Toolkit — ShipIt Unity</title>
+<meta name="description" content="ShipIt AWS Toolkit: Cognito auth with SRP and MFA, S3 storage with multipart uploads, DynamoDB with typed models, Lambda invocation — pure C# for every Unity platform including WebGL." />
+<meta name="theme-color" content="#070a09" />
+<link rel="canonical" href="https://shipit-unity.github.io/aws-toolkit.html" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="AWS for every Unity platform, including WebGL" />
+<meta property="og:description" content="Pure-C# AWS toolkit: Cognito SRP/MFA auth, Identity Pools, S3 multipart storage, DynamoDB typed data, Lambda, game systems, editor suite." />
+<meta property="og:url" content="https://shipit-unity.github.io/aws-toolkit.html" />
+<meta name="twitter:card" content="summary" />
+<link rel="icon" type="image/svg+xml" href="assets/shipit-logo.svg" />
+<link rel="stylesheet" href="styles.css?v=20260822b" />
+<script src="site-config.js" defer></script>
+<script src="site.js" defer></script>
+</head>
+<body class="doc-page">
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<nav class="site-nav" aria-label="Primary navigation">
+  <div class="shell nav-inner">
+    <a class="brand" href="index.html" aria-label="ShipIt home"><span class="brand-mark" aria-hidden="true"></span><span>ShipIt</span><span class="brand-product">Unity AWS Toolkit</span></a>
+    <div class="nav-links">
+      <a href="index.html">Overview</a>
+      <a href="documentation.html">Supabase docs</a>
+      <a href="aws-toolkit.html" aria-current="page">AWS Toolkit</a>
+      <a href="updates.html">Updates</a>
+      <a href="privacy.html">Privacy</a>
+      <a data-support-link href="mailto:shipit.unity@gmail.com">Support</a>
+    </div>
+    <details class="mobile-nav">
+      <summary>Menu</summary>
+      <div class="mobile-nav-panel">
+        <a href="index.html">Overview</a>
+        <a href="documentation.html">Supabase docs</a>
+        <a href="aws-toolkit.html" aria-current="page">AWS Toolkit</a>
+        <a href="updates.html">Updates</a>
+        <a href="privacy.html">Privacy</a>
+        <a data-support-link href="mailto:shipit.unity@gmail.com">Email support</a>
+      </div>
+    </details>
+  </div>
+</nav>
+
+<main id="main-content">
+  <section class="section">
+    <h1>Amazon Web Services for Unity,<span class="gradient-text"> including WebGL.</span></h1>
+    <p><strong>Cognito auth with SRP and MFA · Identity Pools · S3 with multipart
+    uploads · DynamoDB with typed models · Lambda invocation · game systems ·
+    an eight-tab editor suite.</strong> Pure C# over the AWS REST surfaces — no
+    aws-sdk-net DLLs, no native plugins, IL2CPP/AOT-safe.</p>
+    <div class="note"><strong>Status:</strong> private beta. Asset Store listing in
+    progress — email support for early access.</div>
+  </section>
+
+  <section class="section section-tinted">
+    <h2 class="section-heading">The runtime SDK</h2>
+    <ul>
+      <li><strong>Auth (Cognito User Pools)</strong> — sign-up/confirm, USER_SRP_AUTH
+        (the password never leaves the device), MFA continuation for SMS,
+        TOTP and e-mail OTP, forced-password change, refresh tokens,
+        GlobalSignOut, persistent sessions.</li>
+      <li><strong>Identity Pools</strong> — anonymous or authenticated temporary
+        credentials with automatic refresh; every signed call uses scoped
+        STS credentials, never long-lived keys.</li>
+      <li><strong>S3</strong> — upload/download/metadata/delete, listing pagination,
+        presigned GET/PUT URLs, multipart uploads for large files with gap
+        protection and automatic abort, Texture/Sprite/AudioClip loaders.</li>
+      <li><strong>DynamoDB</strong> — [Serializable] model marshalling,
+        reserved-word-safe expression builders, Query/Scan pagination,
+        conditional writes, batched writes with unprocessed-retry,
+        transactions, PartiQL, COUNT-only rank queries.</li>
+      <li><strong>Lambda</strong> — signed data-plane invokes plus Function URLs
+        (the WebGL path), typed request/response overloads.</li>
+      <li><strong>Signature V4</strong> — a pure-managed signer validated against
+        official AWS example vectors.</li>
+    </ul>
+  </section>
+
+  <section class="section">
+    <h2 class="section-heading">Game systems included</h2>
+    <p>Leaderboards with best-wins conditionals and server-authoritative score
+    submission (Node.js Lambda template) · cross-device cloud saves with
+    optimistic concurrency · feature flags with deterministic percentage
+    rollout · analytics events with TTL retention · an offline mutation queue
+    that survives restarts and replays strictly in order.</p>
+    <p>Provision all backing tables from the editor in one click; scoped IAM
+    policy templates ship alongside.</p>
+  </section>
+
+  <section class="section section-tinted">
+    <h2 class="section-heading">An editor suite that ends in one green button</h2>
+    <p>Eight tabs: settings wizard, connection checks, pack provisioning with
+    IAM templates, read-only DynamoDB browser, table → C# model generator,
+    configuration doctor (including live bucket-CORS validation),
+    diagnostics — and a <strong>live smoke suite</strong> that exercises every
+    service against your real account end-to-end, then deletes its own test
+    user. Ship-day verification is a log file.</p>
+  </section>
+
+  <section class="section">
+    <h2 class="section-heading">WebGL, honestly</h2>
+    <table>
+      <tr><th>Surface</th><th>Desktop / mobile</th><th>WebGL</th></tr>
+      <tr><td>Cognito auth + identity</td><td>direct</td><td>direct (CORS-enabled endpoints)</td></tr>
+      <tr><td>S3 objects</td><td>direct</td><td>after a one-time bucket CORS rule (validated by the doctor)</td></tr>
+      <tr><td>Lambda</td><td>data plane</td><td>Function URLs</td></tr>
+      <tr><td>DynamoDB data plane</td><td>direct</td><td>via Function URL / API Gateway proxy</td></tr>
+    </table>
+    <div class="note">Where AWS is architecturally closed to browsers, the toolkit
+    ships the proxy pattern instead of hand-waving.</div>
+  </section>
+
+  <section class="section section-tinted">
+    <h2 class="section-heading">Security &amp; compatibility</h2>
+    <p>No long-lived keys in clients — ever. Identity Pool roles scope players
+    to their own rows via LeadingKeys; the doctor flags extractable app-client
+    secrets; scoring can run fully server-authoritative through your own
+    Lambda. Ships with <code>link.xml</code> for IL2CPP stripping and a CI
+    release gate enforced by its test suite.</p>
+    <p>Unity 2022.3 LTS · Mono and IL2CPP · Windows, macOS, Linux, Android,
+    iOS, WebGL · Built-in, URP and HDRP. 155+ automated tests including
+    crypto cross-verification and pinned wire vectors.</p>
+  </section>
+
+  <section class="section">
+    <h2 class="section-heading">Trademarks</h2>
+    <p class="note">Amazon Web Services, AWS, Amazon Cognito, Amazon DynamoDB,
+    Amazon S3 and AWS Lambda are trademarks of Amazon.com, Inc. or its
+    affiliates. An independent integration, not affiliated with or endorsed by
+    Amazon. "Unity" is a trademark of Unity Technologies.</p>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="shell">
+    <div class="footer-grid">
+      <a class="brand" href="index.html" aria-label="ShipIt home"><span class="brand-mark" aria-hidden="true"></span><span>ShipIt</span></a>
+      <div class="footer-links">
+        <a href="index.html">Overview</a>
+        <a href="documentation.html">Supabase docs</a>
+        <a href="aws-toolkit.html" aria-current="page">AWS Toolkit</a>
+        <a href="updates.html">Updates</a>
+        <a href="privacy.html">Privacy</a>
+        <a data-support-link href="mailto:shipit.unity@gmail.com">Support</a>
+      </div>
+    </div>
+    <div class="legal"><span>Unity AWS Toolkit v0.13.0 — public preview</span><span>© 2026 ShipIt</span></div>
+  </div>
+</footer>
+</body>
+</html>
