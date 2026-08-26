@@ -26,7 +26,7 @@ address is configured in the same file.
 
 ## Support
 
-Email: `shiptit.unity@gmail.com`
+Email: `shipit.unity@gmail.com`
 
 ## Rights
 
