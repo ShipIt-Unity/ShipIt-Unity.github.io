@@ -85,3 +85,19 @@ Private/paid:
 5. Add the resulting URL to the Unity publisher profile.
 6. Add the Asset Store listing link after Unity creates the product page.
 7. Review the site whenever the toolkit version or support policy changes.
+
+## Addendum — AWS Toolkit page (v2)
+
+`aws-toolkit.html` extends the site to a second product:
+
+- Self-contained landing page using the same stylesheet; body class
+  `doc-page` so tables get responsive wrappers and code blocks get copy
+  buttons automatically.
+- Nav: every page links **AWS Toolkit** after *Documentation/Supabase docs*;
+  on the AWS page itself it carries `aria-current="page"`.
+- Status badge lives in the footer legal line (`vX.Y.Z — public preview`);
+  bump it with each release and flip to the store URL when the listing goes
+  live (then roll the link into all navs' store button).
+- The Supabase hero remains untouched — this page is additive until a
+  multi-product homepage redesign is warranted.
+- SEO: page is in `sitemap.xml` at priority 0.9.
