@@ -69,11 +69,11 @@
           <article class="release-row">
             <span class="release-index">AWS Toolkit<br />Sep 10, 2026</span>
             <div>
-              <h2>v0.22.0 — player economy</h2>
+              <h2>v0.33.0 — player economy</h2>
               <p><code>aws.Game.Economy</code> transacts balances plus an append-only ledger in one <code>TransactWriteItems</code> call: grants, spends and transfers commit atomically, with idempotency keys so replays cannot double-credit, <code>insufficient_funds</code> rejections carrying the current balance, and TTL-retained ledger history. Player IAM rows are scoped per caller with LeadingKeys; the admin policy covers both tables.</p>
               <ul class="check-list">
                 <li>Six tests cover grant shape, insufficient funds, duplicate replay, the four-item transfer, ledger queries and validation.</li>
-                <li>222 EditMode + 2 PlayMode tests pass, zero warnings, gate green.</li>
+                <li>367 EditMode + 2 PlayMode tests pass, zero warnings, gate green.</li>
               </ul>
             </div>
           </article>
@@ -81,7 +81,7 @@
           <article class="release-row">
             <span class="release-index">AWS Toolkit<br />Sep 10, 2026</span>
             <div>
-              <h2>v0.22.0 — transactional conditional updates</h2>
+              <h2>v0.32.0 — transactional conditional updates</h2>
               <p>The data layer now executes <strong>conditional SET/ADD/REMOVE
               updates inside transactions</strong> (<code>DynamoWrite.Update</code>),
               with per-item conditions on puts and deletes, and one shared
@@ -94,7 +94,7 @@
               <ul class="check-list">
                 <li>Foundation for the economy/inventory system (conditional balances + idempotent ledger in one transaction).</li>
                 <li><code>BatchWriteItem</code> now rejects update writes with a pointer to <code>TransactWriteAsync</code> instead of silently emitting a delete.</li>
-                <li>216 EditMode + 2 PlayMode tests pass, zero warnings.</li>
+                <li>316 EditMode + 2 PlayMode tests pass, zero warnings.</li>
               </ul>
             </div>
           </article>
@@ -102,7 +102,7 @@
           <article class="release-row">
             <span class="release-index">AWS Toolkit<br />Sep 10, 2026</span>
             <div>
-              <h2>v0.21.0 — server-authoritative scoring, actually reachable</h2>
+              <h2>v0.31.0 — server-authoritative scoring, actually reachable</h2>
               <p>The docs promised the Packs tab shipped the
               <code>game-submit-score</code> Lambda; now it does. <em>Copy
               game-submit-score handler</em> puts the Node.js 22+ source on the
@@ -112,7 +112,7 @@
               strip direct leaderboard writes from the generated player policy.</p>
               <ul class="check-list">
                 <li>Closes a documentation/UX gap: the template existed in code but had no UI.</li>
-                <li>211 EditMode + 2 PlayMode tests pass, zero warnings.</li>
+                <li>311 EditMode + 2 PlayMode tests pass, zero warnings.</li>
               </ul>
             </div>
           </article>
@@ -120,7 +120,7 @@
           <article class="release-row">
             <span class="release-index">AWS Toolkit<br />Sep 10, 2026</span>
             <div>
-              <h2>v0.20.0 — on-device verification runner</h2>
+              <h2>v0.30.0 — on-device verification runner</h2>
               <p>The live smoke suite now runs where the editor cannot: drop
               <code>AwsSmokeRunner</code> on a bootstrap-scene GameObject, build
               for Android/iOS/WebGL, and it runs automatically, shows a
@@ -132,7 +132,7 @@
               <ul class="check-list">
                 <li>The device matrix documents the on-device path and how to retrieve the report per platform.</li>
                 <li>Editor and device passes now produce identical artifacts via <code>SmokeReportWriter</code>.</li>
-                <li>211 EditMode + 2 PlayMode tests pass, zero warnings.</li>
+                <li>311 EditMode + 2 PlayMode tests pass, zero warnings.</li>
               </ul>
             </div>
           </article>
@@ -152,7 +152,7 @@
               <ul class="check-list">
                 <li>Each USS is self-contained; Panels need a PanelSettings with a theme style sheet, which the new docs page walks through.</li>
                 <li>EditMode tests load both UXMLs and resolve every documented element name.</li>
-                <li>208 EditMode + 2 PlayMode tests pass, zero warnings.</li>
+                <li>308 EditMode + 2 PlayMode tests pass, zero warnings.</li>
               </ul>
             </div>
           </article>
@@ -171,7 +171,7 @@
               <ul class="check-list">
                 <li>Set <code>PinpointApplicationId</code> and grant the Identity Pool role <code>mobiletargeting:UpdateEndpoint</code> on the app.</li>
                 <li>WebGL has no device token, so push is a mobile/desktop feature — the platform matrix says so plainly.</li>
-                <li>Nine tests cover signed wire shape, channel mapping, read-back, opt-out preservation and errors: 206 EditMode + 2 PlayMode pass.</li>
+                <li>Nine tests cover signed wire shape, channel mapping, read-back, opt-out preservation and errors: 306 EditMode + 2 PlayMode pass.</li>
               </ul>
             </div>
           </article>
@@ -257,7 +257,7 @@
           <article class="release-row">
             <span class="release-index">AWS Toolkit<br />Sep 10, 2026</span>
             <div>
-              <h2>v0.22.0 — phone OTP, security and verification</h2>
+              <h2>v0.23.0 — phone OTP, security and verification</h2>
               <p>Passwordless sign-in is now first class:
               <code>SignInWithCustomAuthAsync</code> +
               <code>RespondToCustomChallengeAsync</code> drive Cognito's
@@ -296,7 +296,7 @@
           <article class="release-row">
             <span class="release-index">AWS Toolkit<br />Sep 10, 2026</span>
             <div>
-              <h2>v0.21.0 — S2 progress and resumable multipart</h2>
+              <h2>v0.21.0 — S3 progress and resumable multipart</h2>
               <p>Uploads and downloads now report 0..1 progress on every platform
               — pumped from the player loop, so WebGL works too.
               <code>UploadLargeResumableAsync</code> persists a multipart upload
