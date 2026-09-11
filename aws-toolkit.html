@@ -4,12 +4,12 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>AWS Toolkit — ShipIt Unity</title>
-<meta name="description" content="ShipIt AWS Toolkit: Cognito auth with SRP and MFA, S3 storage with multipart uploads, DynamoDB with typed models, Lambda invocation — pure C# for every Unity platform including WebGL." />
+<meta name="description" content="ShipIt AWS Toolkit: Cognito auth with SRP and MFA, Identity Pools, S3 multipart storage, DynamoDB typed data, Lambda, game systems and a guided editor setup — pure C# for every Unity platform including WebGL." />
 <meta name="theme-color" content="#070a09" />
 <link rel="canonical" href="https://shipit-unity.github.io/aws-toolkit.html" />
 <meta property="og:type" content="article" />
 <meta property="og:title" content="AWS for every Unity platform, including WebGL" />
-<meta property="og:description" content="Pure-C# AWS toolkit: Cognito SRP/MFA auth, Identity Pools, S3 multipart storage, DynamoDB typed data, Lambda, game systems, editor suite." />
+<meta property="og:description" content="Pure-C# AWS toolkit: Cognito SRP/MFA auth, Identity Pools, S3 multipart storage, DynamoDB typed data, Lambda, game systems, guided setup wizard." />
 <meta property="og:url" content="https://shipit-unity.github.io/aws-toolkit.html" />
 <meta name="twitter:card" content="summary" />
 <link rel="icon" type="image/svg+xml" href="assets/shipit-logo.svg" />
@@ -17,7 +17,7 @@
 <script src="site-config.js" defer></script>
 <script src="site.js" defer></script>
 </head>
-<body class="doc-page">
+<body>
 <a class="skip-link" href="#main-content">Skip to main content</a>
 <nav class="site-nav" aria-label="Primary navigation">
   <div class="shell nav-inner">
@@ -26,6 +26,7 @@
       <a href="index.html">Overview</a>
       <a href="documentation.html">Supabase docs</a>
       <a href="aws-toolkit.html" aria-current="page">AWS Toolkit</a>
+      <a href="aws-documentation.html">AWS docs</a>
       <a href="updates.html">Updates</a>
       <a href="privacy.html">Privacy</a>
       <a data-support-link href="mailto:shipit.unity@gmail.com">Support</a>
@@ -36,6 +37,7 @@
         <a href="index.html">Overview</a>
         <a href="documentation.html">Supabase docs</a>
         <a href="aws-toolkit.html" aria-current="page">AWS Toolkit</a>
+        <a href="aws-documentation.html">AWS docs</a>
         <a href="updates.html">Updates</a>
         <a href="privacy.html">Privacy</a>
         <a data-support-link href="mailto:shipit.unity@gmail.com">Email support</a>
@@ -44,98 +46,259 @@
   </div>
 </nav>
 
+<header class="hero">
+  <div class="shell hero-grid">
+    <div class="hero-copy-block">
+      <div class="eyebrow">Pure C# · WebGL-first · full source</div>
+      <h1>Amazon Web Services for Unity, <span class="gradient-text">including WebGL.</span></h1>
+      <p class="hero-copy">
+        Cognito auth with SRP and MFA, Identity Pools, S3 multipart storage,
+        DynamoDB with typed models, Lambda invocation and drop-in game systems —
+        pure C# over the AWS REST surfaces. No aws-sdk-net DLLs, no native
+        plugins, IL2CPP/AOT-safe.
+      </p>
+      <div class="hero-actions">
+        <a class="button" href="aws-documentation.html">Read the documentation</a>
+        <a class="button secondary" data-support-link href="mailto:shipit.unity@gmail.com">Email support</a>
+      </div>
+      <div class="micro-proof">
+        <span>327 automated tests — EditMode + PlayMode, zero warnings, CI gate</span>
+        <span>Try it with no AWS account: Demo mode runs every call in memory</span>
+        <span>Guided Setup tab: empty project → verified backend</span>
+        <span>One code path for WebGL, mobile and desktop</span>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="code-window">
+        <div class="window-bar"><span class="window-dot"></span><span class="window-dot"></span><span class="window-dot"></span><span class="window-title">PlayerBackend.cs</span></div>
+        <pre><code>AwsClient.InitializeFromResources();
+var aws = AwsClient.Instance;
+
+await aws.Auth.SignInWithSrpAsync(email, password);
+
+var top = await aws.Game.Leaderboards
+    .GetTopAsync("global", 10);
+
+await aws.Storage.UploadAsync(
+    $"avatars/{userId}.png", pngBytes, "image/png");</code></pre>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="proof-strip">
+  <div class="shell proof-grid">
+    <div class="proof-item"><span class="proof-value">327</span><span class="proof-label">automated tests, zero warnings</span></div>
+    <div class="proof-item"><span class="proof-value">8</span><span class="proof-label">editor tabs ending in a live smoke suite</span></div>
+    <div class="proof-item"><span class="proof-value">0</span><span class="proof-label">aws-sdk-net DLLs or native plugins</span></div>
+    <div class="proof-item"><span class="proof-value">WebGL</span><span class="proof-label">first-class target, CORS-checked</span></div>
+  </div>
+</section>
+
 <main id="main-content">
-  <section class="section">
-    <h1>Amazon Web Services for Unity,<span class="gradient-text"> including WebGL.</span></h1>
-    <p><strong>Cognito auth with SRP and MFA · Identity Pools · S3 with multipart
-    uploads · DynamoDB with typed models · Lambda invocation · game systems ·
-    an eight-tab editor suite.</strong> Pure C# over the AWS REST surfaces — no
-    aws-sdk-net DLLs, no native plugins, IL2CPP/AOT-safe.</p>
-    <div class="note"><strong>Status:</strong> private beta. Asset Store listing in
-    progress — email support for early access.</div>
-  </section>
 
-  <section class="section section-tinted">
-    <h2 class="section-heading">The runtime SDK</h2>
-    <ul>
-      <li><strong>Auth (Cognito User Pools)</strong> — sign-up/confirm, USER_SRP_AUTH
-        (the password never leaves the device), MFA continuation for SMS,
-        TOTP and e-mail OTP, forced-password change, refresh tokens,
-        GlobalSignOut, persistent sessions.</li>
-      <li><strong>Social sign-in</strong> — Cognito Hosted UI via OAuth2 + PKCE
-        (Google, Apple, Facebook), with deep-link completion that survives
-        app suspension.</li>
-      <li><strong>Identity Pools</strong> — anonymous or authenticated temporary
-        credentials with automatic refresh; every signed call uses scoped
-        STS credentials, never long-lived keys.</li>
-      <li><strong>S3</strong> — upload/download/metadata/delete, listing pagination,
-        presigned GET/PUT URLs, multipart uploads for large files with gap
-        protection and automatic abort, Texture/Sprite/AudioClip loaders.</li>
-      <li><strong>DynamoDB</strong> — [Serializable] model marshalling,
-        reserved-word-safe expression builders, Query/Scan pagination,
-        conditional writes, batched writes with unprocessed-retry,
-        transactions, PartiQL, COUNT-only rank queries.</li>
-      <li><strong>Lambda</strong> — signed data-plane invokes plus Function URLs
-        (the WebGL path), typed request/response overloads, and response
-        streaming through verified event-stream framing.</li>
-      <li><strong>Signature V4</strong> — a pure-managed signer validated against
-        official AWS example vectors.</li>
-    </ul>
-  </section>
+<section class="section">
+  <div class="shell">
+    <div class="section-label">Runtime SDK</div>
+    <h2 class="section-heading">The AWS services a game actually uses.</h2>
+    <p class="section-lead">Everything is implemented clean-room against public AWS documentation, signs with temporary Identity Pool credentials, and runs on <code>UnityWebRequest</code>.</p>
+    <div class="bento">
+      <article class="bento-card large">
+        <h3>Auth &amp; identity</h3>
+        <p>Cognito User Pools with the flows hardened pools require, plus a pure-C# SRP-6a implementation so the password never leaves the device.</p>
+        <ul class="check-list">
+          <li>Password and SRP sign-in, refresh tokens, persistent sessions</li>
+          <li>MFA continuation: SMS, TOTP and e-mail OTP; forced password change</li>
+          <li>Phone OTP / passwordless via CUSTOM_AUTH, with a production-shaped Lambda template</li>
+          <li>Hosted UI social sign-in (Google, Apple, Facebook) via OAuth2 + PKCE with deep-link completion that survives app suspension</li>
+          <li>Identity Pools mint short-lived credentials that refresh automatically</li>
+        </ul>
+      </article>
+      <article class="bento-card">
+        <h3>S3 storage</h3>
+        <p>Upload, download, metadata, delete, paginated listing, presigned GET/PUT URLs, chunked multipart with progress and <strong>resumable uploads</strong> after interruption, plus Texture/Sprite/AudioClip loaders.</p>
+      </article>
+      <article class="bento-card">
+        <h3>DynamoDB data</h3>
+        <p><code>[Serializable]</code> model marshalling, reserved-word-safe expression builders, Query/Scan pagination, projections, conditional writes, batch and transactional writes, PartiQL and COUNT-only rank queries.</p>
+      </article>
+      <article class="bento-card">
+        <h3>Lambda functions</h3>
+        <p>Signed data-plane invokes, typed request/response overloads, response streaming through CRC-verified event-stream framing, and Function URLs as the WebGL path.</p>
+      </article>
+      <article class="bento-card">
+        <h3>Signature V4</h3>
+        <p>A pure-managed signer validated against official AWS example vectors and botocore, with presigning and every service path pinned by reference tests.</p>
+      </article>
+    </div>
+    <p class="section-lead" style="margin-top:24px">Also in the box: <strong>realtime WebSockets</strong> over API Gateway — IAM-signed <code>wss://</code> URLs, an offline send queue, bounded reconnect with exponential backoff and heartbeats — <strong>Pinpoint push registration</strong> for re-engagement, and drop-in <strong>uGUI or UI Toolkit</strong> panels for auth and leaderboards.</p>
+  </div>
+</section>
 
-  <section class="section">
-    <h2 class="section-heading">Game systems included</h2>
-    <p>Leaderboards with best-wins conditionals and server-authoritative score
-    submission (Node.js Lambda template) · cross-device cloud saves with
-    optimistic concurrency · feature flags with deterministic percentage
-    rollout · analytics events with TTL retention · an offline mutation queue
-    that survives restarts and replays strictly in order.</p>
-    <p>Provision all backing tables from the editor in one click; scoped IAM
-    policy templates ship alongside.</p>
-  </section>
+<section class="section section-tinted">
+  <div class="shell">
+    <div class="section-label">Game systems</div>
+    <h2 class="section-heading">The backend systems every game needs, included.</h2>
+    <div class="split-panel">
+      <div>
+        <ul class="check-list">
+          <li><strong>Leaderboards</strong> — best-wins conditionals, GSI top-N, COUNT ranks, optional server-authoritative scoring through the shipped Lambda template.</li>
+          <li><strong>Cloud saves</strong> — multi-slot, cross-device, optimistic concurrency so a stale device cannot clobber newer progress.</li>
+          <li><strong>Feature flags</strong> — deterministic percentage rollout per player, with a JSON payload.</li>
+          <li><strong>Analytics</strong> — buffered, batched by 25, TTL-retained; flushed automatically on pause and quit.</li>
+          <li><strong>Offline queue</strong> — durable mutations that survive restarts; key-aware coalescing, per-table replay policies, a dead-letter list and a live inspector in Diagnostics.</li>
+        </ul>
+      </div>
+      <div class="decision-card">
+        <h3>Provisioned from the editor</h3>
+        <p>One click creates the four tables with the right keys, GSIs and TTL. Scoped player and admin IAM policy templates are generated next to them.</p>
+        <div class="note">Cloud saves are scoped per player with <code>dynamodb:LeadingKeys</code> on the Cognito identity sub. Leaderboard writes move server-side when you deploy the scoring Lambda.</div>
+      </div>
+    </div>
+  </div>
+</section>
 
-  <section class="section section-tinted">
-    <h2 class="section-heading">An editor suite that ends in one green button</h2>
-    <p>Eight tabs: settings wizard, connection checks, pack provisioning with
-    IAM templates, read-only DynamoDB browser, table → C# model generator,
-    configuration doctor (including live bucket-CORS validation),
-    diagnostics — and a <strong>live smoke suite</strong> that exercises every
-    service against your real account end-to-end, then deletes its own test
-    user. Ship-day verification is a log file.</p>
-  </section>
+<section class="section">
+  <div class="shell">
+    <div class="section-label">Editor suite</div>
+    <h2 class="section-heading">From empty project to verified backend, in one tab.</h2>
+    <p class="section-lead">The Setup tab walks six self-checking steps. The other seven tabs cover day-to-day work.</p>
+    <div class="workflow-grid">
+      <article><span>01</span><h3>Deploy &amp; paste</h3><p>Copy the one-stack CloudFormation template — or, with the AWS CLI installed, deploy and import the outputs without leaving Unity.</p></article>
+      <article><span>02</span><h3>Verify</h3><p>Credentials → DynamoDB ping → configuration doctor → live bucket-CORS check, logged in dependency order.</p></article>
+      <article><span>03</span><h3>Provision &amp; play</h3><p>Create the game tables, then build the wired auth + leaderboard demo scene and press Play.</p></article>
+    </div>
+    <div class="note" style="margin-top:24px">Day-to-day: settings, connection checks, pack provisioning with IAM templates, a read-only DynamoDB browser, a table → C# model + typed repository generator, configuration doctor, diagnostics — and a one-button <strong>live smoke suite</strong> that exercises every service against your real account, then deletes its own test user. Not ready to wire up AWS? Flip <strong>Demo mode</strong> and the whole stack runs in memory.</div>
+  </div>
+</section>
 
-  <section class="section">
-    <h2 class="section-heading">WebGL, honestly</h2>
-    <table>
-      <tr><th>Surface</th><th>Desktop / mobile</th><th>WebGL</th></tr>
-      <tr><td>Cognito auth + identity</td><td>direct</td><td>direct (CORS-enabled endpoints)</td></tr>
-      <tr><td>S3 objects</td><td>direct</td><td>after a one-time bucket CORS rule (validated by the doctor)</td></tr>
-      <tr><td>Lambda</td><td>data plane</td><td>Function URLs</td></tr>
-      <tr><td>DynamoDB data plane</td><td>direct</td><td>via Function URL / API Gateway proxy</td></tr>
-    </table>
-    <div class="note">Where AWS is architecturally closed to browsers, the toolkit
-    ships the proxy pattern instead of hand-waving.</div>
-  </section>
+<section class="section section-tinted">
+  <div class="shell code-showcase">
+    <div>
+      <div class="section-label">API</div>
+      <h2 class="section-heading" style="font-size:clamp(30px,3.4vw,44px)">Readable C#. No proxy SDK.</h2>
+      <p class="section-lead">Typed models, async/await, cancellation on every call, and errors that carry the AWS error type.</p>
+      <p><a class="button secondary" href="aws-documentation.html">Open the docs</a></p>
+    </div>
+    <div class="code-window">
+      <div class="window-bar"><span class="window-dot"></span><span class="window-dot"></span><span class="window-dot"></span><span class="window-title">Leaderboard.cs</span></div>
+      <pre><code>// Best-wins submission, server-authoritative
+var result = await aws.Game.Leaderboards
+    .SubmitScoreViaLambdaAsync("global", userId, 9001);
 
-  <section class="section section-tinted">
+// Top 10 with reserved-word-safe expressions
+var top = await aws.Game.Leaderboards
+    .GetTopAsync("global", 10);
+
+// Only the metadata — payloads stay in DynamoDB
+var slots = await aws.Data.QueryAsync&lt;CloudSaveRow&gt;(
+    new DynamoQueryRequest
+{
+    TableName = "GameSaves",
+    KeyCondition = DynamoKeyCondition.HashEquals(
+        "UserId", AttributeValue.S(userId)),
+    Projection = DynamoProjection.Of(
+        "Slot", "Revision", "UpdatedAt", "DeviceLabel"),
+});</code></pre>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="shell">
+    <div class="section-label">Platforms</div>
+    <h2 class="section-heading">WebGL, honestly.</h2>
+    <div class="table-wrap">
+      <table>
+        <tr><th>Surface</th><th>Desktop / mobile</th><th>WebGL</th></tr>
+        <tr><td>Cognito auth + identity</td><td>direct</td><td>direct (CORS-enabled endpoints)</td></tr>
+        <tr><td>S3 objects</td><td>direct</td><td>after a one-time bucket CORS rule (validated by the doctor)</td></tr>
+        <tr><td>Lambda</td><td>data plane</td><td>Function URLs</td></tr>
+        <tr><td>DynamoDB data plane</td><td>direct</td><td>via Function URL / API Gateway proxy</td></tr>
+      </table>
+    </div>
+    <div class="note">Where AWS is architecturally closed to browsers, the toolkit ships the documented proxy pattern instead of hand-waving — and the Doctor validates your live bucket CORS before a build ships.</div>
+  </div>
+</section>
+
+<section class="section section-tinted">
+  <div class="shell">
+    <div class="section-label">Trust</div>
     <h2 class="section-heading">Security &amp; compatibility</h2>
-    <p>No long-lived keys in clients — ever. Identity Pool roles scope players
-    to their own rows via LeadingKeys; the doctor flags extractable app-client
-    secrets; scoring can run fully server-authoritative through your own
-    Lambda. Ships with <code>link.xml</code> for IL2CPP stripping and a CI
-    release gate enforced by its test suite.</p>
-    <p>Unity 2022.3 LTS · Mono and IL2CPP · Windows, macOS, Linux, Android,
-    iOS, WebGL · Built-in, URP and HDRP. 155+ automated tests including
-    crypto cross-verification and pinned wire vectors.</p>
-  </section>
+    <p class="section-lead">No long-lived keys in clients, server-authoritative paths where they matter — and an inline cost estimator so the monthly AWS bill is visible before launch, not after.</p>
+    <div class="trust-grid">
+      <article><strong>No long-lived keys</strong><p>Every signed call uses temporary Identity Pool credentials; player rows are scoped to the caller by IAM condition.</p></article>
+      <article><strong>Server-authoritative paths</strong><p>The scoring Lambda template ships with the toolkit; the doctor flags extractable app-client secrets and client-trust gaps.</p></article>
+      <article><strong>Proven, not asserted</strong><p>Reference vectors from AWS docs, RFCs and botocore pin every protocol path; a published verification report tracks 327 tests, the reference provenance, and each device pass produces a saved smoke report — from the editor or the on-device runner.</p></article>
+    </div>
+    <div class="compatibility-panel">
+      <div><strong>Unity support</strong><p>Unity 2022.3 LTS and Unity 6 · Mono and IL2CPP · Windows, macOS, Linux, Android, iOS, WebGL · Built-in, URP and HDRP.</p></div>
+      <div><strong>Dependency story</strong><p>No aws-sdk-net assemblies, no NuGet resolution, no native plugins, no TextMeshPro requirement. <code>link.xml</code> included for stripping.</p></div>
+    </div>
+  </div>
+</section>
 
-  <section class="section">
-    <h2 class="section-heading">Trademarks</h2>
-    <p class="note">Amazon Web Services, AWS, Amazon Cognito, Amazon DynamoDB,
-    Amazon S3 and AWS Lambda are trademarks of Amazon.com, Inc. or its
-    affiliates. An independent integration, not affiliated with or endorsed by
-    Amazon. "Unity" is a trademark of Unity Technologies.</p>
-  </section>
+<section class="section section-tinted" id="studio">
+  <div class="shell">
+    <div class="section-label">Studio Edition</div>
+    <h2 class="section-heading">One backend, priced like the shortcut it is.</h2>
+    <p class="section-lead">$999 per title, sold direct: invoice, source, up to 10 seats and a support term. The Asset Store edition stays the $80–100 on-ramp for solo developers and jams.</p>
+    <div class="bento">
+      <article class="bento-card large">
+        <h3>Studio Edition — $999 / title</h3>
+        <ul class="check-list">
+          <li>Up to 10 named seats for one game title; full C# source, modify freely.</li>
+          <li>12 months of priority updates, then 50% renewal.</li>
+          <li>48-business-hour email support and a 60-minute onboarding call.</li>
+          <li>Security review session against the published threat model.</li>
+          <li>ROI worksheet and the half-day studio evaluation guide.</li>
+        </ul>
+        <p><a class="button" data-support-link href="mailto:shipit.unity@gmail.com">Ask for a Studio quote</a></p>
+      </article>
+      <article class="bento-card">
+        <h3>Why $999</h3>
+        <p>A conservative <strong>4–7 engineer-months</strong> of backend plumbing replaced; one loaded backend month costs a studio $8–15k. The ROI worksheet does the math with your numbers — and the monthly AWS bill is visible before launch with the built-in cost estimator.</p>
+      </article>
+      <article class="bento-card">
+        <h3>Design-partner pilot</h3>
+        <p>Shipping within six months? Two to three studios get a <strong>free 90-day Studio license</strong> in exchange for an approved case study — the honest way to judge it before your milestone depends on it.</p>
+      </article>
+    </div>
+    <div class="note" style="margin-top:24px">Studio Edition is sold with a commercial license, not the Asset Store EULA: invoice, named seats, and terms you can hand to procurement. Start with the <a href="aws-documentation.html#install">documentation</a>, then ask for the evaluation guide.</div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="shell">
+    <div class="cta-panel">
+      <div class="eyebrow">Public preview</div>
+      <h2>Evaluate the toolkit against your own AWS account.</h2>
+      <p>The Asset Store listing is in progress. Email support for early access, sample projects and evaluation help — or read the documentation first and connect a real backend yourself.</p>
+      <div class="hero-actions">
+        <a class="button" href="aws-documentation.html">Read the documentation</a>
+        <a class="button secondary" data-support-link href="mailto:shipit.unity@gmail.com">Email support</a>
+        <a class="button secondary" href="#studio">Studio Edition — $999</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-tinted">
+  <div class="shell">
+    <div class="section-label">Also from ShipIt</div>
+    <h2 class="section-heading" style="font-size:clamp(28px,3vw,40px)">Using Supabase instead?</h2>
+    <p class="section-lead">The ShipIt Unity Supabase Toolkit applies the same playbook — runtime SDK, editor workflows, backend packs and live-ops — with full C# source and WebGL support.</p>
+    <p><a class="button secondary" href="index.html">Explore the Supabase Toolkit</a></p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="shell">
+    <h2 class="section-heading" style="font-size:clamp(24px,2.4vw,32px)">Trademarks</h2>
+    <p class="note">Amazon Web Services, AWS, Amazon Cognito, Amazon DynamoDB, Amazon S3 and AWS Lambda are trademarks of Amazon.com, Inc. or its affiliates. An independent integration, not affiliated with or endorsed by Amazon. "Unity" is a trademark of Unity Technologies.</p>
+  </div>
+</section>
+
 </main>
 
 <footer class="site-footer">
@@ -146,12 +309,13 @@
         <a href="index.html">Overview</a>
         <a href="documentation.html">Supabase docs</a>
         <a href="aws-toolkit.html" aria-current="page">AWS Toolkit</a>
+        <a href="aws-documentation.html">AWS docs</a>
         <a href="updates.html">Updates</a>
         <a href="privacy.html">Privacy</a>
         <a data-support-link href="mailto:shipit.unity@gmail.com">Support</a>
       </div>
     </div>
-    <div class="legal"><span>Unity AWS Toolkit v0.16.1 — public preview</span><span>© 2026 ShipIt</span></div>
+    <div class="legal"><span>Unity AWS Toolkit v0.33.0 — public preview</span><span>© 2026 ShipIt</span></div>
   </div>
 </footer>
 </body>
