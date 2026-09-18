@@ -1,0 +1,68 @@
+/* ============================================================
+   ShipIt global pages — umbrella (studio neutral) accent
+   Loaded by privacy.html and 404.html only, after styles.css.
+
+   Why this file exists:
+   - These are global surfaces, so they sit in the neutral studio
+     context: white accent for links, labels, buttons and focus
+     rings, black ink on accent, and the same neutral chrome as
+     the landing page.
+   - The shared components in styles.css consume the legacy
+     --brand* names; this file re-points them to the umbrella
+     accent family. Values are declared explicitly rather than as
+     `--brand: var(--accent)` chains: custom properties resolve
+     var() at computed-value time, so a chain would not follow an
+     override (the same reason landing.css declares both sets).
+   - Loading this file is the only change on these pages; no
+     other page loads it, so nothing else can be affected.
+   - The logo tile keeps its own green (BRAND.md section 5,
+     rule 7): the mark is not an accent.
+   ============================================================ */
+
+:root {
+  /* Umbrella (studio neutral) */
+  --accent: #f2f7f4;
+  --accent-hover: #ffffff;
+  --accent-press: #e2e8e4;
+  --accent-soft: rgba(242, 247, 244, .11);
+  --accent-line: rgba(242, 247, 244, .28);
+  --accent-ink: #070a09;
+
+  /* Legacy aliases, same values */
+  --brand: #f2f7f4;
+  --brand-hover: #ffffff;
+  --brand-soft: rgba(242, 247, 244, .11);
+  --brand-line: rgba(242, 247, 244, .28);
+}
+
+/* The radial atmosphere is an accent decoration: neutral here. */
+body {
+  background:
+    radial-gradient(circle at 78% 4%, rgba(242, 247, 244, .08), transparent 32rem),
+    linear-gradient(var(--bg), var(--bg));
+}
+
+/* Primary buttons follow the umbrella accent, including the press state */
+.button {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+.button:hover {
+  background: var(--accent-hover);
+  color: var(--accent-ink);
+}
+
+.button:active {
+  background: var(--accent-press);
+  color: var(--accent-ink);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .button:hover { box-shadow: 0 12px 30px -16px var(--accent-line); }
+}
+
+/* Focus rings read the accent on these pages */
+:focus-visible {
+  outline-color: var(--accent);
+}

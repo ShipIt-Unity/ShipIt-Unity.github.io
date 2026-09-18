@@ -1,0 +1,52 @@
+# ShipIt Unity Supabase Toolkit
+
+> The most complete Supabase integration for Unity: 38 RLS-hardened backend
+> packs, full C# source, editor tooling, a multi-provider AI assistant and an
+> operator web console. Built by ShipIt.
+
+Works with any Supabase project (hosted or self-hosted). Requires Unity
+2022.3 LTS or newer. Distributed with full C# source — no DLLs, no NuGet.
+
+## Main pages
+
+- [Overview](https://shipit-unity.github.io/index.html): product position, pack cloud, workflow, hardening notes.
+- [Documentation](https://shipit-unity.github.io/documentation.html): setup, auth/database/realtime/storage/edge-function examples, all 38 backend packs, game services table, AI & MCP server, security model, troubleshooting.
+- [Release notes](https://shipit-unity.github.io/updates.html): per-version changelog highlights; the package also ships a full CHANGELOG.md.
+- [Live-Ops console](https://shipit-unity.github.io/live-ops.html): self-hostable operator dashboard — overview KPIs, analytics with CSV export, pgmq queues, pg_cron jobs, announcements, feature flags, remote config, rewards/mail, moderation, leaderboard, players.
+- [Privacy](https://shipit-unity.github.io/privacy.html): no analytics, no cookies, no telemetry.
+
+## Core API surface (C#)
+
+- Initialize: `SupabaseClient.InitializeFromResources();`
+- Auth: email/password, magic link, phone OTP, anonymous, OAuth PKCE deep links,
+  Apple/Google ID tokens, MFA (TOTP), CAPTCHA, identity linking, GDPR export/delete.
+- Database: typed query builder (`From<T>()` with lambda filters), full-text
+  search, auto-pagination (`GetAllAsync`), offline cache + mutation replay.
+- Realtime: postgres changes, broadcast, presence, private RLS-gated channels,
+  native browser WebSocket on WebGL.
+- Storage: uploads, resumable TUS with offset recovery, image transforms,
+  signed URLs, Texture2D/Sprite/AudioClip loaders, bucket management.
+- Edge Functions: typed invoke plus token streaming (`InvokeStreamingAsync`,
+  SSE or raw chunks, main-thread callbacks).
+- Feature services: QueueService (pgmq), CronService (pg_cron),
+  HybridSearchService (RRF fusion), AnalyticsService, CloudSaveService,
+  FeatureFlagService, RemoteConfigService, EconomyService, LeaderboardService,
+  SecureLeaderboardService, MatchmakingService, TournamentService,
+  RankedMatchmakingService, ModerationService, MailboxService, QuestService,
+  BattlePassService, SeasonService, WebhookService, ReferralService,
+  IdempotencyService, AuditService, RateLimitService, PushTokenService,
+  IapValidationService, FriendService, GuildService, InventoryService,
+  AchievementService, DailyRewardService, CloudSaveHistoryService,
+  SemanticSearchService, RagService, AiChatClient, AiEmbeddingClient.
+
+## Security model
+
+Ship only the anon/publishable key in clients. Service-role keys stay in
+machine-local editor preferences and are never written to runtime assets or
+builds. Privileged mutations (economy grants, quest progress, battle-pass XP)
+are service-role-only Postgres functions. Every bundled pack enables RLS with
+explicit policies and function execute allowlists.
+
+## Support
+
+Email shipit.unity@gmail.com. Asset Store listing: see store.html.

@@ -1,0 +1,116 @@
+/* ============================================================
+   ShipIt toolkit pages — product language
+   Loaded by documentation.html, updates.html and store.html
+   after styles.css.
+
+   These pages are a product context: the toolkit green stays on
+   content — in-page links, labels, bullet dots, numbers, content
+   buttons and the documentation sidebar. Two things follow the
+   umbrella instead:
+
+   1. Global chrome. The top nav and the footer adopt the neutral
+      studio family, matching privacy.html and 404.html. The
+      family is declared explicitly on the chrome scopes rather
+      than as `--brand: var(--accent)` chains: custom properties
+      resolve var() at computed-value time, so a chain would not
+      follow the override.
+   2. Headings. Hero headings are solid; the accent never fills a
+      heading. `.gradient-text` inherits the heading colour
+      instead of painting itself green.
+
+   The shared primary button also gains the sixth accent token,
+   with the toolkit value these pages already used (#45C88A).
+
+   Apart from the scoped release-row list repair at the end of
+   this file, every rule here changes colour only: no geometry,
+   so no layout shift is possible from the language pass.
+   ============================================================ */
+
+:root {
+  --accent-press: #45c88a;
+}
+
+/* Content buttons keep the product accent, including the press state */
+.button:active {
+  background: var(--accent-press);
+}
+
+/* ------------------------------------------------------------
+   Global chrome — umbrella (studio neutral)
+   ------------------------------------------------------------ */
+.site-nav,
+.site-footer {
+  /* Umbrella accent family */
+  --accent: #f2f7f4;
+  --accent-hover: #ffffff;
+  --accent-press: #e2e8e4;
+  --accent-soft: rgba(242, 247, 244, .11);
+  --accent-line: rgba(242, 247, 244, .28);
+  --accent-ink: #070a09;
+
+  /* Legacy aliases, same values */
+  --brand: #f2f7f4;
+  --brand-hover: #ffffff;
+  --brand-soft: rgba(242, 247, 244, .11);
+  --brand-line: rgba(242, 247, 244, .28);
+}
+
+/* Scoped to the nav containers and the footer so the rule outranks
+   `.nav-links a[aria-current="page"]` (0,2,1) and keeps the button
+   label readable even when the store CTA is marked as current. */
+.site-nav .nav-links .button,
+.site-nav .mobile-nav-panel .button,
+.site-footer .button {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+.site-nav .nav-links .button:hover,
+.site-nav .mobile-nav-panel .button:hover,
+.site-footer .button:hover {
+  background: var(--accent-hover);
+  color: var(--accent-ink);
+}
+
+.site-nav .nav-links .button:active,
+.site-nav .mobile-nav-panel .button:active,
+.site-footer .button:active {
+  background: var(--accent-press);
+  color: var(--accent-ink);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .site-nav .nav-links .button:hover,
+  .site-nav .mobile-nav-panel .button:hover,
+  .site-footer .button:hover {
+    box-shadow: 0 12px 30px -16px var(--accent-line);
+  }
+}
+
+/* ------------------------------------------------------------
+   Headings are solid; the accent never fills them
+   ------------------------------------------------------------ */
+.gradient-text {
+  color: inherit;
+}
+
+/* ------------------------------------------------------------
+   Release rows: repaired list layout
+   styles.css makes `.check-list li` a two-column grid whose first
+   cell is the 18px bullet. Release items open with a <strong>,
+   so the strong becomes the second grid item and the remaining
+   text wraps in the 18px column — one word per line. Restore the
+   intended hanging-indent list for these rows (a pre-existing
+   defect, not caused by the accent pass).
+   ------------------------------------------------------------ */
+.release-row .check-list li {
+  display: block;
+  position: relative;
+  padding-left: 28px;
+}
+
+.release-row .check-list li::before {
+  position: absolute;
+  left: 0;
+  top: 3px;
+}
