@@ -25,18 +25,18 @@
    ------------------------------------------------------------ */
 :root {
   /* Umbrella (studio neutral) */
-  --accent: #f2f7f4;
-  --accent-hover: #ffffff;
-  --accent-press: #e2e8e4;
-  --accent-soft: rgba(242, 247, 244, .11);
-  --accent-line: rgba(242, 247, 244, .28);
-  --accent-ink: #070a09;
+  --accent: #F6F1E7;
+  --accent-hover: #FFFDF6;
+  --accent-press: #E8E2D5;
+  --accent-soft: rgba(246, 241, 231, .11);
+  --accent-line: rgba(246, 241, 231, .28);
+  --accent-ink: #12110F;
 
   /* Legacy aliases, same values */
-  --brand: #f2f7f4;
-  --brand-hover: #ffffff;
-  --brand-soft: rgba(242, 247, 244, .11);
-  --brand-line: rgba(242, 247, 244, .28);
+  --brand: #F6F1E7;
+  --brand-hover: #FFFDF6;
+  --brand-soft: rgba(246, 241, 231, .11);
+  --brand-line: rgba(246, 241, 231, .28);
 
   /* Shared hover timing and lift shadow for cards */
   --lp-hover-time: .22s;
@@ -57,22 +57,22 @@
 
   /* Low-emphasis ink for the metrics numerals: large text, so the
      contrast floor is 3:1, and it measures 3.8:1 on --code. */
-  --lp-metric-ink: rgba(242, 247, 244, .42);
+  --lp-metric-ink: rgba(246, 241, 231, .42);
 }
 
 /* Unity Supabase Toolkit — product context */
 .ctx-product {
-  --accent: #55d69a;
-  --accent-hover: #75e2ae;
-  --accent-press: #45c88a;
-  --accent-soft: rgba(85, 214, 154, .11);
-  --accent-line: rgba(85, 214, 154, .28);
-  --accent-ink: #03110a;
+  --accent: #F6F1E7;
+  --accent-hover: #FFFDF6;
+  --accent-press: #EFE9DC;
+  --accent-soft: rgba(246, 241, 231, .11);
+  --accent-line: rgba(246, 241, 231, .28);
+  --accent-ink: #0B0A08;
 
-  --brand: #55d69a;
-  --brand-hover: #75e2ae;
-  --brand-soft: rgba(85, 214, 154, .11);
-  --brand-line: rgba(85, 214, 154, .28);
+  --brand: #F6F1E7;
+  --brand-hover: #FFFDF6;
+  --brand-soft: rgba(246, 241, 231, .11);
+  --brand-line: rgba(246, 241, 231, .28);
 }
 
 /* ------------------------------------------------------------
@@ -141,8 +141,8 @@
   justify-content: flex-end;
   min-height: clamp(720px, 110vh, 1240px);
   border-bottom: 1px solid var(--line);
-  /* Accent-driven volumetric bloom: white in the umbrella context,
-     emerald inside a ctx-product scope. */
+   /* Accent-driven volumetric bloom: cream in the umbrella context,
+      the context accent inside a ctx-product scope. */
   background:
     radial-gradient(38% 42% at 68% 36%, var(--accent-line) 0%, transparent 62%),
     radial-gradient(70% 66% at 66% 32%, var(--accent-soft) 0%, transparent 74%),
@@ -165,9 +165,9 @@
   inset: 0;
   pointer-events: none;
   background:
-    radial-gradient(92% 72% at 14% 96%, var(--code) 0%, rgba(4, 7, 6, .88) 42%, rgba(4, 7, 6, 0) 78%),
-    linear-gradient(180deg, rgba(4, 7, 6, 0) 58%, rgba(4, 7, 6, .96) 100%),
-    radial-gradient(118% 96% at 70% 34%, rgba(4, 7, 6, 0) 55%, rgba(4, 7, 6, .55) 100%);
+    radial-gradient(92% 72% at 14% 96%, var(--code) 0%, rgba(12, 11, 9, .88) 42%, rgba(12, 11, 9, 0) 78%),
+    linear-gradient(180deg, rgba(12, 11, 9, 0) 58%, rgba(12, 11, 9, .96) 100%),
+    radial-gradient(118% 96% at 70% 34%, rgba(12, 11, 9, 0) 55%, rgba(12, 11, 9, .55) 100%);
 }
 
 .lp-hero-inner {
@@ -309,7 +309,7 @@
 
 /* ------------------------------------------------------------
    Bands — every second section drops to the deepest token
-   (#040706) so the page keeps reading as true black, and the
+   (#0C0B09) so the page keeps reading as true black, and the
    landing runs one step more generous than the base site.
    ------------------------------------------------------------ */
 .lp-deep {
@@ -440,7 +440,7 @@
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: linear-gradient(90deg, var(--surface) 0%, rgba(15, 21, 18, 0) 38%);
+  background: linear-gradient(90deg, var(--surface) 0%, rgba(18, 17, 15, 0) 38%);
 }
 
 .lp-feature-cap {
@@ -451,7 +451,7 @@
   z-index: 2;
   padding: 12px 20px;
   border-top: 1px solid var(--line);
-  background: rgba(15, 21, 18, .92);
+  background: rgba(18, 17, 15, .92);
   font-size: 12px;
   line-height: 1.6;
   color: var(--quiet);
@@ -826,7 +826,7 @@
   padding: 22px;
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  background: rgba(255, 255, 255, .02);
+  background: rgba(246, 241, 231, .02);
 }
 
 .lp-fact span {
@@ -905,8 +905,8 @@
   padding: 6px 10px;
   border: 1px solid var(--line);
   border-radius: 999px;
-  background: rgba(255, 255, 255, .025);
-  color: #b0bdb6;
+  background: rgba(246, 241, 231, .025);
+  color: #BAB4A7;
   font-size: 12px;
   line-height: 1.4;
 }
@@ -1109,7 +1109,7 @@
 
 /* ------------------------------------------------------------
    Shared components — accent wiring for this page only.
-   styles.css hardcodes the toolkit ink and one green glow; these
+   styles.css hardcodes the accent ink and one accent glow; these
    overrides keep the shared components on the accent family so a
    context class is enough to recolour them.
    ------------------------------------------------------------ */
@@ -1164,8 +1164,8 @@
   .lp-hero-inner { padding: 0 0 36px; }
   .lp-hero-shade {
     background: linear-gradient(180deg,
-      rgba(4, 7, 6, .35) 0%,
-      rgba(4, 7, 6, .86) 46%,
+      rgba(12, 11, 9, .35) 0%,
+      rgba(12, 11, 9, .86) 46%,
       var(--code) 100%);
   }
   .lp-hero-meta { top: 72px; left: 16px; }
@@ -1207,12 +1207,12 @@
    - Colours reuse the existing accent family: only the stories
      band overrides ink tokens (dark-on-light, AA-checked).
    Token mapping from the reference dark oklch theme:
-     background oklch(0.06) -> #070a09 · foreground oklch(0.94)
-     -> #f2f7f4 · card oklch(0.09) -> #0f1512 · muted oklch(0.12)
-     -> #0a0e0c/#151d19 · muted-fg oklch(0.55) -> #a7b4ad ·
-     border oklch(0.18) -> rgba(238,247,242,.08) · accent pink
-     #eca8d6 -> toolkit green #55d69a · radius 0.625rem scale ->
-     8/16/24px retained.
+     background oklch(0.06) -> #12110F · foreground oklch(0.94)
+     -> #F6F1E7 · card oklch(0.09) -> #1A1814 · muted oklch(0.12)
+     -> #171510/#201D18 · muted-fg oklch(0.55) -> #B8B2A5 ·
+      border oklch(0.18) -> rgba(246,241,231,.08) · accent pink
+      -> cream #F6F1E7 · radius 0.625rem scale ->
+      8/16/24px retained.
    ============================================================ */
 :root {
   --ease-out: cubic-bezier(.22, 1, .36, 1);
@@ -1297,7 +1297,7 @@ body.lp .site-nav .nav-inner {
 }
 
 body.lp .site-nav.scrolled {
-  background: rgba(7, 10, 9, .72);
+  background: rgba(18, 17, 15, .72);
   border-bottom-color: var(--line);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
@@ -1310,7 +1310,7 @@ body.lp .site-nav.scrolled .shell.nav-inner {
   margin-bottom: 12px;
   border: 1px solid var(--line);
   border-radius: 16px;
-  background: rgba(15, 21, 18, .82);
+  background: rgba(18, 17, 15, .82);
   box-shadow: var(--shadow-card);
   padding-inline: 20px;
 }
@@ -1352,8 +1352,8 @@ body.lp .lp-hero { padding-top: 128px; }
   pointer-events: none;
   opacity: .5;
   background-image:
-    linear-gradient(rgba(255, 255, 255, .05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, .05) 1px, transparent 1px);
+    linear-gradient(rgba(246, 241, 231, .05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(246, 241, 231, .05) 1px, transparent 1px);
   background-size: 12.5% 100%, 8.333% 100%;
   mask-image: linear-gradient(to bottom, black 30%, transparent 90%);
   -webkit-mask-image: linear-gradient(to bottom, black 30%, transparent 90%);
@@ -1447,7 +1447,7 @@ body.lp .lp-hero { padding-top: 128px; }
   place-items: center;
   border: 1px solid var(--line-strong);
   border-radius: 10px;
-  background: rgba(255, 255, 255, .02);
+  background: rgba(246, 241, 231, .02);
   font-family: var(--font-mono);
   font-size: 11px;
   font-weight: 700;
@@ -1466,17 +1466,17 @@ body.lp .lp-hero { padding-top: 128px; }
    Content is use-case field notes, not attributed quotes.
    ------------------------------------------------------------ */
 .lp-stories {
-  --text: #0a0f0c;
-  --muted: #414c46;
-  --quiet: #5d6963;
-  --line: rgba(10, 15, 12, .14);
-  --line-strong: rgba(10, 15, 12, .26);
-  background: #edf3ef;
+  --text: #12110F;
+  --muted: #3E3A33;
+  --quiet: #5C574D;
+  --line: rgba(18, 17, 15, .14);
+  --line-strong: rgba(18, 17, 15, .26);
+  background: #F1EBDE;
   color: var(--text);
 }
 
-.lp-stories .section-label { color: #2c3631; }
-.lp-stories .section-label::before { background: #2c3631; }
+.lp-stories .section-label { color: #2A2721; }
+.lp-stories .section-label::before { background: #2A2721; }
 
 .lp-stories-head {
   display: flex;
@@ -1502,7 +1502,7 @@ body.lp .lp-hero { padding-top: 128px; }
   transition: background-color .2s var(--ease-out);
 }
 
-.lp-story-arrow:hover { background: rgba(10, 15, 12, .07); }
+.lp-story-arrow:hover { background: rgba(18, 17, 15, .07); }
 
 .lp-stories-grid {
   display: grid;
@@ -1516,7 +1516,7 @@ body.lp .lp-hero { padding-top: 128px; }
   font-family: var(--font-display);
   font-size: 120px;
   line-height: .6;
-  color: rgba(10, 15, 12, .12);
+  color: rgba(18, 17, 15, .12);
   margin-bottom: 8px;
 }
 
@@ -1543,7 +1543,7 @@ body.lp .lp-hero { padding-top: 128px; }
   display: grid;
   place-items: center;
   border-radius: 50%;
-  background: rgba(10, 15, 12, .08);
+  background: rgba(18, 17, 15, .08);
   font-family: var(--font-display);
   font-size: 24px;
 }
@@ -1556,7 +1556,7 @@ body.lp .lp-hero { padding-top: 128px; }
 .lp-story-metric {
   padding: 40px;
   border: 1px solid var(--line-strong);
-  background: rgba(10, 15, 12, .045);
+  background: rgba(18, 17, 15, .045);
 }
 
 .lp-story-metric-value {
@@ -1574,7 +1574,7 @@ body.lp .lp-hero { padding-top: 128px; }
   height: 4px;
   padding: 0;
   border: 0;
-  background: rgba(10, 15, 12, .16);
+  background: rgba(18, 17, 15, .16);
   cursor: pointer;
   position: relative;
   overflow: hidden;
@@ -1584,7 +1584,7 @@ body.lp .lp-hero { padding-top: 128px; }
   position: absolute;
   inset: 0;
   width: 0;
-  background: #0a0f0c;
+  background: #12110F;
 }
 
 .lp-story-progress button.is-active > span { animation: lp-progress 8s linear forwards; }
@@ -1758,7 +1758,7 @@ body.lp .lp-hero { padding-top: 128px; }
   inset: 0;
   background:
     linear-gradient(to bottom, transparent 30%, var(--bg) 100%),
-    linear-gradient(to right, rgba(7, 10, 9, .45), transparent 30%, transparent 70%, rgba(7, 10, 9, .45));
+    linear-gradient(to right, rgba(18, 17, 15, .45), transparent 30%, transparent 70%, rgba(18, 17, 15, .45));
 }
 
 @media (max-width: 1000px) {

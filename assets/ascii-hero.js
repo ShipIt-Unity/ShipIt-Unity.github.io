@@ -4,10 +4,10 @@
    " .:-=+*#%@" on the ink canvas.
 
    Colour: the scene renders in the accent of its context. It reads
-   --accent from its parent element, so the umbrella hero is neutral
-   white and the same script renders product green inside a
+   --accent from its parent element, so the umbrella hero is cream
+   and the same script follows that context's accent inside a
    .ctx-product section — no fork, no config. It falls back to the
-   toolkit green if the variable is missing, and re-reads the colour
+   cream accent if the variable is missing, and re-reads the colour
    when the context changes.
 
    Behaviour:
@@ -83,8 +83,8 @@
     : null;
   var reduced = !!(reduceQuery && reduceQuery.matches);
 
-  var accent = { r: 85, g: 214, b: 154 };          // toolkit green fallback
-  var accentBright = { r: 162, g: 232, b: 199 };   // fallback mixed toward white
+  var accent = { r: 246, g: 241, b: 231 };         // cream accent fallback
+  var accentBright = { r: 250, g: 247, b: 242 };   // fallback mixed toward white
 
   function parseColor(value) {
     if (!value) return null;

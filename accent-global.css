@@ -15,30 +15,30 @@
      override (the same reason landing.css declares both sets).
    - Loading this file is the only change on these pages; no
      other page loads it, so nothing else can be affected.
-   - The logo tile keeps its own green (BRAND.md section 5,
+   - The logo tile keeps its own tile colour (BRAND.md section 5,
      rule 7): the mark is not an accent.
    ============================================================ */
 
 :root {
   /* Umbrella (studio neutral) */
-  --accent: #f2f7f4;
-  --accent-hover: #ffffff;
-  --accent-press: #e2e8e4;
-  --accent-soft: rgba(242, 247, 244, .11);
-  --accent-line: rgba(242, 247, 244, .28);
-  --accent-ink: #070a09;
+  --accent: #F6F1E7;
+  --accent-hover: #FFFDF6;
+  --accent-press: #E8E2D5;
+  --accent-soft: rgba(246, 241, 231, .11);
+  --accent-line: rgba(246, 241, 231, .28);
+  --accent-ink: #12110F;
 
   /* Legacy aliases, same values */
-  --brand: #f2f7f4;
-  --brand-hover: #ffffff;
-  --brand-soft: rgba(242, 247, 244, .11);
-  --brand-line: rgba(242, 247, 244, .28);
+  --brand: #F6F1E7;
+  --brand-hover: #FFFDF6;
+  --brand-soft: rgba(246, 241, 231, .11);
+  --brand-line: rgba(246, 241, 231, .28);
 }
 
 /* The radial atmosphere is an accent decoration: neutral here. */
 body {
   background:
-    radial-gradient(circle at 78% 4%, rgba(242, 247, 244, .08), transparent 32rem),
+    radial-gradient(circle at 78% 4%, rgba(246, 241, 231, .08), transparent 32rem),
     linear-gradient(var(--bg), var(--bg));
 }
 

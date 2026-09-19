@@ -3,7 +3,7 @@
    Loaded by documentation.html, updates.html and store.html
    after styles.css.
 
-   These pages are a product context: the toolkit green stays on
+   These pages are a product context: the accent stays on
    content — in-page links, labels, bullet dots, numbers, content
    buttons and the documentation sidebar. Two things follow the
    umbrella instead:
@@ -16,10 +16,10 @@
       follow the override.
    2. Headings. Hero headings are solid; the accent never fills a
       heading. `.gradient-text` inherits the heading colour
-      instead of painting itself green.
+      instead of painting itself in the accent.
 
    The shared primary button also gains the sixth accent token,
-   with the toolkit value these pages already used (#45C88A).
+   with the accent value these pages already used (#EFE9DC).
 
    Apart from the scoped release-row list repair at the end of
    this file, every rule here changes colour only: no geometry,
@@ -27,7 +27,7 @@
    ============================================================ */
 
 :root {
-  --accent-press: #45c88a;
+  --accent-press: #EFE9DC;
 }
 
 /* Content buttons keep the product accent, including the press state */
@@ -41,18 +41,18 @@
 .site-nav,
 .site-footer {
   /* Umbrella accent family */
-  --accent: #f2f7f4;
-  --accent-hover: #ffffff;
-  --accent-press: #e2e8e4;
-  --accent-soft: rgba(242, 247, 244, .11);
-  --accent-line: rgba(242, 247, 244, .28);
-  --accent-ink: #070a09;
+  --accent: #F6F1E7;
+  --accent-hover: #FFFDF6;
+  --accent-press: #E8E2D5;
+  --accent-soft: rgba(246, 241, 231, .11);
+  --accent-line: rgba(246, 241, 231, .28);
+  --accent-ink: #12110F;
 
   /* Legacy aliases, same values */
-  --brand: #f2f7f4;
-  --brand-hover: #ffffff;
-  --brand-soft: rgba(242, 247, 244, .11);
-  --brand-line: rgba(242, 247, 244, .28);
+  --brand: #F6F1E7;
+  --brand-hover: #FFFDF6;
+  --brand-soft: rgba(246, 241, 231, .11);
+  --brand-line: rgba(246, 241, 231, .28);
 }
 
 /* Scoped to the nav containers and the footer so the rule outranks
