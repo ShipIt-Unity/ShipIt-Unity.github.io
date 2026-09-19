@@ -1,4 +1,4 @@
-﻿:root {
+:root {
   color-scheme: dark;
   --bg: #12110F;
   --bg-soft: #171510;
@@ -148,7 +148,7 @@ summary {
   height: 32px;
   flex: 0 0 32px;
   border-radius: var(--radius-sm);
-  background: #F6F1E7 url("assets/shipit-logo.svg") center / 144% no-repeat;
+  background: #F6F1E7 url("assets/brand/shipit-mark.svg") center / 100% no-repeat;
   box-shadow: 0 8px 24px rgba(246, 241, 231, .12);
 }
 
@@ -2149,4 +2149,19 @@ tr:last-child td {
   .code-block pre {
     padding-right: 16px;
   }
+}
+
+/* Brand wordmark font - Cubao Free Wide (SIL OFL 1.1, (c) 2018 Aaron Amar; license: assets/fonts/OFL.txt) */
+@font-face {
+  font-family: "Cubao Free Wide";
+  src: url("assets/fonts/Cubao-Free-Wide.woff2") format("woff2"),
+       url("assets/fonts/Cubao-Free-Wide.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+.brand > span:not(.brand-mark):not(.brand-product) {
+  font-family: "Cubao Free Wide", var(--font-sans, sans-serif);
+  font-weight: 400;
 }
