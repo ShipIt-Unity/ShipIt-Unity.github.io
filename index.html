@@ -14,35 +14,63 @@
   <meta property="og:image" content="https://shipit-unity.github.io/assets/toolkit-overview.png" />
   <meta name="twitter:card" content="summary_large_image" />
   <link rel="icon" type="image/svg+xml" href="assets/shipit-logo.svg" />
-  <link rel="stylesheet" href="styles.css?v=20260822b" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css?v=20260918" />
+  <link rel="stylesheet" href="landing.css?v=20260918" />
+  <script>
+    /* Flag the entrance-motion hidden state before first paint; the
+       fallback timeout guarantees content if landing-motion.js fails. */
+    (function () {
+      try {
+        var m = window.matchMedia && window.matchMedia("(prefers-reduced-motion: no-preference)");
+        if (!m || !m.matches) return;
+        document.documentElement.classList.add("lp-motion");
+        window.setTimeout(function () {
+          document.documentElement.classList.remove("lp-motion", "lp-go", "lp-motion-words");
+        }, 2600);
+      } catch (e) { /* page stays visible */ }
+    })();
+  </script>
   <script src="site-config.js" defer></script>
   <script src="site.js" defer></script>
+  <script src="assets/ascii-hero.js" defer></script>
+  <script src="assets/landing-motion.js" defer></script>
 </head>
-<body>
+<body class="lp ctx-product">
   <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <!-- 01 · Navigation -->
   <nav class="site-nav" aria-label="Primary navigation">
     <div class="shell nav-inner">
-      <a class="brand" href="index.html" aria-label="ShipIt Unity Supabase Toolkit home">
+      <a class="brand" href="#top" aria-label="ShipIt Unity Supabase Toolkit home">
         <span class="brand-mark" aria-hidden="true"></span>
         <span>ShipIt</span>
         <span class="brand-product">Unity Supabase Toolkit</span>
       </a>
       <div class="nav-links">
-        <a href="index.html" aria-current="page">Overview</a>
-        <a href="documentation.html">Documentation</a>
-        <a href="aws-toolkit.html">AWS Toolkit</a><a href="updates.html">Updates</a>
-        <a href="live-ops.html">Live-Ops</a>
-        <a href="privacy.html">Privacy</a>
+        <a href="#features">Capabilities</a>
+        <a href="#how-it-works">Process</a>
+        <a href="#infra">Infra</a>
+        <a href="#integrations">Integrations</a>
+        <a href="#security">Security</a>
+        <a href="documentation.html">Docs</a>
         <a data-support-link href="mailto:shipit.unity@gmail.com">Support</a>
         <a class="button small" data-store-link href="store.html"><span data-store-label>Asset Store listing</span></a>
       </div>
       <details class="mobile-nav">
         <summary>Menu</summary>
         <div class="mobile-nav-panel">
-          <a href="index.html" aria-current="page">Overview</a>
+          <a class="lp-mobile-link" href="#features">Capabilities</a>
+          <a class="lp-mobile-link" href="#how-it-works">Process</a>
+          <a class="lp-mobile-link" href="#infra">Infra</a>
+          <a class="lp-mobile-link" href="#integrations">Integrations</a>
+          <a class="lp-mobile-link" href="#security">Security</a>
           <a href="documentation.html">Documentation</a>
-          <a href="aws-toolkit.html">AWS Toolkit</a><a href="updates.html">Updates</a>
+          <a href="updates.html">Updates</a>
           <a href="live-ops.html">Live-Ops</a>
+          <a href="aws-toolkit.html">AWS Toolkit</a>
           <a href="privacy.html">Privacy</a>
           <a data-support-link href="mailto:shipit.unity@gmail.com">Email support</a>
           <a class="button" data-store-link href="store.html"><span data-store-label>Asset Store listing</span></a>
@@ -51,191 +79,317 @@
     </div>
   </nav>
 
-  <header class="hero">
-    <div class="shell hero-grid">
-      <div class="hero-copy-block">
-        <div class="eyebrow">Unity-native · full C# source</div>
-        <h1>Supabase for Unity, <span class="gradient-text">ready to ship.</span></h1>
-        <p class="hero-copy">
-          Build authentication, player data, realtime systems, storage, economy and live operations
-          against infrastructure you own—without a proxy service or a puzzle of third-party DLLs.
-        </p>
+  <!-- 02 · Hero -->
+  <header class="lp-hero" id="top">
+    <canvas class="lp-hero-canvas" data-ascii-hero aria-hidden="true"></canvas>
+    <div class="lp-hero-shade" aria-hidden="true"></div>
+    <div class="lp-hero-grid-lines" aria-hidden="true"></div>
+    <p class="lp-hero-meta">ShipIt · Unity Supabase Toolkit · v1.46.3</p>
+    <div class="lp-hero-inner">
+      <div class="shell">
+        <p class="eyebrow">Unity-native · Full C# source</p>
+        <h1>Supabase for Unity,<br />backend that <span class="lp-rotate-word" data-rotate data-words="connects,syncs,saves,ships">ships</span>.</h1>
+        <p class="lp-hero-lede">Authentication, player data, realtime, storage and live operations against infrastructure you own. Editor tooling and secure game systems included — no proxy, no black box.</p>
         <div class="hero-actions">
           <a class="button" data-store-link href="store.html"><span data-store-label>Asset Store listing</span></a>
           <a class="button secondary" href="documentation.html">Explore documentation</a>
         </div>
-        <div class="micro-proof" aria-label="Compatibility">
-          <span>Unity 2022.3 LTS and Unity 6</span>
-          <span>Mono, IL2CPP and WebGL paths</span>
-          <span>Editor tooling plus runtime source</span>
-        </div>
       </div>
-
-      <div class="hero-visual">
-        <figure class="product-shot hero-shot">
-          <img src="assets/toolkit-overview.png" width="1400" height="955" alt="Unity Supabase Toolkit dashboard inside the Unity Editor" fetchpriority="high" />
-          <figcaption>Project setup, connection status, schema tooling and runtime services in one Unity workspace.</figcaption>
-        </figure>
+    </div>
+    <div class="lp-metrics lp-metrics--hero" aria-label="Toolkit facts">
+      <div class="shell">
+        <div class="lp-metric-grid">
+          <div>
+            <span class="lp-metric-value"><span data-count-to="34">34</span></span>
+            <span class="lp-metric-label">secure backend packs with RLS and C# services</span>
+          </div>
+          <div>
+            <span class="lp-metric-value"><span data-count-to="130">130</span>/130</span>
+            <span class="lp-metric-label">EditMode tests passing · August 2026</span>
+          </div>
+          <div>
+            <span class="lp-metric-value">0</span>
+            <span class="lp-metric-label">ShipIt proxy servers between you and Supabase</span>
+          </div>
+        </div>
       </div>
     </div>
   </header>
 
-  <section class="proof-strip" aria-label="Verified product facts">
-    <div class="shell proof-grid">
-      <div class="proof-item"><span class="proof-value">v1.46.3</span><span class="proof-label">current package version</span></div>
-      <div class="proof-item"><span class="proof-value">130 / 130</span><span class="proof-label">EditMode tests · August 2026</span></div>
-      <div class="proof-item"><span class="proof-value">34</span><span class="proof-label">secure backend packs</span></div>
-      <div class="proof-item"><span class="proof-value">0</span><span class="proof-label">ShipIt proxy servers</span></div>
-    </div>
-  </section>
-
-  <main id="main-content">
-    <section class="section section-compact" aria-labelledby="what-it-is-title">
-      <div class="shell split-panel">
-        <div>
-          <div class="section-label">Product position</div>
-          <h2 class="section-heading" id="what-it-is-title">Not another backend service. A Unity control room for your Supabase project.</h2>
-          <p class="section-lead">
-            ShipIt gives Unity teams the parts that usually get built in scattered scripts:
-            a runtime SDK, editor windows, generated C# models, SQL-backed game systems,
-            and operational tools that keep privileged actions out of player builds.
-          </p>
+  <main class="lp-main" id="main-content">
+    <!-- 03 · Features -->
+    <section class="section" id="features" aria-labelledby="features-title">
+      <div class="shell">
+        <div class="lp-head lp-head--split">
+          <div>
+            <span class="section-label">Capabilities</span>
+            <h2 class="section-heading" id="features-title">Backend pieces<br /><span class="lp-fade-2">that fit Unity.</span></h2>
+          </div>
+          <p class="section-lead">Auth, typed database, realtime and storage, plus 34 secure game systems. One runtime SDK with the editor windows that install, generate and inspect them.</p>
         </div>
-        <div class="decision-card">
-          <h3>Use it when you want to</h3>
-          <ul class="check-list">
-            <li>Own your backend data in Supabase instead of a black-box service.</li>
-            <li>Prototype quickly, then harden the same system for production.</li>
-            <li>Give designers and engineers Unity-native tools for schema, realtime and live-ops.</li>
-            <li>Keep service-role work in editor/admin contexts, never in runtime builds.</li>
+        <div class="lp-feature-card">
+          <div class="lp-feature-list">
+            <div class="lp-feature-block">
+              <span class="lp-num">01</span>
+              <div>
+                <h3>Authentication</h3>
+                <p>Email and password, magic link, phone OTP, anonymous sign-in that upgrades to a permanent account, OAuth PKCE deep links and MFA.</p>
+                <div class="lp-feature-stat"><span class="lp-feature-value">9</span><span class="lp-feature-label">auth methods</span></div>
+              </div>
+            </div>
+            <div class="lp-feature-block">
+              <span class="lp-num">02</span>
+              <div>
+                <h3>Typed database</h3>
+                <p>A lambda-style query builder with generated models, full-text search and auto-paged reads. No SQL strings in gameplay code.</p>
+                <div class="lp-feature-stat"><span class="lp-feature-value">100%</span><span class="lp-feature-label">typed C# models</span></div>
+              </div>
+            </div>
+            <div class="lp-feature-block">
+              <span class="lp-num">03</span>
+              <div>
+                <h3>Realtime</h3>
+                <p>Postgres changes, broadcast and presence with heartbeat monitoring, bounded reconnect backoff and automatic rejoin.</p>
+                <div class="lp-feature-stat"><span class="lp-feature-value">3</span><span class="lp-feature-label">channel types</span></div>
+              </div>
+            </div>
+            <div class="lp-feature-block">
+              <span class="lp-num">04</span>
+              <div>
+                <h3>Storage</h3>
+                <p>Uploads, resumable TUS with offset recovery, image transforms, signed URLs and Texture2D loaders that survive expired sessions.</p>
+                <div class="lp-feature-stat"><span class="lp-feature-value">TUS</span><span class="lp-feature-label">resumable uploads</span></div>
+              </div>
+            </div>
+          </div>
+          <figure class="lp-feature-visual">
+            <img src="assets/toolkit-overview.png" width="1400" height="955" loading="lazy" alt="Unity Supabase Toolkit dashboard inside the Unity Editor" />
+            <div class="lp-feature-fade" aria-hidden="true"></div>
+            <figcaption class="lp-feature-cap">Setup, schema, realtime and live-ops in one Unity workspace.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 · How it works -->
+    <section class="section lp-deep" id="how-it-works" aria-labelledby="how-title">
+      <div class="shell">
+        <div class="lp-process-head">
+          <div>
+            <span class="section-label">Process</span>
+            <h2 class="lp-steps-heading" id="how-title"><span>Connect.</span><span class="lp-fade-2">Build.</span><span class="lp-fade-3">Operate.</span></h2>
+          </div>
+          <div class="lp-process-aside">
+            <p class="section-lead">From empty project to playable backend in three moves. Prototype against open policies, then harden the same system for production.</p>
+            <div class="lp-rail" aria-label="Standing rules">
+              <div class="lp-rail-row"><span>01</span>Anon key ships in builds</div>
+              <div class="lp-rail-row"><span>02</span>Service role stays in the editor</div>
+              <div class="lp-rail-row"><span>03</span>RLS on every backend pack</div>
+            </div>
+          </div>
+        </div>
+        <div class="lp-steps">
+          <article class="lp-step">
+            <div class="lp-step-top"><span class="lp-step-num">01</span><span class="lp-step-line" aria-hidden="true"></span></div>
+            <h3>Connect your project</h3>
+            <p>Store the anon key in runtime settings, keep privileged keys in editor-local storage, and verify the connection from the setup window.</p>
+            <p class="lp-step-code">SupabaseClient.InitializeFromResources();</p>
+          </article>
+          <article class="lp-step">
+            <div class="lp-step-top"><span class="lp-step-num">02</span><span class="lp-step-line" aria-hidden="true"></span></div>
+            <h3>Build gameplay systems</h3>
+            <p>Generate models from your schema, query with typed lambdas, and install backend packs for saves, economy, guilds and more.</p>
+            <p class="lp-step-code">.From&lt;Player&gt;("players")<br />.Where(p =&gt; p.score &gt; 1000)<br />.OrderByDescending(p =&gt; p.score)</p>
+          </article>
+          <article class="lp-step">
+            <div class="lp-step-top"><span class="lp-step-num">03</span><span class="lp-step-line" aria-hidden="true"></span></div>
+            <h3>Operate after launch</h3>
+            <p>Tune flags, publish announcements and support players from the live-ops console — without patching a build.</p>
+            <p class="lp-step-code">if (flags.IsEnabled("double_xp"))<br />&nbsp;&nbsp;ApplyDoubleXp();</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 · Infrastructure / game systems -->
+    <section class="section" id="infra" aria-labelledby="infra-title">
+      <div class="shell">
+        <div class="lp-infra-head">
+          <figure class="lp-infra-emblem">
+            <img src="assets/toolkit-database.png" width="1400" height="955" loading="lazy" alt="Database query playground in the Unity Supabase Toolkit" />
+            <figcaption>Inspect the schema before writing gameplay code.</figcaption>
+          </figure>
+          <div>
+            <span class="section-label">Game systems</span>
+            <h2 class="section-heading" id="infra-title">Your project,<br /><span class="lp-fade-2">your data.</span></h2>
+            <p class="section-lead">Your Unity build talks directly to your Supabase project — Postgres, Auth, Realtime, Storage and Edge Functions. ShipIt never sees your credentials or your players' rows.</p>
+          </div>
+        </div>
+        <div class="lp-infra-grid">
+          <div class="lp-infra-large">
+            <div>
+              <span class="lp-stat-value"><span data-count-to="34">34</span></span>
+              <span class="lp-stat-label">game-ready backend packs, installed as idempotent SQL</span>
+              <p class="lp-infra-line">Leaderboards, cloud saves, wallets, trading, guilds, quests, battle pass, moderation and more — each with RLS policies and C# services.</p>
+            </div>
+            <div class="lp-flow" aria-label="Direct connection: Unity build to your Supabase project to players">
+              <div class="lp-flow-node"><b>Unity build</b><span>anon key only</span></div>
+              <div class="lp-flow-arrow" aria-hidden="true"><span>→</span><small>direct</small></div>
+              <div class="lp-flow-node"><b>Your Supabase project</b><span>postgres · auth · realtime</span></div>
+              <div class="lp-flow-arrow" aria-hidden="true"><span>→</span><small>no proxy</small></div>
+              <div class="lp-flow-node"><b>Players</b><span>your data, your rules</span></div>
+            </div>
+          </div>
+          <div class="lp-infra-stack">
+            <div class="lp-stat-card">
+              <span class="lp-stat-value">100%</span>
+              <span class="lp-stat-label">full C# source — runtime and editor, no DLLs</span>
+            </div>
+            <div class="lp-stat-card">
+              <span class="lp-stat-value">0</span>
+              <span class="lp-stat-label">ShipIt servers in the request path</span>
+            </div>
+          </div>
+        </div>
+        <div class="lp-fact-grid">
+          <div class="lp-fact"><span>Idempotent SQL</span><p>Safe to re-run on existing projects without duplicating work.</p></div>
+          <div class="lp-fact"><span>RLS everywhere</span><p>Row Level Security ships with every pack, not as an afterthought.</p></div>
+          <div class="lp-fact"><span>Editor secrets</span><p>Service-role keys never leave machine-local editor storage.</p></div>
+          <div class="lp-fact"><span>Offline cache</span><p>Reads keep working offline; mutations replay on reconnect.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 06 · Metrics -->
+    <section class="section lp-deep" id="metrics" aria-labelledby="metrics-title">
+      <div class="shell">
+        <div class="lp-head">
+          <span class="lp-metrics-chip">Package v1.46.3</span>
+          <h2 class="section-heading" id="metrics-title" style="margin-top:20px">Real numbers,<br /><span class="lp-fade-2">not promises.</span></h2>
+          <span class="lp-note">August 2026 · EditMode suite · Unity 2022.3 LTS and Unity 6</span>
+        </div>
+        <div class="lp-metrics lp-metrics--section">
+          <div class="lp-metrics-grid">
+            <article class="lp-stat-card">
+              <span class="lp-stat-value"><span data-count-to="34">34</span></span>
+              <span class="lp-metric-spark" aria-hidden="true"></span>
+              <p class="lp-infra-line" style="margin-top:20px"><strong style="color:var(--text)">Secure backend packs</strong></p>
+              <span class="lp-metric-sublabel">SQL + C# services included</span>
+            </article>
+            <article class="lp-stat-card">
+              <span class="lp-stat-value"><span data-count-to="130">130</span>/130</span>
+              <span class="lp-metric-spark" aria-hidden="true"></span>
+              <p class="lp-infra-line" style="margin-top:20px"><strong style="color:var(--text)">EditMode tests passing</strong></p>
+              <span class="lp-metric-sublabel">August 2026 suite</span>
+            </article>
+            <article class="lp-stat-card">
+              <span class="lp-stat-value"><span data-count-to="8">8</span></span>
+              <span class="lp-metric-spark" aria-hidden="true"></span>
+              <p class="lp-infra-line" style="margin-top:20px"><strong style="color:var(--text)">Live-ops operator screens</strong></p>
+              <span class="lp-metric-sublabel">announcements → moderation</span>
+            </article>
+          </div>
+        </div>
+        <p class="lp-ticker">Auth · Database · Realtime · Storage · Edge Functions · Queues · Cron · Search — included in one package</p>
+      </div>
+    </section>
+
+    <!-- 07 · Integrations -->
+    <section class="section" id="integrations" aria-labelledby="integrations-title">
+      <div class="shell">
+        <div class="lp-center-head">
+          <span class="section-label">Integrations</span>
+          <h2 class="section-heading" id="integrations-title">Works where<br /><span class="lp-fade-2">you build.</span></h2>
+          <p class="section-lead">Unity 2022.3 LTS and Unity 6 across Mono, IL2CPP and WebGL. Render-pipeline agnostic, with TextMeshPro-ready samples you can restyle.</p>
+        </div>
+        <div class="lp-tiles">
+          <div class="lp-tile"><span class="lp-tile-cat">Engine</span><span class="lp-tile-glyph" aria-hidden="true">LTS</span><span class="lp-tile-name">Unity 2022.3 LTS</span></div>
+          <div class="lp-tile"><span class="lp-tile-cat">Engine</span><span class="lp-tile-glyph" aria-hidden="true">6</span><span class="lp-tile-name">Unity 6</span></div>
+          <div class="lp-tile"><span class="lp-tile-cat">Runtime</span><span class="lp-tile-glyph" aria-hidden="true">IL</span><span class="lp-tile-name">IL2CPP</span></div>
+          <div class="lp-tile"><span class="lp-tile-cat">Platform</span><span class="lp-tile-glyph" aria-hidden="true">GL</span><span class="lp-tile-name">WebGL</span></div>
+          <div class="lp-tile"><span class="lp-tile-cat">Render</span><span class="lp-tile-glyph" aria-hidden="true">RP</span><span class="lp-tile-name">Built-in · URP · HDRP</span></div>
+          <div class="lp-tile"><span class="lp-tile-cat">Samples</span><span class="lp-tile-glyph" aria-hidden="true">Tx</span><span class="lp-tile-name">TextMeshPro UI</span></div>
+          <div class="lp-tile"><span class="lp-tile-cat">Database</span><span class="lp-tile-glyph" aria-hidden="true">PG</span><span class="lp-tile-name">Postgres</span></div>
+          <div class="lp-tile"><span class="lp-tile-cat">Security</span><span class="lp-tile-glyph" aria-hidden="true">RLS</span><span class="lp-tile-name">Row Level Security</span></div>
+          <div class="lp-tile"><span class="lp-tile-cat">Compute</span><span class="lp-tile-glyph" aria-hidden="true">EF</span><span class="lp-tile-name">Edge Functions</span></div>
+          <div class="lp-tile"><span class="lp-tile-cat">Infra</span><span class="lp-tile-glyph" aria-hidden="true">Q</span><span class="lp-tile-name">Queues · pgmq</span></div>
+          <div class="lp-tile"><span class="lp-tile-cat">Infra</span><span class="lp-tile-glyph" aria-hidden="true">CR</span><span class="lp-tile-name">Jobs · pg_cron</span></div>
+          <div class="lp-tile"><span class="lp-tile-cat">Deploy</span><span class="lp-tile-glyph" aria-hidden="true">SH</span><span class="lp-tile-name">Self-hosted Supabase</span></div>
+        </div>
+        <div class="lp-stats-row">
+          <div class="lp-stats-group">
+            <div class="lp-stat-inline"><b>34</b><span>backend packs</span></div>
+            <div class="lp-stat-inline"><b>RLS</b><span>on every pack</span></div>
+            <div class="lp-stat-inline"><b>0</b><span>ShipIt proxies</span></div>
+          </div>
+          <a class="lp-text-link" href="documentation.html">Read the compatibility notes <span class="lp-arrow" aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 08 · Security -->
+    <section class="section lp-deep" id="security" aria-labelledby="security-title">
+      <div class="shell">
+        <div class="lp-head">
+          <span class="section-label">Security</span>
+          <h2 class="section-heading" id="security-title">Connected,<br /><span class="lp-fade-2">never privileged.</span></h2>
+          <p class="section-lead" style="margin-top:20px;max-width:640px">The anon key ships in builds. Everything privileged stays in editor and server contexts — Postgres functions, Edge Functions and admin tooling.</p>
+        </div>
+        <div class="lp-security-grid">
+          <div class="lp-security-large">
+            <span class="lp-note">Active protection</span>
+            <div style="margin-top:24px"><span class="lp-stat-value">0</span><span class="lp-stat-label">player rows passing through ShipIt servers</span></div>
+            <p>Your game talks to your project. There is no ShipIt account, no ShipIt server and no separate backend deployment to trust.</p>
+            <div class="lp-security-chips">
+              <span class="lp-chip lp-chip--live">RLS policies</span>
+              <span class="lp-chip lp-chip--live">Editor-local secrets</span>
+              <span class="lp-chip lp-chip--live">Build guards</span>
+              <span class="lp-chip lp-chip--live">Audit ledger</span>
+            </div>
+          </div>
+          <div class="lp-hardening">
+            <div class="lp-card"><span class="lp-tag">Editor secrets</span><h3>Keys stay local</h3><p>Service-role keys live in machine-local editor preferences, never in runtime assets.</p></div>
+            <div class="lp-card"><span class="lp-tag">Build guards</span><h3>Privileged config blocked</h3><p>Configuration checks stop privileged keys from shipping in player builds.</p></div>
+            <div class="lp-card"><span class="lp-tag">Server validation</span><h3>Clients stay untrusted</h3><p>Economy, scores and entitlements change through trusted functions, not client writes.</p></div>
+            <div class="lp-card"><span class="lp-tag">RLS everywhere</span><h3>Policies by default</h3><p>Every backend pack enables Row Level Security with explicit policies.</p></div>
+          </div>
+        </div>
+        <div class="lp-card lp-boundary-wide">
+          <span class="lp-tag">Honest boundary</span>
+          <h3>What it does not do</h3>
+          <ul class="check-list muted-checks">
+            <li>It does not host your game backend for you.</li>
+            <li>It does not bypass Supabase Row Level Security.</li>
+            <li>It does not treat client-reported economy or scores as trusted.</li>
+            <li>It does not send player data through ShipIt servers.</li>
           </ul>
         </div>
       </div>
     </section>
 
-    <section class="section" aria-labelledby="product-tour-title">
+    <!-- 09 · Developers -->
+    <section class="section" id="developers" aria-labelledby="developers-title">
       <div class="shell">
-        <div class="section-label">Inside the editor</div>
-        <h2 class="section-heading" id="product-tour-title">One workspace from setup to live operations.</h2>
-        <p class="section-lead">
-          Browse data, inspect live channels and install game backend patterns without leaving Unity.
-          Open any image at full size to inspect the shipped interface.
-        </p>
-
-        <div class="tour-grid">
-          <figure class="tour-card">
-            <a class="tour-card-link" href="assets/toolkit-database.png" target="_blank" rel="noopener" aria-label="Open the Database playground screenshot at full size">
-              <img src="assets/toolkit-database.png" width="1400" height="955" loading="lazy" alt="Database query playground in the Unity Supabase Toolkit" />
-            </a>
-            <figcaption><strong>Database playground</strong><span>Build and inspect PostgREST queries before wiring gameplay code.</span></figcaption>
-          </figure>
-          <figure class="tour-card">
-            <a class="tour-card-link" href="assets/toolkit-realtime.png" target="_blank" rel="noopener" aria-label="Open the Realtime workspace screenshot at full size">
-              <img src="assets/toolkit-realtime.png" width="1400" height="955" loading="lazy" alt="Realtime channel tools in the Unity Supabase Toolkit" />
-            </a>
-            <figcaption><strong>Realtime workspace</strong><span>Connect, subscribe, broadcast and inspect channel health.</span></figcaption>
-          </figure>
-          <figure class="tour-card wide">
-            <a class="tour-card-link" href="assets/toolkit-game-patterns.png" target="_blank" rel="noopener" aria-label="Open the Game Patterns screenshot at full size">
-              <img src="assets/toolkit-game-patterns.png" width="1400" height="955" loading="lazy" alt="Game backend patterns available inside the Unity Supabase Toolkit" />
-            </a>
-            <figcaption><strong>Game patterns and AI context</strong><span>Grounded implementation guidance for auth, saves, multiplayer, economy and live operations.</span></figcaption>
-          </figure>
+        <div class="lp-head">
+          <span class="section-label">Unity-native API</span>
+          <h2 class="section-heading" id="developers-title">Readable C#.<br /><span class="lp-fade-2">No proxy SDK.</span></h2>
         </div>
-      </div>
-    </section>
-
-    <section class="section" aria-labelledby="workflow-title">
-      <div class="shell">
-        <div class="section-label">Workflow</div>
-        <h2 class="section-heading" id="workflow-title">A practical path from empty project to playable backend.</h2>
-        <p class="section-lead">
-          The toolkit is built around the steps a Unity developer repeats on every connected game:
-          connect, inspect, generate, provision, test and operate.
-        </p>
-        <div class="workflow-grid">
-          <article><span>01</span><h3>Connect safely</h3><p>Store the anon key in runtime settings and keep privileged keys in editor-local storage.</p></article>
-          <article><span>02</span><h3>Understand the schema</h3><p>Browse tables, columns, primary keys and RLS coverage before writing gameplay code.</p></article>
-          <article><span>03</span><h3>Generate Unity code</h3><p>Create serializable models and typed query snippets grounded in your actual schema.</p></article>
-          <article><span>04</span><h3>Install backend packs</h3><p>Apply idempotent SQL for common systems like cloud saves, wallets, guilds and mail.</p></article>
-          <article><span>05</span><h3>Validate in editor</h3><p>Use diagnostics, request inspection, realtime monitors and explainers while you work.</p></article>
-          <article><span>06</span><h3>Operate after launch</h3><p>Use remote config, announcements, flags and moderation workflows without patching a build.</p></article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section section-tinted">
-      <div class="shell">
-        <div class="section-label">What ships</div>
-        <h2 class="section-heading">Build the game systems players expect.</h2>
-        <p class="section-lead">Start with Supabase primitives, then add secure game systems without replacing your backend.</p>
-
-        <div class="bento">
-          <article class="bento-card large">
-            <h3>34 game-ready backend packs</h3>
-            <p>Idempotent SQL, Row Level Security and C# services for systems that normally consume weeks of backend work.</p>
-            <div class="pack-cloud" aria-label="Included backend pack examples">
-              <span>Leaderboards</span><span>Cloud saves</span><span>Economy ledger</span>
-              <span>Player trading</span><span>Inventory</span><span>Guilds</span>
-              <span>Matchmaking</span><span>Tournaments</span><span>Battle pass</span>
-              <span>Daily rewards</span><span>Moderation</span><span>Mail and rewards</span>
+        <div class="lp-dev-split">
+          <div>
+            <p class="section-lead" style="margin-top:0">Call your Supabase project directly with async APIs, typed models, cancellation support and errors you can act on.</p>
+            <div class="lp-dev-grid" style="margin-top:28px">
+              <div class="lp-dev-item"><strong>Typed query builder.</strong> Lambda filters with generated models — no SQL strings in gameplay code.</div>
+              <div class="lp-dev-item"><strong>Async with cancellation.</strong> Every call supports cancellation tokens and reports actionable server errors.</div>
+              <div class="lp-dev-item"><strong>IL2CPP-safe.</strong> No Expression.Compile in query paths, linker protection included, WebGL paths covered.</div>
+              <div class="lp-dev-item"><strong>Token streaming.</strong> Proxy AI providers through your own Edge Function with SSE or raw chunk streams.</div>
             </div>
-          </article>
-          <article class="bento-card">
-            <h3>Editor tooling where you work</h3>
-            <p>Setup, environments, schema browsing, model generation, SQL, RLS coverage, migrations and diagnostics stay inside Unity.</p>
-          </article>
-          <article class="bento-card">
-            <h3>A visible security boundary</h3>
-            <p>Privileged credentials and trusted mutations remain outside player builds.</p>
-            <ul class="assurance-list">
-              <li>Editor-local secret storage.</li>
-              <li>Build guards for privileged configuration.</li>
-              <li>Server validation paths for economy and scores.</li>
-            </ul>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="shell">
-        <div class="section-label">Purchase confidence</div>
-        <h2 class="section-heading">Know what you own and where your data goes.</h2>
-        <div class="trust-grid">
-          <article><strong>Full C# source</strong><p>Runtime and editor code are included so your team can inspect, debug and extend the integration.</p></article>
-          <article><strong>Direct infrastructure</strong><p>Your Unity project talks to your Supabase project. ShipIt does not proxy credentials or game data.</p></article>
-          <article><strong>Supported foundation</strong><p>Built for Unity 2022.3 LTS and Unity 6, with Mono, IL2CPP, desktop, mobile and WebGL paths.</p></article>
-        </div>
-        <div class="compatibility-panel">
-          <div>
-            <strong>Render-pipeline agnostic</strong>
-            <p>The SDK, editor tools and backend packs do not depend on a render pipeline. UI samples use Unity UI/TextMeshPro and can be restyled for Built-in, URP or HDRP projects.</p>
+            <div class="hero-actions">
+              <a class="button secondary" href="documentation.html">Read the API guide</a>
+            </div>
           </div>
-          <div>
-            <strong>Clear dependency story</strong>
-            <p>Core HTTP, auth, database, storage and realtime code run through Unity-native networking paths. The included UI samples use Unity UI and TextMeshPro.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section section-tinted">
-      <div class="shell code-showcase">
-        <div>
-          <div class="section-label">Unity-native API</div>
-          <h2 class="section-heading">Readable C#. No proxy SDK.</h2>
-          <p class="section-lead">
-            Call your Supabase project directly with async APIs, typed models, cancellation support
-            and actionable server errors.
-          </p>
-          <div class="hero-actions">
-            <a class="button secondary" href="documentation.html">Read the API guide</a>
-          </div>
-        </div>
-        <div class="code-window">
-          <div class="window-bar"><span class="window-dot"></span><span class="window-dot"></span><span class="window-dot"></span><span class="window-title">PlayerBackend.cs</span></div>
-          <pre><span class="tok-key">await</span> SupabaseClient.Instance.Auth
+          <div class="code-window">
+            <div class="window-bar"><span class="window-dot"></span><span class="window-dot"></span><span class="window-dot"></span><span class="window-title">PlayerBackend.cs</span></div>
+            <pre><span class="tok-key">await</span> SupabaseClient.Instance.Auth
     .SignInAnonymouslyAsync(captchaToken);
 
 <span class="tok-type">var</span> profile = <span class="tok-key">await</span> SupabaseClient.Instance.Database
@@ -248,88 +402,287 @@
 
 channel.OnUpdate&lt;<span class="tok-type">PlayerProfile</span>&gt;(Render);
 <span class="tok-key">await</span> channel.SubscribeAsync();</pre>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="launch-hardening">
-      <div class="shell">
-        <div class="section-label">Production hardening</div>
-        <h2 class="section-heading">The fragile platform work is handled deliberately.</h2>
-        <p class="section-lead">The current package focuses on the failure modes that appear after prototypes become real games.</p>
-        <div class="hardening-grid">
-          <article><span>AUTH</span><h3>Complete OAuth PKCE</h3><p>Deep-link callbacks, code exchange, session restoration and bounded refresh retries.</p></article>
-          <article><span>AOT</span><h3>IL2CPP-safe typed queries</h3><p>Captured values are evaluated without <code>Expression.Compile()</code>, with linker protection included.</p></article>
-          <article><span>REALTIME</span><h3>Channel recovery</h3><p>Heartbeat monitoring, bounded reconnect backoff, automatic rejoin and token propagation.</p></article>
-          <article><span>STORAGE</span><h3>Resumable uploads</h3><p>Persisted TUS locations, offset reconciliation and safe restart after expired sessions.</p></article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section section-tinted" aria-labelledby="boundary-title">
-      <div class="shell split-panel reverse">
-        <div class="decision-card">
-          <h3>What it does not do</h3>
-          <ul class="check-list muted-checks">
-            <li>It does not host your game backend for you.</li>
-            <li>It does not bypass Supabase Row Level Security.</li>
-            <li>It does not make client-reported economy or score changes trusted by default.</li>
-            <li>It does not send player data through ShipIt servers.</li>
-          </ul>
-        </div>
-        <div>
-          <div class="section-label">Honest boundary</div>
-          <h2 class="section-heading" id="boundary-title">Fast setup, but still your backend rules.</h2>
-          <p class="section-lead">
-            ShipIt removes integration friction. It does not replace careful backend design.
-            The safest workflows still validate score, economy and entitlement changes through
-            Postgres functions, Edge Functions or other trusted server contexts.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="support">
-      <div class="shell">
-        <div class="cta-panel">
-          <div class="section-label">Build on infrastructure you own</div>
-          <h2>A backend toolkit for a game you plan to keep running.</h2>
-          <p>Review the documentation now. When the package listing is ready, update one URL and every Asset Store action on this site will point to it.</p>
-          <div class="hero-actions">
-            <a class="button" data-store-link href="store.html"><span data-store-label>Asset Store listing</span></a>
-            <a class="button secondary" href="documentation.html">Open documentation</a>
-            <a class="button secondary" data-support-link href="mailto:shipit.unity@gmail.com">Email support</a>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="section section-tinted" aria-labelledby="also-from-title">
+    <!-- 10 · Stories (testimonials port: use-case field notes) -->
+    <section class="section lp-stories" id="stories" aria-labelledby="stories-title">
       <div class="shell">
-        <h2 class="section-heading" id="also-from-title">Also from ShipIt</h2>
-        <p><strong>ShipIt AWS Toolkit</strong> — Cognito auth with SRP and MFA,
-        S3 multipart storage, DynamoDB with typed models, Lambda invocation
-        and game systems, for every Unity platform including WebGL.
-        <a href="aws-toolkit.html">Explore the AWS Toolkit →</a></p>
+        <div class="lp-stories-head">
+          <div>
+            <span class="section-label">Field notes</span>
+            <h2 class="section-heading" id="stories-title" style="margin-top:16px">Built for games<br />that stay up.</h2>
+          </div>
+          <div class="lp-story-arrows">
+            <button class="lp-story-arrow" type="button" data-story-prev aria-label="Previous note">←</button>
+            <button class="lp-story-arrow" type="button" data-story-next aria-label="Next note">→</button>
+          </div>
+        </div>
+        <div class="lp-stories-grid">
+          <div>
+            <span class="lp-quote-mark" aria-hidden="true">&ldquo;</span>
+            <blockquote class="lp-quote" id="story-quote" aria-live="polite">Authentication that survives review — OAuth PKCE, MFA and session restore are handled, not hand-rolled.</blockquote>
+            <div class="lp-story-author">
+              <span class="lp-story-avatar" id="story-avatar" aria-hidden="true">A</span>
+              <div><strong id="story-context">Authentication pack</strong><span>Unity Supabase Toolkit</span></div>
+            </div>
+          </div>
+          <div class="lp-story-side">
+            <div class="lp-story-metric">
+              <span class="lp-story-metric-value" id="story-metric-value">9</span>
+              <span class="lp-story-metric-label" id="story-metric-label">auth methods</span>
+            </div>
+            <div class="lp-story-progress" role="tablist" aria-label="Choose a note">
+              <button type="button" role="tab" aria-label="Note 1" data-story-go="0"><span></span></button>
+              <button type="button" role="tab" aria-label="Note 2" data-story-go="1"><span></span></button>
+              <button type="button" role="tab" aria-label="Note 3" data-story-go="2"><span></span></button>
+              <button type="button" role="tab" aria-label="Note 4" data-story-go="3"><span></span></button>
+            </div>
+            <span class="lp-story-kicker">Tracks</span>
+            <div class="lp-story-list">
+              <button class="lp-story-chip is-active" type="button" data-story-go="0">Authentication</button>
+              <button class="lp-story-chip" type="button" data-story-go="1">Economy</button>
+              <button class="lp-story-chip" type="button" data-story-go="2">Live-ops</button>
+              <button class="lp-story-chip" type="button" data-story-go="3">Editor tooling</button>
+            </div>
+            <span class="lp-story-progress-note">ONE PACKAGE · FULL C# SOURCE</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 11 · Pricing -->
+    <section class="section lp-deep" id="pricing" aria-labelledby="pricing-title">
+      <div class="shell">
+        <div class="lp-head lp-head--split">
+          <div>
+            <span class="section-label">Get the toolkit</span>
+            <h2 class="section-heading" id="pricing-title">One package.<br /><span class="lp-text-stroke">everything inside.</span></h2>
+          </div>
+          <p class="section-lead">Docs and screenshots are free on this site. The toolkit license comes through the Unity Asset Store — update one URL and every store button points at it.</p>
+        </div>
+        <div class="lp-plans">
+          <article class="lp-plan">
+            <span class="lp-plan-index">01</span>
+            <h3>Explore</h3>
+            <p class="lp-plan-desc">Start on this site, no account needed.</p>
+            <div class="lp-plan-price-row"><span class="lp-plan-price">Free</span><span class="lp-plan-period">this site</span></div>
+            <ul class="check-list">
+              <li>Documentation and API guide</li>
+              <li>Editor screenshots and tours</li>
+              <li>AI-ready project context</li>
+              <li>Release notes per version</li>
+            </ul>
+            <div class="hero-actions"><a class="button secondary" href="documentation.html">Read documentation</a></div>
+          </article>
+          <article class="lp-plan lp-plan--highlight">
+            <span class="lp-plan-badge">Complete package</span>
+            <span class="lp-plan-index">02</span>
+            <h3>Build</h3>
+            <p class="lp-plan-desc">The Unity Asset Store license.</p>
+            <div class="lp-plan-price-row"><span class="lp-plan-price">Asset Store</span><span class="lp-plan-period">see listing</span></div>
+            <ul class="check-list">
+              <li>Full C# source, no DLLs</li>
+              <li>34 secure backend packs</li>
+              <li>Editor suite and diagnostics</li>
+              <li>Live-ops console included</li>
+            </ul>
+            <div class="hero-actions"><a class="button" data-store-link href="store.html"><span data-store-label>Asset Store listing</span></a></div>
+          </article>
+          <article class="lp-plan">
+            <span class="lp-plan-index">03</span>
+            <h3>Operate</h3>
+            <p class="lp-plan-desc">Run the live game with confidence.</p>
+            <div class="lp-plan-price-row"><span class="lp-plan-price">Included</span><span class="lp-plan-period">with every license</span></div>
+            <ul class="check-list">
+              <li>Email support from ShipIt</li>
+              <li>Security and hardening guides</li>
+              <li>Update notes with every release</li>
+              <li>Your data stays with you</li>
+            </ul>
+            <div class="hero-actions"><a class="button secondary" data-support-link href="mailto:shipit.unity@gmail.com">Email support</a></div>
+          </article>
+        </div>
+        <div class="lp-plan-note-row">
+          <ul class="lp-plan-checks">
+            <li>Full C# source</li>
+            <li>RLS on every pack</li>
+            <li>No ShipIt servers</li>
+          </ul>
+          <a class="lp-text-link" href="documentation.html#packs">Browse all 34 packs <span class="lp-arrow" aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 12 · Closing CTA -->
+    <section class="section" id="get-started" aria-labelledby="cta-title">
+      <div class="shell">
+        <div class="cta-panel lp-cta-center" data-cta-spot>
+          <div class="lp-cta-spot" aria-hidden="true"></div>
+          <span class="section-label">Build on infrastructure you own</span>
+          <h2 id="cta-title">Ready to ship<br />your backend?</h2>
+          <p>Review the documentation, install the packs, and operate from day one. When the listing is live, one URL update points every store button at it.</p>
+          <div class="hero-actions">
+            <a class="button" data-store-link href="store.html"><span data-store-label>Asset Store listing</span></a>
+            <a class="button secondary" href="documentation.html">Open documentation</a>
+            <a class="button secondary" data-support-link href="mailto:shipit.unity@gmail.com">Email support</a>
+          </div>
+          <p class="lp-cta-note">shipit.unity@gmail.com · v1.46.3 · Unity 2022.3 LTS + Unity 6</p>
+        </div>
       </div>
     </section>
   </main>
 
+  <!-- 13 · Footer -->
+  <div class="lp-banner" aria-hidden="true">
+    <img src="assets/toolkit-game-patterns.png" width="1400" height="955" loading="lazy" alt="" />
+  </div>
   <footer class="site-footer">
     <div class="shell">
-      <div class="footer-grid">
-        <a class="brand" href="index.html" aria-label="ShipIt home"><span class="brand-mark" aria-hidden="true"></span><span>ShipIt</span></a>
-        <div class="footer-links">
-          <a data-store-link href="store.html"><span data-store-label>Asset Store listing</span></a>
+      <div class="lp-footer">
+        <div class="lp-footer-brand">
+          <a class="brand" href="#top" aria-label="ShipIt home"><span class="brand-mark" aria-hidden="true"></span><span class="lp-footer-brand-name">ShipIt</span></a>
+          <p>Unity-native Supabase tooling with full C# source — auth, data, realtime, storage and live-ops on infrastructure you own.</p>
+          <p><a data-support-link href="mailto:shipit.unity@gmail.com">shipit.unity@gmail.com</a></p>
+        </div>
+        <div class="lp-footer-col">
+          <h3>Toolkit</h3>
+          <a href="#features">Capabilities</a>
+          <a href="#how-it-works">Process</a>
+          <a href="#infra">Game systems</a>
+          <a href="#security">Security</a>
+        </div>
+        <div class="lp-footer-col">
+          <h3>Resources</h3>
           <a href="documentation.html">Documentation</a>
-          <a href="aws-toolkit.html">AWS Toolkit</a><a href="updates.html">Updates</a>
+          <a href="updates.html">Updates</a>
           <a href="live-ops.html">Live-Ops</a>
+          <a data-store-link href="store.html"><span data-store-label>Asset Store listing</span></a>
+        </div>
+        <div class="lp-footer-col">
+          <h3>Studio</h3>
+          <a href="aws-toolkit.html">AWS Toolkit</a>
           <a href="privacy.html">Privacy</a>
+          <a href="llms.txt">AI context</a>
           <a data-support-link href="mailto:shipit.unity@gmail.com">Support</a>
         </div>
       </div>
-      <div class="legal"><span>Unity Supabase Toolkit v1.46.3 · Unity 2022.3 LTS and Unity 6</span><span>© 2026 ShipIt</span></div>
+      <div class="legal">
+        <span>Unity Supabase Toolkit v1.46.3 · Unity 2022.3 LTS and Unity 6</span>
+        <span>© 2026 ShipIt</span>
+      </div>
+      <p class="lp-legal-note">Unity is a trademark of Unity Technologies. Supabase is a trademark of Supabase Inc. ShipIt is an independent integration, not affiliated with or endorsed by either company.</p>
     </div>
   </footer>
+
+  <script>
+    /* Index-only interactions: hero word rotation, stories carousel,
+       CTA spotlight. All guarded; the page reads fine without them. */
+    (function () {
+      "use strict";
+      try { rotateWord(); } catch (e) { /* static word stays */ }
+      try { storiesCarousel(); } catch (e) { /* first note stays */ }
+      try { ctaSpotlight(); } catch (e) { /* static glow stays */ }
+
+      function prefersReduced() {
+        return !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+      }
+
+      function rotateWord() {
+        var slot = document.querySelector("[data-rotate]");
+        if (!slot) return;
+        var words = (slot.getAttribute("data-words") || "").split(",").filter(Boolean);
+        if (words.length < 2 || prefersReduced()) return;
+        var index = words.indexOf(slot.textContent.trim());
+        if (index < 0) index = words.length - 1;
+        window.setInterval(function () {
+          slot.classList.add("is-fading");
+          window.setTimeout(function () {
+            index = (index + 1) % words.length;
+            slot.textContent = words[index];
+            slot.classList.remove("is-fading");
+          }, 280);
+        }, 2500);
+      }
+
+      function storiesCarousel() {
+        var quote = document.getElementById("story-quote");
+        var context = document.getElementById("story-context");
+        var avatar = document.getElementById("story-avatar");
+        var metricValue = document.getElementById("story-metric-value");
+        var metricLabel = document.getElementById("story-metric-label");
+        var buttons = Array.prototype.slice.call(document.querySelectorAll("[data-story-go]"));
+        var prev = document.querySelector("[data-story-prev]");
+        var next = document.querySelector("[data-story-next]");
+        if (!quote || !buttons.length) return;
+        var notes = [
+          { q: "Authentication that survives review — OAuth PKCE, MFA and session restore are handled, not hand-rolled.", c: "Authentication pack", a: "A", v: "9", l: "auth methods" },
+          { q: "Scores and wallets change through server functions, so client reports stay untrusted by default.", c: "Economy + leaderboards", a: "E", v: "0", l: "trusted client writes" },
+          { q: "Designers tune flags and announcements while the game is live. No emergency build.", c: "Live-ops console", a: "L", v: "8", l: "operator screens" },
+          { q: "Gameplay code starts from models generated against the real schema, not guessed types.", c: "Editor tooling", a: "T", v: "130", l: "EditMode tests" }
+        ];
+        var active = 0;
+        var timer = 0;
+        var progress = Array.prototype.slice.call(document.querySelectorAll(".lp-story-progress button"));
+
+        function render(i) {
+          active = (i + notes.length) % notes.length;
+          var n = notes[active];
+          quote.textContent = n.q;
+          if (context) context.textContent = n.c;
+          if (avatar) avatar.textContent = n.a;
+          if (metricValue) metricValue.textContent = n.v;
+          if (metricLabel) metricLabel.textContent = n.l;
+          quote.classList.remove("lp-quote-anim");
+          void quote.offsetWidth;
+          if (!prefersReduced()) quote.classList.add("lp-quote-anim");
+          buttons.forEach(function (b) {
+            var on = b.getAttribute("data-story-go") === String(active);
+            b.classList.toggle("is-active", on);
+            b.setAttribute("aria-selected", on ? "true" : "false");
+          });
+          progress.forEach(function (p, pi) {
+            p.classList.toggle("is-active", pi === active);
+            p.classList.toggle("is-done", pi < active);
+            var bar = p.firstChild;
+            if (bar) { bar.style.animation = "none"; if (pi === active && !prefersReduced()) { void p.offsetWidth; bar.style.animation = ""; } }
+          });
+        }
+
+        function auto() {
+          stop();
+          if (prefersReduced()) return;
+          timer = window.setTimeout(function () { render(active + 1); auto(); }, 8000);
+        }
+
+        function stop() { if (timer) { window.clearTimeout(timer); timer = 0; } }
+
+        buttons.forEach(function (b) {
+          b.addEventListener("click", function () {
+            render(parseInt(b.getAttribute("data-story-go"), 10) || 0);
+            auto();
+          });
+        });
+        if (prev) prev.addEventListener("click", function () { render(active - 1); auto(); });
+        if (next) next.addEventListener("click", function () { render(active + 1); auto(); });
+        render(0);
+        auto();
+      }
+
+      function ctaSpotlight() {
+        var panel = document.querySelector("[data-cta-spot]");
+        if (!panel || !window.matchMedia || !window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+        panel.addEventListener("pointermove", function (event) {
+          var rect = panel.getBoundingClientRect();
+          var x = ((event.clientX - rect.left) / Math.max(1, rect.width)) * 100;
+          var y = ((event.clientY - rect.top) / Math.max(1, rect.height)) * 100;
+          panel.style.setProperty("--mx", x.toFixed(1) + "%");
+          panel.style.setProperty("--my", y.toFixed(1) + "%");
+        }, { passive: true });
+      }
+    })();
+  </script>
 </body>
 </html>

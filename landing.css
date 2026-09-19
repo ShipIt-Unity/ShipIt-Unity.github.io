@@ -1187,4 +1187,599 @@
   .lp-flow-arrow > span { transform: rotate(90deg); }
   .lp-boundary-wide .check-list { grid-template-columns: 1fr; }
   .lp-main .cta-panel { padding: 36px 24px; }
+  .lp-infra-head { grid-template-columns: 1fr; }
+  .lp-infra-emblem { max-width: 420px; }
+  .lp-stories-grid { grid-template-columns: 1fr; gap: 32px; }
+  .lp-quote { font-size: clamp(28px, 7vw, 36px); }
+  .lp-plans { grid-template-columns: 1fr; }
+  .lp-plan--highlight { transform: none; }
+  .lp-stats-row { flex-direction: column; align-items: flex-start; }
+}
+
+/* ============================================================
+   Port pass (2026-09-18) — inspiration look mapped onto ShipIt
+   - Font stacks: Instrument Sans (body) / Instrument Serif
+     (display) / JetBrains Mono (labels + code), each with
+     system fallbacks so file:// and offline stay intact.
+   - --ease-out was referenced but never defined; defined here.
+   - New blocks: pill nav, infra head, stats row, stories
+     (inverted carousel), pricing plans, CTA spotlight, banner.
+   - Colours reuse the existing accent family: only the stories
+     band overrides ink tokens (dark-on-light, AA-checked).
+   Token mapping from the reference dark oklch theme:
+     background oklch(0.06) -> #070a09 · foreground oklch(0.94)
+     -> #f2f7f4 · card oklch(0.09) -> #0f1512 · muted oklch(0.12)
+     -> #0a0e0c/#151d19 · muted-fg oklch(0.55) -> #a7b4ad ·
+     border oklch(0.18) -> rgba(238,247,242,.08) · accent pink
+     #eca8d6 -> toolkit green #55d69a · radius 0.625rem scale ->
+     8/16/24px retained.
+   ============================================================ */
+:root {
+  --ease-out: cubic-bezier(.22, 1, .36, 1);
+  --font-sans: "Instrument Sans", Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-display: "Instrument Serif", Georgia, "Times New Roman", serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Consolas, monospace;
+}
+
+body.lp {
+  font-family: var(--font-sans);
+  overflow-x: clip;
+}
+
+body.lp .brand {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 23px;
+  letter-spacing: 0;
+}
+
+body.lp .brand .brand-product {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+/* Section metrics cards: large first card, two supporting */
+.lp-metrics-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr 1fr;
+  gap: 16px;
+}
+
+/* Display serif: hero, giant section headings, numerals, quotes */
+body.lp .lp-hero h1,
+body.lp .lp-steps-heading,
+body.lp .lp-main .section-heading,
+body.lp .lp-metric-value,
+body.lp .lp-stat-value,
+body.lp .lp-feature-value,
+body.lp .lp-quote,
+body.lp .lp-story-metric-value,
+body.lp .lp-plan-price,
+body.lp .lp-footer-brand-name {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+/* Mono voice: labels, numbers, code, notes */
+body.lp :is(code, pre, .eyebrow, .section-label, .lp-num, .lp-tag,
+  .lp-note, .lp-metric-sublabel, .lp-metric-label, .lp-ticker,
+  .lp-cta-note, .lp-step-code, .lp-step-num, .lp-rail-row span,
+  .lp-feature-label, .lp-tile-cat, .lp-chip, .lp-metrics-chip,
+  .lp-fact span, .lp-flow-node span, .lp-flow-arrow,
+  .lp-stat-label, .window-title, .lp-footer-col h3, .lp-story-kicker,
+  .lp-story-progress-note, .lp-plan-index, .lp-plan-period,
+  .lp-hero-meta, .lp-brand-sub) {
+  font-family: var(--font-mono);
+}
+
+/* ------------------------------------------------------------
+   Pill navigation (index only) — transparent over the hero,
+   floating rounded bar once scrolled. Mobile keeps the
+   <details> mechanics from site.js with an overlay-style panel.
+   ------------------------------------------------------------ */
+body.lp .site-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  border-bottom-color: transparent;
+  background: transparent;
+  transition: background-color .3s var(--ease-out), border-color .3s var(--ease-out);
+}
+
+body.lp .site-nav .nav-inner {
+  max-width: 1400px;
+  transition: min-height .3s var(--ease-out);
+}
+
+body.lp .site-nav.scrolled {
+  background: rgba(7, 10, 9, .72);
+  border-bottom-color: var(--line);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+body.lp .site-nav.scrolled .shell.nav-inner {
+  width: min(1200px, calc(100% - 32px));
+  min-height: 56px;
+  margin-top: 12px;
+  margin-bottom: 12px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: rgba(15, 21, 18, .82);
+  box-shadow: var(--shadow-card);
+  padding-inline: 20px;
+}
+
+body.lp .lp-footer-brand-name { font-size: 26px; }
+
+body.lp .lp-brand-sub {
+  font-size: 10px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--quiet);
+}
+
+body.lp .mobile-nav-panel {
+  padding: 12px;
+  gap: 2px;
+}
+
+body.lp .mobile-nav-panel .lp-mobile-link {
+  min-height: 52px;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  border-radius: 8px;
+  font-family: var(--font-display);
+  font-size: 26px;
+  color: var(--text);
+}
+
+body.lp .mobile-nav-panel .lp-mobile-link:hover { background: var(--brand-soft); }
+
+/* Fixed nav overlays the full-height hero */
+body.lp .lp-hero { padding-top: 128px; }
+
+.lp-hero-grid-lines {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: .5;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, .05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, .05) 1px, transparent 1px);
+  background-size: 12.5% 100%, 8.333% 100%;
+  mask-image: linear-gradient(to bottom, black 30%, transparent 90%);
+  -webkit-mask-image: linear-gradient(to bottom, black 30%, transparent 90%);
+}
+
+/* Rotating hero word settles as plain text without JS */
+.lp-rotate-word {
+  display: inline-block;
+  min-width: 5.5ch;
+  color: var(--accent-hover);
+  transition: opacity .28s var(--ease-out), filter .28s var(--ease-out);
+}
+
+.lp-rotate-word.is-fading { opacity: 0; filter: blur(12px); }
+
+/* ------------------------------------------------------------
+   Infrastructure head: framed emblem left, title right
+   ------------------------------------------------------------ */
+.lp-infra-head {
+  display: grid;
+  grid-template-columns: minmax(200px, 320px) minmax(0, 1fr);
+  gap: 40px;
+  align-items: center;
+  margin-bottom: 64px;
+}
+
+.lp-infra-emblem {
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--bg-soft);
+  box-shadow: var(--shadow-card);
+}
+
+.lp-infra-emblem img { width: 100%; height: auto; }
+
+.lp-infra-emblem figcaption {
+  padding: 10px 14px;
+  border-top: 1px solid var(--line);
+  color: var(--quiet);
+  font-size: 12px;
+}
+
+/* Bottom stats row (integrations + metrics) */
+.lp-stats-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px 40px;
+  margin-top: 48px;
+  padding-top: 32px;
+  border-top: 1px solid var(--line);
+}
+
+.lp-stats-group { display: flex; flex-wrap: wrap; gap: 40px; }
+
+.lp-stat-inline { display: flex; align-items: baseline; gap: 12px; }
+
+.lp-stat-inline b {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 30px;
+  letter-spacing: -0.01em;
+}
+
+.lp-stat-inline span { color: var(--quiet); font-size: 13px; }
+
+.lp-text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: .04em;
+  color: var(--muted);
+}
+
+.lp-text-link:hover { color: var(--accent-hover); }
+.lp-text-link .lp-arrow { transition: transform .2s var(--ease-out); }
+.lp-text-link:hover .lp-arrow { transform: translateX(4px); }
+
+/* Integration tile monograms */
+.lp-tile { position: relative; }
+
+.lp-tile-glyph {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line-strong);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, .02);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  color: var(--muted);
+  transition: color var(--lp-hover-time) var(--ease-out), border-color var(--lp-hover-time) var(--ease-out);
+}
+
+.lp-tile:hover .lp-tile-glyph {
+  border-color: var(--accent-line);
+  color: var(--accent-hover);
+}
+
+/* ------------------------------------------------------------
+   Stories (testimonials port) — inverted band, dark on light.
+   Content is use-case field notes, not attributed quotes.
+   ------------------------------------------------------------ */
+.lp-stories {
+  --text: #0a0f0c;
+  --muted: #414c46;
+  --quiet: #5d6963;
+  --line: rgba(10, 15, 12, .14);
+  --line-strong: rgba(10, 15, 12, .26);
+  background: #edf3ef;
+  color: var(--text);
+}
+
+.lp-stories .section-label { color: #2c3631; }
+.lp-stories .section-label::before { background: #2c3631; }
+
+.lp-stories-head {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 56px;
+}
+
+.lp-story-arrows { display: flex; gap: 8px; }
+
+.lp-story-arrow {
+  width: 52px;
+  height: 52px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line-strong);
+  border-radius: 0;
+  background: transparent;
+  color: var(--text);
+  font-size: 20px;
+  cursor: pointer;
+  transition: background-color .2s var(--ease-out);
+}
+
+.lp-story-arrow:hover { background: rgba(10, 15, 12, .07); }
+
+.lp-stories-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, .9fr);
+  gap: 64px;
+  align-items: start;
+}
+
+.lp-quote-mark {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 120px;
+  line-height: .6;
+  color: rgba(10, 15, 12, .12);
+  margin-bottom: 8px;
+}
+
+.lp-quote {
+  margin: 0;
+  font-size: clamp(30px, 3.4vw, 48px);
+  line-height: 1.18;
+  letter-spacing: -0.01em;
+}
+
+.lp-quote-anim { animation: lp-fade-slide .45s var(--ease-out); }
+
+@keyframes lp-fade-slide {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: none; }
+}
+
+.lp-story-author { display: flex; align-items: center; gap: 16px; margin-top: 40px; }
+
+.lp-story-avatar {
+  width: 56px;
+  height: 56px;
+  flex: 0 0 56px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(10, 15, 12, .08);
+  font-family: var(--font-display);
+  font-size: 24px;
+}
+
+.lp-story-author strong { display: block; font-size: 17px; }
+.lp-story-author span { display: block; color: var(--muted); font-size: 14px; }
+
+.lp-story-side { display: grid; gap: 20px; align-content: start; }
+
+.lp-story-metric {
+  padding: 40px;
+  border: 1px solid var(--line-strong);
+  background: rgba(10, 15, 12, .045);
+}
+
+.lp-story-metric-value {
+  display: block;
+  font-size: clamp(56px, 6vw, 88px);
+  line-height: 1;
+}
+
+.lp-story-metric-label { display: block; margin-top: 12px; color: var(--muted); font-size: 16px; }
+
+.lp-story-progress { display: flex; gap: 8px; }
+
+.lp-story-progress button {
+  flex: 1 1 0;
+  height: 4px;
+  padding: 0;
+  border: 0;
+  background: rgba(10, 15, 12, .16);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.lp-story-progress button > span {
+  position: absolute;
+  inset: 0;
+  width: 0;
+  background: #0a0f0c;
+}
+
+.lp-story-progress button.is-active > span { animation: lp-progress 8s linear forwards; }
+.lp-story-progress button.is-done > span { width: 100%; }
+
+@keyframes lp-progress {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+.lp-story-kicker {
+  font-size: 11px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--quiet);
+}
+
+.lp-story-list { display: flex; flex-wrap: wrap; gap: 8px; }
+
+.lp-story-chip {
+  padding: 8px 14px;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--muted);
+  font-size: 13px;
+  cursor: pointer;
+  transition: border-color .2s var(--ease-out), color .2s var(--ease-out);
+}
+
+.lp-story-chip:hover { border-color: var(--line-strong); color: var(--text); }
+.lp-story-chip.is-active { border-color: var(--text); color: var(--text); }
+
+.lp-story-progress-note { color: var(--quiet); font-size: 11px; letter-spacing: .08em; }
+
+/* ------------------------------------------------------------
+   Pricing port — three cards, middle overlaps on desktop
+   ------------------------------------------------------------ */
+.lp-plans {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  align-items: stretch;
+}
+
+@media (min-width: 1001px) {
+  .lp-plans { gap: 0; }
+  .lp-plan { border-radius: 0; }
+  .lp-plan:first-child { border-right: 0; border-radius: 16px 0 0 16px; }
+  .lp-plan:last-child { border-left: 0; border-radius: 0 16px 16px 0; }
+  .lp-plan--highlight {
+    z-index: 1;
+    transform: scale(1.045);
+    border-radius: 16px;
+    border-color: var(--accent-line);
+    box-shadow: var(--lp-hover-shadow);
+  }
+}
+
+.lp-plan {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 40px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow-card);
+}
+
+.lp-plan--highlight { background: var(--surface-raised); border-color: var(--accent-line); }
+
+.lp-plan-badge {
+  position: absolute;
+  top: -15px;
+  left: 32px;
+  padding: 7px 14px;
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.lp-plan-index { color: var(--quiet); font-size: 12px; }
+
+.lp-plan h3 {
+  margin: 8px 0 6px;
+  font-size: 28px;
+  letter-spacing: -0.025em;
+}
+
+.lp-plan-desc { margin: 0; color: var(--muted); font-size: 14px; }
+
+.lp-plan-price-row { display: flex; align-items: baseline; gap: 10px; margin: 28px 0 4px; }
+
+.lp-plan-price { font-size: clamp(40px, 4vw, 56px); line-height: 1; }
+
+.lp-plan-period { color: var(--quiet); font-size: 12px; }
+
+.lp-plan .check-list { margin: 24px 0 32px; }
+
+.lp-plan .hero-actions { margin-top: auto; }
+.lp-plan .hero-actions .button { flex: 1 1 auto; }
+
+.lp-text-stroke {
+  -webkit-text-stroke: 1.5px currentColor;
+  -webkit-text-fill-color: transparent;
+  color: var(--text);
+}
+
+.lp-plan-note-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-top: 56px;
+  padding-top: 32px;
+  border-top: 1px solid var(--line);
+}
+
+.lp-plan-checks { display: flex; flex-wrap: wrap; gap: 10px 28px; margin: 0; padding: 0; list-style: none; }
+
+.lp-plan-checks li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.lp-plan-checks li::before {
+  content: "✓";
+  color: var(--accent);
+  font-weight: 800;
+}
+
+/* ------------------------------------------------------------
+   Closing CTA spotlight + panoramic footer banner
+   ------------------------------------------------------------ */
+.lp-cta-spot {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: .5;
+  background: radial-gradient(560px circle at var(--mx, 50%) var(--my, 40%), var(--accent-soft), transparent 65%);
+}
+
+.lp-cta-center > * { position: relative; z-index: 1; }
+
+.lp-banner {
+  position: relative;
+  height: clamp(240px, 34vw, 420px);
+  overflow: hidden;
+  border-bottom: 1px solid var(--line);
+}
+
+.lp-banner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.lp-banner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to bottom, transparent 30%, var(--bg) 100%),
+    linear-gradient(to right, rgba(7, 10, 9, .45), transparent 30%, transparent 70%, rgba(7, 10, 9, .45));
+}
+
+@media (max-width: 1000px) {
+  .lp-infra-head { grid-template-columns: minmax(200px, 280px) minmax(0, 1fr); gap: 28px; }
+  .lp-plans { grid-template-columns: 1fr; max-width: 640px; }
+  .lp-metrics-grid { grid-template-columns: 1fr 1fr; }
+  .lp-metrics-grid .lp-stat-card:first-child { grid-column: 1 / -1; }
+  .lp-stories-grid { grid-template-columns: 1fr; gap: 40px; }
+  .lp-stories-head { flex-direction: column; align-items: flex-start; }
+}
+
+@media (max-width: 720px) {
+  body.lp .site-nav.scrolled .shell.nav-inner { width: calc(100% - 24px); margin-top: 8px; }
+  body.lp .lp-hero { padding-top: 110px; }
+  .lp-story-arrows { display: none; }
+  .lp-plan { padding: 28px; }
+  .lp-metrics-grid { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lp-quote-anim { animation: none; }
+  .lp-story-progress button.is-active > span { animation: none; width: 100%; }
+  .lp-rotate-word { transition: none; }
 }

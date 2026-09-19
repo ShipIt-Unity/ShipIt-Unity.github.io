@@ -14,7 +14,11 @@
   <meta property="og:image" content="https://shipit-unity.github.io/assets/toolkit-overview.png" />
   <meta name="twitter:card" content="summary_large_image" />
   <link rel="icon" type="image/svg+xml" href="assets/shipit-logo.svg" />
-  <link rel="stylesheet" href="styles.css?v=20260822b" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css?v=20260918" />
+<link rel="stylesheet" href="accent-product.css?v=20260918" />
   <script src="site-config.js" defer></script>
   <script src="site.js" defer></script>
 </head>
@@ -51,12 +55,12 @@
     <section class="store-hero" data-store-pending>
       <div class="shell store-layout">
         <div>
-          <div class="eyebrow">Listing in preparation</div>
-          <h1>The package comes first. <span class="gradient-text">The purchase link follows.</span></h1>
-          <p>The Unity Asset Store listing will be added after the package, documentation and review materials are complete. Until then, this page explains what the package contains and how the public link will be updated.</p>
+          <div class="eyebrow">Available on the Unity Asset Store</div>
+          <h1>Bring Supabase into Unity <span class="gradient-text">without the integration maze.</span></h1>
+          <p>Review the listing for current pricing, license information and package availability.</p>
           <div class="hero-actions">
-            <a class="button" href="documentation.html">Review documentation</a>
-            <a class="button secondary" data-support-link href="mailto:shipit.unity@gmail.com">Email support</a>
+            <a class="button" data-store-link href="https://assetstore.unity.com/packages/tools/network/shipit-supabase-toolkit-390774"><span data-store-label>View on Unity Asset Store</span></a>
+            <a class="button secondary" href="documentation.html">Review documentation</a>
           </div>
         </div>
         <aside class="store-card" aria-label="Current package information">
@@ -66,7 +70,6 @@
           <div><span>Delivery</span><strong>Editor tools and full C# source</strong></div>
           <div><span>Render pipelines</span><strong>Built-in, URP and HDRP projects</strong></div>
           <div><span>Backend ownership</span><strong>Your Supabase project, your data</strong></div>
-          <p>When the listing is ready, add its HTTPS URL to <code>site-config.js</code>. Every store action on the site will update automatically.</p>
         </aside>
       </div>
     </section>

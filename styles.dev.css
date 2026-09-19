@@ -45,7 +45,7 @@ body {
   background:
     radial-gradient(circle at 78% 4%, rgba(85, 214, 154, .08), transparent 32rem),
     linear-gradient(var(--bg), var(--bg));
-  font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: "Instrument Sans", Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   font-size: 16px;
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
@@ -2142,4 +2142,11 @@ tr:last-child td {
 }
 .update-entry + .update-entry {
   margin-top: 24px;
+}
+
+/* Small screens: keep copy-button clearance without squeezing code at 320px. */
+@media (max-width: 480px) {
+  .code-block pre {
+    padding-right: 16px;
+  }
 }

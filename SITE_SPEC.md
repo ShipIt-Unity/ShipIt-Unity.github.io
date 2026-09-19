@@ -21,7 +21,7 @@ A custom ShipIt domain can be connected later without rebuilding the site.
 
 ## Pages
 
-1. `index.html` — launch page, v1.44 improvements, product proof and support
+1. `index.html` — launch page, v1.46.3 improvements, product proof and support
 2. `documentation.html` — public setup and API guide
 3. `live-ops.html` — feature overview only; not the working admin console
 4. `privacy.html` — website and toolkit privacy summary
@@ -64,7 +64,7 @@ Private/paid:
 
 - Every page opens locally and all internal links resolve
 - No secrets, private project URLs or paid source files are present
-- Product claims match the shipped v1.44.0 package
+- Product claims match the shipped v1.46.3 package
 - Support and privacy information are easy to find
 - Publisher name is consistently spelled **ShipIt**
 - Site works at mobile widths without horizontal page overflow
