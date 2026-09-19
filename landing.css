@@ -128,10 +128,9 @@
 }
 
 /* ------------------------------------------------------------
-   Hero — cinematic frame: the ASCII torus knot as the centrepiece,
-   copy low in the frame, metrics pinned to the bottom edge.
-   The canvas is painted by assets/ascii-hero.js; without JS the
-   hero still reads as copy, CTAs and the accent bloom.
+   Hero — copy low in the frame, metrics pinned to the bottom
+   edge, accent bloom behind. No canvas; the frame reads as
+   copy, CTAs and the bloom only.
    ------------------------------------------------------------ */
 .lp-hero {
   position: relative;
@@ -149,17 +148,6 @@
     var(--code);
 }
 
-.lp-hero-canvas {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  display: block;
-  pointer-events: none;
-}
-
-/* Copy well bottom-left, a bottom fade that settles the frame into
-   the page, and a corner vignette for depth. */
 .lp-hero-shade {
   position: absolute;
   inset: 0;

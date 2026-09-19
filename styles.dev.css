@@ -2151,17 +2151,20 @@ tr:last-child td {
   }
 }
 
-/* Brand wordmark font - Cubao Free Wide (SIL OFL 1.1, (c) 2018 Aaron Amar; license: assets/fonts/OFL.txt) */
+/* Brand wordmark font - Cubao Free Variable V2 (SIL OFL 1.1, (c) 2018 Aaron Amar; license: assets/fonts/OFL.txt) */
 @font-face {
-  font-family: "Cubao Free Wide";
-  src: url("assets/fonts/Cubao-Free-Wide.woff2") format("woff2"),
-       url("assets/fonts/Cubao-Free-Wide.ttf") format("truetype");
+  font-family: "Cubao Wide";
+  src: url("assets/fonts/Cubao-Free-Variable.woff2") format("woff2"),
+       url("assets/fonts/Cubao-Free-Variable.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
+  font-stretch: 63% 178%;
 }
 
 .brand > span:not(.brand-mark):not(.brand-product) {
-  font-family: "Cubao Free Wide", var(--font-sans, sans-serif);
+  font-family: "Cubao Wide", var(--font-sans, sans-serif);
   font-weight: 400;
+  font-variation-settings: "wdth" 177.27;
+  letter-spacing: -.05em;
 }
