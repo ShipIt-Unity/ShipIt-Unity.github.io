@@ -86,18 +86,33 @@ Private/paid:
 6. Add the Asset Store listing link after Unity creates the product page.
 7. Review the site whenever the toolkit version or support policy changes.
 
-## Addendum — AWS Toolkit page (v2)
+## Addendum — AWS Toolkit pages (v3)
 
-`aws-toolkit.html` extends the site to a second product:
+`aws-toolkit.html` and `aws-documentation.html` extend the site to a second
+product:
 
-- Self-contained landing page using the same stylesheet; body class
-  `doc-page` so tables get responsive wrappers and code blocks get copy
-  buttons automatically.
-- Nav: every page links **AWS Toolkit** after *Documentation/Supabase docs*;
-  on the AWS page itself it carries `aria-current="page"`.
+- **Landing** (`aws-toolkit.html`): hero, proof strip, runtime SDK bento,
+  game systems, editor/Setup-tab workflow, an API code showcase, the honest
+  WebGL matrix, security/compatibility, a public-preview CTA and a Supabase
+  cross-sell — all built from the shared stylesheet.
+- **Documentation** (`aws-documentation.html`): public setup and API guide
+  with search, quick links, code samples and the error-string troubleshooting
+  table. Body class `doc-page` plus the `.layout`/`.docs-sidebar` grid, so
+  search, scroll-spy, table wrappers and copy buttons are wired by `site.js`.
+- Nav: every page links **AWS Toolkit** then **AWS docs** after
+  *Documentation/Supabase docs*; the current page carries
+  `aria-current="page"`.
 - Status badge lives in the footer legal line (`vX.Y.Z — public preview`);
-  bump it with each release and flip to the store URL when the listing goes
-  live (then roll the link into all navs' store button).
-- The Supabase hero remains untouched — this page is additive until a
+  bump both AWS pages with each release and flip to the store URL when the
+  listing goes live (then roll the link into all navs' store button).
+- Content must mirror the shipped package: test counts, service surface and
+  platform matrix are release-gated claims, not marketing license.
+- The Supabase hero remains untouched — this is additive until a
   multi-product homepage redesign is warranted.
-- SEO: page is in `sitemap.xml` at priority 0.9.
+- SEO: both pages are in `sitemap.xml` at priority 0.9.
+- The AWS page carries a **Studio Edition** section (`#studio`): the $999
+  per-title tier sold direct (invoice, named seats, support term), cross-linked
+  from the hero/CTA. Commercial terms live in the toolkit repository's
+  `marketing/` folder (`studio-license.md`, `pricing-ladder.md`,
+  `roi-one-pager.md`, `studio-evaluation-guide.md`) and are the source of
+  truth — keep the section's claims in sync with them.

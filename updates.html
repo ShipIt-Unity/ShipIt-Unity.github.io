@@ -31,7 +31,7 @@
       </a>
       <div class="nav-links">
         <a href="index.html">Overview</a>
-        <a href="documentation.html">Documentation</a><a href="aws-toolkit.html">AWS Toolkit</a>
+        <a href="documentation.html">Documentation</a><a href="aws-toolkit.html">AWS Toolkit</a><a href="aws-documentation.html">AWS docs</a>
         <a href="updates.html" aria-current="page">Updates</a>
         <a href="live-ops.html">Live-Ops</a>
         <a href="privacy.html">Privacy</a>
@@ -42,7 +42,7 @@
         <summary>Menu</summary>
         <div class="mobile-nav-panel">
           <a href="index.html">Overview</a>
-          <a href="documentation.html">Documentation</a><a href="aws-toolkit.html">AWS Toolkit</a>
+          <a href="documentation.html">Documentation</a><a href="aws-toolkit.html">AWS Toolkit</a><a href="aws-documentation.html">AWS docs</a>
           <a href="updates.html" aria-current="page">Updates</a>
           <a href="live-ops.html">Live-Ops</a>
           <a href="privacy.html">Privacy</a>
@@ -71,13 +71,329 @@
         <div class="release-list">
 
           <article class="release-row">
+            <span class="release-index">AWS Toolkit<br />Sep 10, 2026</span>
+            <div>
+              <h2>v0.33.0 — player economy</h2>
+              <p><code>aws.Game.Economy</code> transacts balances plus an append-only ledger in one <code>TransactWriteItems</code> call: grants, spends and transfers commit atomically, with idempotency keys so replays cannot double-credit, <code>insufficient_funds</code> rejections carrying the current balance, and TTL-retained ledger history. Player IAM rows are scoped per caller with LeadingKeys; the admin policy covers both tables.</p>
+              <ul class="check-list">
+                <li>Six tests cover grant shape, insufficient funds, duplicate replay, the four-item transfer, ledger queries and validation.</li>
+                <li>367 EditMode + 2 PlayMode tests pass, zero warnings, gate green.</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="release-row">
+            <span class="release-index">AWS Toolkit<br />Sep 10, 2026</span>
+            <div>
+              <h2>v0.32.0 — transactional conditional updates</h2>
+              <p>The data layer now executes <strong>conditional SET/ADD/REMOVE
+              updates inside transactions</strong> (<code>DynamoWrite.Update</code>),
+              with per-item conditions on puts and deletes, and one shared
+              <code>#name</code>/<code>:value</code> namespace per item — the
+              API requirement, guaranteed by construction. Cancellations surface
+              structured per-item reasons via
+              <code>DynamoTransactionCanceledException.FailedAt(index)</code>,
+              so "insufficient funds" is distinguishable from "duplicate
+              idempotency key" without parsing messages.</p>
+              <ul class="check-list">
+                <li>Foundation for the economy/inventory system (conditional balances + idempotent ledger in one transaction).</li>
+                <li><code>BatchWriteItem</code> now rejects update writes with a pointer to <code>TransactWriteAsync</code> instead of silently emitting a delete.</li>
+                <li>316 EditMode + 2 PlayMode tests pass, zero warnings.</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="release-row">
+            <span class="release-index">AWS Toolkit<br />Sep 10, 2026</span>
+            <div>
+              <h2>v0.31.0 — server-authoritative scoring, actually reachable</h2>
+              <p>The docs promised the Packs tab shipped the
+              <code>game-submit-score</code> Lambda; now it does. <em>Copy
+              game-submit-score handler</em> puts the Node.js 22+ source on the
+              clipboard and <em>Save handler…</em> writes it to disk for
+              console/SAM/CDK deployment — deploy with
+              <code>TABLE_NAME=GameLeaderboards</code>, then tick the toggle to
+              strip direct leaderboard writes from the generated player policy.</p>
+              <ul class="check-list">
+                <li>Closes a documentation/UX gap: the template existed in code but had no UI.</li>
+                <li>311 EditMode + 2 PlayMode tests pass, zero warnings.</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="release-row">
+            <span class="release-index">AWS Toolkit<br />Sep 10, 2026</span>
+            <div>
+              <h2>v0.30.0 — on-device verification runner</h2>
+              <p>The live smoke suite now runs where the editor cannot: drop
+              <code>AwsSmokeRunner</code> on a bootstrap-scene GameObject, build
+              for Android/iOS/WebGL, and it runs automatically, shows a
+              scrollable pass/fail overlay with a <em>Copy report</em> button,
+              and writes the same Markdown artifact to
+              <code>persistentDataPath</code>. A device pass needs no debugger,
+              and a demo-mode run is loudly flagged because it is not live
+              evidence.</p>
+              <ul class="check-list">
+                <li>The device matrix documents the on-device path and how to retrieve the report per platform.</li>
+                <li>Editor and device passes now produce identical artifacts via <code>SmokeReportWriter</code>.</li>
+                <li>311 EditMode + 2 PlayMode tests pass, zero warnings.</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="release-row">
+            <span class="release-index">AWS Toolkit<br />Sep 10, 2026</span>
+            <div>
+              <h2>v0.29.0 — UI Toolkit panels</h2>
+              <p>A modern runtime panel kit: <code>AwsAuthPanelUIToolkit</code>
+              and <code>AwsLeaderboardPanelUIToolkit</code> ship UXML + USS and
+              mirror the uGUI behaviour — binding to the client whenever it
+              initializes or is replaced, MFA and forced-password continuation
+              on Confirm, leaderboard waiting for sign-in and refreshing
+              automatically, busy and error states — with a designed dark
+              theme. No TextMeshPro dependency was added: UI Toolkit renders
+              its own text, so imports stay lean.</p>
+              <ul class="check-list">
+                <li>Each USS is self-contained; Panels need a PanelSettings with a theme style sheet, which the new docs page walks through.</li>
+                <li>EditMode tests load both UXMLs and resolve every documented element name.</li>
+                <li>308 EditMode + 2 PlayMode tests pass, zero warnings.</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="release-row">
+            <span class="release-index">AWS Toolkit<br />Sep 10, 2026</span>
+            <div>
+              <h2>v0.28.0 — Pinpoint push registration</h2>
+              <p>Re-engage players with mobile push. <code>aws.Pinpoint</code>
+              registers device tokens (GCM, APNS, APNS_SANDBOX, ADM, BAIDU) as
+              Pinpoint endpoints over the signed <code>mobiletargeting</code>
+              REST API, flips opt-out while preserving the rest of the endpoint,
+              and deletes it on sign-out. The token itself comes from your
+              Firebase/APNs layer; the toolkit carries it to AWS with the
+              player's temporary credentials.</p>
+              <ul class="check-list">
+                <li>Set <code>PinpointApplicationId</code> and grant the Identity Pool role <code>mobiletargeting:UpdateEndpoint</code> on the app.</li>
+                <li>WebGL has no device token, so push is a mobile/desktop feature — the platform matrix says so plainly.</li>
+                <li>Nine tests cover signed wire shape, channel mapping, read-back, opt-out preservation and errors: 306 EditMode + 2 PlayMode pass.</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="release-row">
+            <span class="release-index">AWS Toolkit<br />Sep 10, 2026</span>
+            <div>
+              <h2>v0.27.0 — live verification artifacts</h2>
+              <p>Live verification becomes a repeatable pass instead of a vibe.
+              A <strong>device-matrix checklist</strong> documents how to run the
+              Connection-tab smoke suite per platform, the rows to fill and the
+              manual checks the suite cannot do (SRP on a hardened pool, WebGL
+              CORS from the real origin, forced-retry survival, resumable
+              multipart after a kill, realtime socket recovery, hosted-UI deep
+              links, custom-auth OTP). Each run now produces a <strong>Markdown
+              smoke report</strong> — platform, OS, device model, Unity/app
+              versions, region and every step's result — with Copy/Save buttons
+              in the Connection tab.</p>
+              <ul class="check-list">
+                <li>One artifact per device per release candidate; a failure blocks the release or is waived with a reason.</li>
+                <li>297 EditMode + 2 PlayMode tests pass, including eight tests for the report artifact.</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="release-row">
+            <span class="release-index">AWS Toolkit<br />Sep 10, 2026</span>
+            <div>
+              <h2>v0.26.0 — realtime WebSockets</h2>
+              <p>Presence, chat, lobbies and live leaderboards over API Gateway:
+              <code>aws.Realtime</code> connects with IAM-presigned
+              <code>wss://</code> URLs (browsers cannot set handshake headers —
+              SigV4 query parameters are the workaround), queues sends while
+              offline, reconnects with bounded exponential backoff and sends
+              configurable heartbeats ahead of API Gateway's 10-minute idle
+              timeout.</p>
+              <ul class="check-list">
+                <li>Routes stay application-defined: the client carries JSON strings, not a schema.</li>
+                <li><code>ClientWebSocket</code> on editor/desktop/mobile; a bundled browser bridge for WebGL.</li>
+                <li>Eleven tests cover dispatch, offline queue flush, reconnect give-up, heartbeats and presigned-URL shape: 289 EditMode + 2 PlayMode pass.</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="release-row">
+            <span class="release-index">AWS Toolkit<br />Sep 10, 2026</span>
+            <div>
+              <h2>v0.25.0 — one-click deploy from the editor</h2>
+              <p>Setup step 2 can now run the backend deploy itself. With the AWS
+              CLI on PATH, <em>Deploy from the editor</em> runs
+              <code>aws cloudformation deploy</code> with the bundled template —
+              region, CORS origin, smoke-test auto-confirm and
+              server-authoritative scoring as fields — streams the output into
+              the window log, and <em>Import stack outputs</em> writes the five
+              values straight into <code>AwsSettings</code>. Credentials stay
+              with the CLI (profiles/SSO), so no admin keys touch the project;
+              the template + console route remains as the fallback.</p>
+              <ul class="check-list">
+                <li>The editor stays responsive during the minutes-long deploy; output drains on the main thread.</li>
+                <li>Ten tests cover argument quoting, output parsing (incl. CLI noise), output→settings mapping and missing-CLI handling.</li>
+                <li>278 EditMode + 2 PlayMode tests pass, zero warnings.</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="release-row">
+            <span class="release-index">AWS Toolkit<br />Sep 10, 2026</span>
+            <div>
+              <h2>v0.24.0 — cost awareness</h2>
+              <p>A built-in estimator turns usage assumptions — MAU, DAU,
+              per-player reads and writes, Lambda calls, S2 storage and egress —
+              into a monthly per-service breakdown, with every rate editable
+              because AWS list prices drift. The same estimator runs inline on
+              the Packs tab.</p>
+              <ul class="check-list">
+                <li>The worked example lands at ~$128/month for 10k DAU — and Cognito MAU dominates the bill, not the game data.</li>
+                <li><code>Documentation~/costs.md</code> lists the defaults that keep costs small: on-demand DynamoDB, TTL retention, projections, offline coalescing, presigned downloads.</li>
+                <li>Ten arithmetic tests cover unit scaling, the Lambda free tier and custom price sheets: 268 EditMode + 2 PlayMode pass.</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="release-row">
+            <span class="release-index">AWS Toolkit<br />Sep 10, 2026</span>
+            <div>
+              <h2>v0.23.0 — phone OTP, security and verification</h2>
+              <p>Passwordless sign-in is now first class:
+              <code>SignInWithCustomAuthAsync</code> +
+              <code>RespondToCustomChallengeAsync</code> drive Cognito's
+              CUSTOM_AUTH flow, and <code>custom-auth-otp.yaml</code> ships the
+              three challenge Lambdas in production shape — TTL code table,
+              constant-time comparison, attempt burn-out and a marked delivery
+              stub for your SMS provider.</p>
+              <ul class="check-list">
+                <li>Real threat model in <code>SECURITY.md</code>: credential flow, protections, explicit non-protections and a pre-ship checklist.</li>
+                <li>Published verification report: offline suite counts per release, external reference-vector provenance, and the not-yet-live-verified list.</li>
+                <li>The Doctor tab links straight to the hosted troubleshooting guide.</li>
+                <li>257 EditMode + 2 PlayMode tests pass, zero warnings.</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="release-row">
+            <span class="release-index">AWS Toolkit<br />Sep 10, 2026</span>
+            <div>
+              <h2>v0.22.0 — richer offline sync</h2>
+              <p>The offline queue becomes a feature. Replay now takes a policy:
+              stop on the first failure (unchanged default) or skip permanent
+              failures into a persisted dead-letter list — with per-table
+              overrides so independent entities keep flowing while economy
+              writes stay strictly ordered. Transport failures still stop the
+              pass; only real failures are dead-lettered, with their error text.</p>
+              <ul class="check-list">
+                <li>Key-aware enqueues coalesce repeated offline edits to one net write — twenty edits become one PUT.</li>
+                <li><code>RetryFailed()</code> / <code>ClearFailed()</code> manage dead letters; the journal format is v2 and still reads v1.</li>
+                <li>A live queue inspector in the Diagnostics tab shows pending and failed mutations while the game runs.</li>
+                <li>Tests: 254 EditMode + 2 PlayMode pass.</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="release-row">
+            <span class="release-index">AWS Toolkit<br />Sep 10, 2026</span>
+            <div>
+              <h2>v0.21.0 — S3 progress and resumable multipart</h2>
+              <p>Uploads and downloads now report 0..1 progress on every platform
+              — pumped from the player loop, so WebGL works too.
+              <code>UploadLargeResumableAsync</code> persists a multipart upload
+              under a caller-chosen resume ID; after a crash the next call
+              reconciles with <code>ListParts</code>, seeks past the parts the
+              server already has and continues at the first missing one.
+              <code>AbortLargeUploadAsync</code> cancels an interrupted upload
+              and releases its storage.</p>
+              <ul class="check-list">
+                <li>Failed resumable attempts keep their state instead of aborting server-side.</li>
+                <li>Per-part progress rolls up into one monotonic whole-file progress stream.</li>
+                <li>Tests cover resume-without-reupload, expired-upload restart, abort and ListParts pagination: 245 EditMode + 2 PlayMode pass.</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="release-row">
+            <span class="release-index">AWS Toolkit<br />Sep 10, 2026</span>
+            <div>
+              <h2>v0.20.0 — try it with no AWS account</h2>
+              <p><strong>Demo mode</strong> installs an in-memory backend behind the
+              existing transport: Cognito sign-up and sign-in, Identity Pool
+              credentials, all four game tables, analytics and PartiQL run with no
+              AWS account and no network. The tables are seeded with a small
+              leaderboard and a <code>double_xp</code> flag, so the demo scene is
+              playable immediately — and the toolkit's own condition expressions
+              are evaluated for real, so best-wins scoring and save concurrency
+              still hold.</p>
+              <ul class="check-list">
+                <li>Editor and development builds only; release players ignore it and the Doctor warns while it is on.</li>
+                <li>S2 and Lambda report a clear "not implemented in demo mode" instead of reaching the network.</li>
+                <li>End-to-end tests drive the real services through the demo transport: 227 EditMode + 2 PlayMode tests pass.</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="release-row">
+            <span class="release-index">AWS Toolkit<br />Sep 10, 2026</span>
+            <div>
+              <h2>v0.19.0 — typed repository generation</h2>
+              <p>The Generator tab now emits a typed repository beside the model:
+              key-typed get/delete, put with an optional condition, and a
+              partition-key query. Key names and scalar types come from the live
+              table's <code>DescribeTable</code> schema — numeric keys become
+              <code>long</code>, binary keys <code>byte[]</code> — so gameplay
+              code stops spelling table and attribute names.</p>
+              <ul class="check-list">
+                <li><code>DescribeTableAsync</code> exposes the key schema; <code>TableExistsAsync</code> delegates to it.</li>
+                <li>Models gain HASH/RANGE annotations from live metadata.</li>
+                <li>Reference tests cover the parser and the emitter: 220 EditMode + 2 PlayMode tests pass.</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="release-row">
+            <span class="release-index">AWS Toolkit<br />Sep 10, 2026</span>
+            <div>
+              <h2>v0.18.0 — guided setup, lifecycle hardening, leaner imports</h2>
+              <p>The AWS toolkit gets a guided first run: a <strong>Setup</strong> tab walks
+              create asset → deploy stack → paste outputs → verify → create game tables →
+              play the demo, each step checking itself off. Runtime UI rebinds whenever the
+              client is initialized or replaced, the leaderboard panel waits for sign-in and
+              loads automatically, and buffered analytics flush on application pause and quit.</p>
+              <ul class="check-list">
+                <li>DynamoDB Query/Scan gained <code>ProjectionExpression</code> support; cloud-save slot listings no longer transfer save payloads.</li>
+                <li>A PlayMode suite now covers the drop-in panels: 221 EditMode + 2 PlayMode tests pass with zero warnings.</li>
+                <li>CI jobs skip cleanly with a warning until Unity license secrets are configured.</li>
+                <li>Dropped the unused TextMeshPro dependency — imports stay lean.</li>
+              </ul>
+              <p class="note">Full history lives in the package changelog; request access through support.</p>
+            </div>
+          </article>
+
+          <article class="release-row">
+            <span class="release-index">AWS Toolkit<br />Aug 21, 2026</span>
+            <div>
+              <h2>v0.17.0 — compiling, tested, wire formats corrected</h2>
+              <p>The first release in which the EditMode suite executed, which surfaced and
+              fixed wire-format, signing and serialization defects across Cognito, DynamoDB,
+              S2 and Lambda: inverted expression attribute names, auth parameter maps,
+              SECRET_HASH, path-style S2 signing, Lambda URL encoding, and the event-stream
+              CRC (IEEE, not CRC-22C) — every path pinned against botocore/boto2 vectors.</p>
+            </div>
+          </article>
+
+          <article class="release-row">
             <span class="release-index">AWS Toolkit<br />Aug 25, 2026</span>
             <div>
-              <h3>v0.16.1 — MFA, social sign-in, multipart &amp; streaming</h3>
+              <h2>v0.16.1 — MFA, social sign-in, multipart &amp; streaming</h2>
               <p>The AWS toolkit's private beta now covers every major flow:
               SRP and password auth with MFA continuation (SMS/TOTP/e-mail),
               Hosted UI social sign-in via OAuth2 + PKCE with suspension-proof
-              deep links, S3 storage including multipart uploads with gap
+              deep links, S2 storage including multipart uploads with gap
               protection, DynamoDB typed data with expression builders and
               transactions, Lambda invocation plus CRC-verified response
               streaming, offline mutation queues, feature flags, analytics,
@@ -88,9 +404,9 @@
             </div>
           </article>
           <article class="release-row">
-            <span class="release-index">v1.46.3<br />Aug 22, 2026</span>
+            <span class="release-index">v1.46.2<br />Aug 22, 2026</span>
             <div>
-              <h3>SRP-safe bundled text shader</h3>
+              <h2>SRP-safe bundled text shader</h2>
               <p>The TextMeshPro distance-field shader shipped inside the package now declares
               separate SubShaders with single-value render-pipeline tags (URP, HDRP) plus an
               untagged Built-in fallback.</p>
@@ -105,7 +421,7 @@ existing UI keeps working.</pre>
           <article class="release-row">
             <span class="release-index">v1.46.2<br />Aug 21, 2026</span>
             <div>
-              <h3>Cleaner sample scenes</h3>
+              <h2>Cleaner sample scenes</h2>
               <p>Demo scenes no longer embed uGUI or Input System component GUIDs. The demo
               runner builds its Canvas, UI panel and EventSystem at runtime from a serialized
               prefab reference.</p>
@@ -122,7 +438,7 @@ Tools &gt; ShipIt &gt; Samples.</pre>
           <article class="release-row">
             <span class="release-index">v1.46.1<br />Aug 21, 2026</span>
             <div>
-              <h3>Fast Enter Play Mode + validation hardening</h3>
+              <h2>Fast Enter Play Mode + validation hardening</h2>
               <p>All toolkit static state resets between Play sessions when domain reload is
               disabled, and the Poppins SDF font material now uses a shader that ships inside
               the package.</p>
@@ -140,12 +456,12 @@ state change.</pre>
           <article class="release-row">
             <span class="release-index">v1.46.0<br />Aug 2026</span>
             <div>
-              <h3>Analytics pack — the 34th backend pack</h3>
+              <h2>Analytics pack — the 24th backend pack</h2>
               <p>A batched <code>analytics_events</code> table for DAU, funnels and retention,
               secured so clients can only insert their own events while dashboards read with
               the service role.</p>
               <ul class="check-list">
-                <li>Pairs with AnalyticsService.Track() and auto-flush (25 events or ~30 s).</li>
+                <li>Pairs with AnalyticsService.Track() and auto-flush (25 events or ~20 s).</li>
                 <li>Indexes included: event + time, user + time.</li>
                 <li>Every feature service in the toolkit now maps to a SQL pack.</li>
               </ul>
@@ -157,7 +473,7 @@ Analytics Events → apply.</pre>
           <article class="release-row">
             <span class="release-index">v1.45.0<br />Aug 2026</span>
             <div>
-              <h3>Production reliability release</h3>
+              <h2>Production reliability release</h2>
               <p>The failure modes that appear after prototypes become real games, handled
               deliberately:</p>
               <ul class="check-list">
@@ -166,7 +482,7 @@ Analytics Events → apply.</pre>
                 <li><strong>Realtime auth lifecycle</strong> — sign-in/out and token refresh propagate to private channels automatically.</li>
                 <li><strong>Complete OAuth PKCE</strong> — deep links, code exchange, legacy token import.</li>
                 <li><strong>Truly resumable uploads</strong> — TUS locations survive restarts; ambiguous failures reconcile before retrying.</li>
-                <li>Test suite grew to <strong>130 EditMode tests</strong>.</li>
+                <li>Test suite grew to <strong>120 EditMode tests</strong>.</li>
               </ul>
             </div>
             <pre class="release-code" aria-label="Upgrade note">Full details in the
@@ -176,7 +492,7 @@ package CHANGELOG.md.</pre>
           <article class="release-row">
             <span class="release-index">v1.44.0<br />Jul 2026 · store</span>
             <div>
-              <h3>SDK parity and security hardening</h3>
+              <h2>SDK parity and security hardening</h2>
               <ul class="check-list">
                 <li><strong>Auth</strong> — persisted-session expiry fixes, CAPTCHA-aware sign-ins, Apple/Google ID-token flows, identity linking.</li>
                 <li><strong>Database</strong> — negated filters, OR expressions, culture-invariant dates, offline-cache correctness.</li>
@@ -193,7 +509,7 @@ Asset Store.</pre>
           <article class="release-row">
             <span class="release-index">Upgrading</span>
             <div>
-              <h3>How to update an existing project</h3>
+              <h2>How to update an existing project</h2>
               <ul class="check-list">
                 <li><strong>Asset Store buyers</strong> — download the new package from your Purchases page and re-import; nothing outside Assets/ShipIt/Supabase is touched.</li>
                 <li><strong>UPM users</strong> — refresh in Package Manager or point the manifest at the new tarball.</li>
@@ -215,14 +531,14 @@ shipit.unity@gmail.com</pre>
         <a class="brand" href="index.html" aria-label="ShipIt home"><span class="brand-mark" aria-hidden="true"></span><span>ShipIt</span></a>
         <div class="footer-links">
           <a data-store-link href="store.html"><span data-store-label>View on Unity Asset Store</span></a>
-          <a href="documentation.html">Documentation</a><a href="aws-toolkit.html">AWS Toolkit</a>
+          <a href="documentation.html">Documentation</a><a href="aws-toolkit.html">AWS Toolkit</a><a href="aws-documentation.html">AWS docs</a>
           <a href="updates.html" aria-current="page">Updates</a>
           <a href="live-ops.html">Live-Ops</a>
           <a href="privacy.html">Privacy</a>
           <a data-support-link href="mailto:shipit.unity@gmail.com">Support</a>
         </div>
       </div>
-      <div class="legal"><span>Unity Supabase Toolkit v1.46.3 · Unity 2022.3 LTS and Unity 6</span><span>© 2026 ShipIt</span></div>
+      <div class="legal"><span>Unity Supabase Toolkit v1.46.2 · Unity 2022.2 LTS and Unity 6</span><span>© 2026 ShipIt</span></div>
     </div>
   </footer>
 </body>

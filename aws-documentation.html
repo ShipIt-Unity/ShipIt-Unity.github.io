@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>AWS Toolkit documentation — ShipIt Unity</title>
+<meta name="description" content="Setup and API documentation for the ShipIt AWS Toolkit: Cognito auth with SRP and MFA, Identity Pools, S3 storage, DynamoDB data, Lambda, game systems, WebGL, IAM and troubleshooting." />
+<meta name="theme-color" content="#070a09" />
+<link rel="canonical" href="https://shipit-unity.github.io/aws-documentation.html" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="ShipIt AWS Toolkit documentation" />
+<meta property="og:description" content="Install, connect a real AWS backend, call every service, and troubleshoot the errors the toolkit actually throws." />
+<meta property="og:url" content="https://shipit-unity.github.io/aws-documentation.html" />
+<meta name="twitter:card" content="summary" />
+<link rel="icon" type="image/svg+xml" href="assets/shipit-logo.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css?v=20260918" />
+<link rel="stylesheet" href="accent-product.css?v=20260918" />
+<script src="site-config.js" defer></script>
+<script src="site.js" defer></script>
+</head>
+<body class="doc-page">
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<nav class="site-nav" aria-label="Primary navigation">
+  <div class="shell nav-inner">
+    <a class="brand" href="index.html" aria-label="ShipIt home"><span class="brand-mark" aria-hidden="true"></span><span>ShipIt</span><span class="brand-product">Unity AWS Toolkit</span></a>
+    <div class="nav-links">
+      <a href="index.html">Overview</a>
+      <a href="documentation.html">Supabase docs</a>
+      <a href="aws-toolkit.html">AWS Toolkit</a>
+      <a href="aws-documentation.html" aria-current="page">AWS docs</a>
+      <a href="updates.html">Updates</a>
+      <a href="privacy.html">Privacy</a>
+      <a data-support-link href="mailto:shipit.unity@gmail.com">Support</a>
+    </div>
+    <details class="mobile-nav">
+      <summary>Menu</summary>
+      <div class="mobile-nav-panel">
+        <a href="index.html">Overview</a>
+        <a href="documentation.html">Supabase docs</a>
+        <a href="aws-toolkit.html">AWS Toolkit</a>
+        <a href="aws-documentation.html" aria-current="page">AWS docs</a>
+        <a href="updates.html">Updates</a>
+        <a href="privacy.html">Privacy</a>
+        <a data-support-link href="mailto:shipit.unity@gmail.com">Email support</a>
+      </div>
+    </details>
+  </div>
+</nav>
+
+<header class="docs-hero">
+  <div class="shell">
+    <div class="eyebrow">v0.33.0 · Unity 2022.3 LTS and Unity 6</div>
+    <h1>AWS Toolkit <span class="gradient-text">documentation.</span></h1>
+    <p>Install the package, stand up a real AWS backend, call every service, and recognise the errors the toolkit actually throws.</p>
+    <div class="docs-search">
+      <label for="docs-search">Search documentation</label>
+      <input id="docs-search" type="search" placeholder="Search auth, S3, DynamoDB, WebGL, IAM…" autocomplete="off" />
+      <div id="docs-search-results" class="docs-search-results" hidden></div>
+    </div>
+    <div class="docs-quicklinks" aria-label="Popular documentation links">
+      <a href="#install">Install &amp; initialize</a>
+      <a href="#setup">Guided setup</a>
+      <a href="#backend">Backend quickstart</a>
+      <a href="#webgl">WebGL</a>
+      <a href="#troubleshooting">Troubleshooting</a>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+  <aside class="docs-sidebar">
+    <details open>
+      <summary>On this page</summary>
+      <nav aria-label="Documentation sections">
+        <h4>Start</h4>
+        <a href="#install" aria-current="location">Install &amp; initialize</a>
+        <a href="#setup">Guided setup</a>
+        <a href="#backend">Backend quickstart</a>
+        <a href="#verify">Verification order</a>
+        <h4>Runtime services</h4>
+        <a href="#auth">Auth (Cognito)</a>
+        <a href="#identity">Identity Pools</a>
+        <a href="#storage">S3 storage</a>
+        <a href="#data">DynamoDB data</a>
+        <a href="#functions">Lambda functions</a>
+        <a href="#realtime">Realtime WebSockets</a>
+        <a href="#push">Push registration</a>
+        <a href="#ui">Drop-in panels</a>
+        <a href="#game">Game systems</a>
+        <a href="#offline">Offline queue</a>
+        <a href="#ui">Drop-in UI panels</a>
+        <h4>Reference</h4>
+        <a href="#webgl">WebGL &amp; platforms</a>
+        <a href="#iam">IAM &amp; security</a>
+        <a href="#costs">Cost awareness</a>
+        <a href="#troubleshooting">Troubleshooting</a>
+        <a href="#support">Support</a>
+      </nav>
+    </details>
+  </aside>
+
+  <main id="main-content">
+    <section id="install">
+      <h2>Install &amp; initialize</h2>
+      <ol>
+        <li>Import the package (Package Manager → My Assets, or a UPM tarball), then open <strong>Tools → ShipIt → AWS Toolkit</strong>.</li>
+        <li>Create the settings asset on the <strong>Setup</strong> tab (it lands at <code>Assets/Resources/ShipIt/AwsSettings.asset</code>).</li>
+        <li>Paste <code>Region</code>, <code>UserPoolId</code>, <code>AppClientId</code>, <code>IdentityPoolId</code> and <code>S3Bucket</code> from your CloudFormation stack outputs.</li>
+        <li>Initialize once at startup and sign in.</li>
+      </ol>
+      <pre><code>using ShipIt.Aws;
+
+AwsClient.InitializeFromResources();
+var aws = AwsClient.Instance;
+
+// Optional: restore a session persisted by a previous run.
+await aws.Auth.RestoreSessionAsync();</code></pre>
+      <p>App client IDs and pool IDs are public identifiers — access is enforced by IAM roles and app-client configuration, never by secrecy. Long-lived IAM keys never belong in the asset or a build.</p>
+      <div class="note">Runtime UI binds to the client whenever it initializes: if you create the client after the scene loads, <code>AwsAuthPanel</code> and <code>AwsLeaderboardPanel</code> still attach through <code>AwsClient.OnInstanceChanged</code>.</div>
+    </section>
+
+    <section id="setup">
+      <h2>Guided setup</h2>
+      <p>The <strong>Setup</strong> tab is a linear first run. Each step checks itself off:</p>
+      <ol>
+        <li><strong>Create the settings asset</strong> — one button, created at the path runtime loads.</li>
+        <li><strong>Deploy the AWS backend</strong> — copy/reveal the CloudFormation template and open the console, or (with the AWS CLI installed) press <em>Deploy from the editor</em>: the stack deploys from inside Unity and <em>Import stack outputs</em> fills the settings asset.</li>
+        <li><strong>Paste the stack outputs</strong> — the five values are written straight into the asset.</li>
+        <li><strong>Verify the connection</strong> — Identity Pool credentials → DynamoDB <code>ListTables</code> → configuration doctor → live bucket-CORS check, logged in order.</li>
+        <li><strong>Create the game-system tables</strong> — leaderboards, saves, flags, events (TTL enabled), balances and ledger.</li>
+        <li><strong>Play the demo</strong> — builds the wired auth + leaderboard scene at <code>Assets/Demos/AwsDemo.unity</code>.</li>
+      </ol>
+      <h3>Try it with no AWS account</h3>
+      <p>Tick <strong>Demo mode</strong> in step 1 and every call is served from an in-memory backend: the game tables are seeded with a small leaderboard, a <code>double_xp</code> flag and a demo wallet with ledger, and the toolkit's own condition rules run for real, so best-wins scoring and save concurrency still hold. Editor and development builds only; release players ignore it and the Doctor warns while it is on.</p>
+      <p>The other seven tabs remain for day-to-day work:</p>      <div class="docs-prereq-grid">
+        <article><strong>Settings</strong><p>Edit the asset inline; the status strip lists blocking issues and warnings.</p></article>
+        <article><strong>Connection</strong><p>Credential fetch, signed DynamoDB ping, and the one-button live smoke suite.</p></article>
+        <article><strong>Packs</strong><p>Provision game tables and copy scoped player/admin IAM policies.</p></article>
+        <article><strong>Browser</strong><p>Read-only DynamoDB scans rendered as plain JSON.</p></article>
+        <article><strong>Generator</strong><p>Turn a sample item into a <code>[Serializable]</code> C# model — and a typed repository whose key signatures come from <code>DescribeTable</code>.</p></article>
+        <article><strong>Doctor</strong><p>Static configuration checks plus live bucket-CORS validation.</p></article>
+        <article><strong>Diagnostics</strong><p>The runtime log ring buffer, streamed from the player.</p></article>
+        <article><strong>Smoke suite</strong><p>Signs up a test user, exercises every service, deletes its own user.</p></article>
+      </div>
+      <div class="note">Need a legacy import artifact? <strong>Tools → ShipIt → AWS Toolkit → Export .unitypackage</strong> stages a fresh-GUID copy (tests, internal docs and <code>package.json</code> excluded; <code>link.xml</code> and the license notices included) and writes <code>ShipIt-Aws-Toolkit-&lt;version&gt;.unitypackage</code> to the project root. Use the UPM package or the exported artifact in a project — not both, or the assemblies collide.</div>
+    </section>
+
+    <section id="backend">
+      <h2>Backend quickstart</h2>
+      <p><code>Samples~/CloudFormation/shipit-aws-backend.yaml</code> creates the User Pool and app client, the Identity Pool and both roles, the four game tables, and a content bucket with CORS. Upload it in <strong>CloudFormation → Create stack → With new resources</strong>.</p>
+      <div class="table-wrap">
+        <table>
+          <tr><th>Parameter</th><th>Default</th><th>When to change it</th></tr>
+          <tr><td><code>AllowedCorsOrigin</code></td><td><code>*</code></td><td>Set your game's https origin before shipping WebGL.</td></tr>
+          <tr><td><code>AllowClientScoreWrites</code></td><td><code>true</code></td><td>Set <code>false</code> once scores go through the Lambda.</td></tr>
+          <tr><td><code>EnableTestAutoConfirm</code></td><td><code>false</code></td><td>Set <code>true</code> only to run the live smoke suite.</td></tr>
+          <tr><td><code>SignInWith</code></td><td><code>Username</code></td><td>Leave as <code>Username</code> for the smoke suite.</td></tr>
+          <tr><td><code>AllowUnauthenticatedIdentities</code></td><td><code>true</code></td><td>Set <code>false</code> to require sign-in for credentials.</td></tr>
+        </table>
+      </div>
+      <p>The stack's <strong>Outputs</strong> tab lists exactly the five values the settings asset needs — plus <code>AccountId</code>, which the Packs tab uses to stamp resource ARNs into IAM policies.</p>
+      <h3>One-click deploy from the editor</h3>
+      <p>If <code>aws --version</code> works on your machine and the active profile can create CloudFormation stacks and IAM roles, the Setup tab can do all of this: <em>Deploy from the editor</em> runs <code>aws cloudformation deploy</code> with the bundled template (region, CORS origin, smoke-test auto-confirm and server-authoritative scoring as fields), streams the output into the window log, and <em>Import stack outputs</em> writes the five values into <code>AwsSettings</code>. Credentials stay with the CLI (profiles, SSO, environment) — no admin keys ever enter the project, and the manual console route remains as the fallback.</p>
+      <div class="note">Table and bucket names are fixed (the runtime defaults to them), so run one stack per account and region. Delete a stack before creating a second.</div>
+    </section>
+
+    <section id="verify">
+      <h2>Verification order</h2>
+      <p>Each check depends on the one above it. Stop at the first failure rather than reading past it.</p>
+      <div class="table-wrap">
+        <table>
+          <tr><th>Where</th><th>Action</th><th>Confirms</th></tr>
+          <tr><td>Setup / Connection</td><td>Fetch Identity Pool credentials</td><td>Pools exist and roles are attached</td></tr>
+          <tr><td>Setup / Connection</td><td>Ping DynamoDB (ListTables)</td><td>SigV4 signing works end to end</td></tr>
+          <tr><td>Setup / Doctor</td><td>Run configuration checks</td><td>Settings are internally consistent</td></tr>
+          <tr><td>Doctor</td><td>Check bucket CORS (live)</td><td>WebGL can read the bucket</td></tr>
+          <tr><td>Connection</td><td>Run live smoke test</td><td>Every service, round-tripped and cleaned up</td></tr>
+        </table>
+      </div>
+      <p>The smoke suite signs a user up and immediately signs in, so deploy with <code>EnableTestAutoConfirm=true</code> and <code>SignInWith=Username</code> while testing; turn auto-confirm off afterwards.</p>
+    </section>
+
+    <section id="auth">
+      <h2>Auth — Cognito User Pools</h2>
+      <p>Password, SRP, MFA continuation, Hosted UI social sign-in and account management, behind <code>aws.Auth</code>.</p>
+      <pre><code>// Create + confirm
+var signUp = await aws.Auth.SignUpAsync("ada", "Passw0rd!", new[] {
+    new KeyValuePair&lt;string, string&gt;("email", "ada@example.com") });
+if (!signUp.UserConfirmed)
+    await aws.Auth.ConfirmSignUpAsync("ada", codeFromEmail);
+
+// SRP sign-in — the password never leaves the device
+var session = await aws.Auth.SignInWithSrpAsync("ada", "Passw0rd!");
+
+// MFA continuation (SMS / TOTP / e-mail OTP)
+try { await aws.Auth.SignInWithPasswordAsync("ada", "Passw0rd!"); }
+catch (AwsAuthChallengeException mfa)
+{
+    var code = PromptForOtp(); // mfa.ChallengeName tells you which kind
+    await aws.Auth.RespondToAuthChallengeAsync(mfa.ChallengeName, mfa.Session, code);
+}
+
+// Hosted UI (OAuth2 + PKCE — Google/Apple/Facebook)
+var flow = aws.Auth.BeginHostedUiSignIn("mygame://auth");
+Application.OpenURL(flow.AuthorizeUrl);
+// … deep link arrives (see AwsDemoBootstrap) …
+var social = await aws.Auth.CompleteHostedUiSignInAsync(flow, callbackUrl);
+
+// Tokens, always fresh
+string access = await aws.Auth.GetValidAccessTokenAsync();
+string idToken = await aws.Auth.GetValidIdTokenAsync();
+
+// Phone OTP / passwordless (CUSTOM_AUTH)
+try { await aws.Auth.SignInWithCustomAuthAsync(phone); }
+catch (AwsAuthChallengeException otp) // ChallengeName == "CUSTOM_CHALLENGE"
+{
+    await aws.Auth.RespondToCustomChallengeAsync(otp.Session, code);
+}
+
+// Account management
+await aws.Auth.SendPasswordResetCodeAsync("ada");
+await aws.Auth.ChangePasswordAsync("old", "new");
+await aws.Auth.SignOutAsync(); // GlobalSignOut + local clear</code></pre>
+      <p>Failures carry the Cognito error type in <code>AwsAuthException.ServerCode</code> (<code>NotAuthorizedException</code>, <code>UserNotConfirmedException</code>, …). Enable the flows you use on the app client: <code>ALLOW_USER_PASSWORD_AUTH</code>, <code>ALLOW_USER_SRP_AUTH</code>, <code>ALLOW_REFRESH_TOKEN_AUTH</code> and <code>ALLOW_CUSTOM_AUTH</code> for phone OTP. The OTP Lambdas ship as <code>Samples~/CloudFormation/custom-auth-otp.yaml</code> — a TTL code table, constant-time comparison, attempt burn-out, and a clearly marked delivery stub for your SMS provider.</p>
+    </section>
+
+    <section id="identity">
+      <h2>Identity Pools — temporary credentials</h2>
+      <p>Every signed service call uses short-lived STS credentials minted from your Identity Pool; the broker refreshes them automatically and caches the device identity.</p>
+      <pre><code>var creds = await aws.Credentials.GetAsync();
+
+// After account deletion or a device reset:
+aws.Credentials.ForgetIdentity();</code></pre>
+      <p>When the player is signed in, the credential request carries their ID token, so IAM can scope rows with <code>${cognito-identity.amazonaws.com:sub}</code>. That is how cloud saves stay per-player without a server.</p>
+    </section>
+
+    <section id="storage">
+      <h2>S3 storage</h2>
+      <pre><code>await aws.Storage.UploadAsync("screenshots/l3.png", bytes, "image/png");
+var png  = await aws.Storage.DownloadAsync("screenshots/l3.png");
+var meta = await aws.Storage.HeadAsync("screenshots/l3.png");
+await aws.Storage.DeleteAsync("old.bin");
+
+// Listing with pagination
+var page = await aws.Storage.ListAsync(prefix: "saves/");
+while (page.IsTruncated)
+    page = await aws.Storage.ListAsync("saves/", page.NextContinuationToken);
+
+// Presigned URLs — sharing and browser-direct uploads
+var url = await aws.Storage.CreatePresignedGetUrlAsync("cut.mp4", TimeSpan.FromHours(2));
+
+// Large files: chunked multipart with gap protection and auto-abort
+var etag = await aws.Storage.UploadLargeAsync(
+    "replays/match.bin", bigStream, contentType: "video/mp4");
+
+// Progress (0..1) — pumped on the player loop, so WebGL works too
+IProgress&lt;float&gt; progress = new Progress&lt;float&gt;(p =&gt; bar.value = p);
+await aws.Storage.UploadAsync("clip.mp4", bytes, "video/mp4", progress);
+var data = await aws.Storage.DownloadAsync("clip.mp4", progress);
+
+// Resumable: reuse the same resumeId after a crash and it reconciles
+// with ListParts and continues at the first missing part
+var resumed = await aws.Storage.UploadLargeResumableAsync(
+    "replays/match.bin", fileStream, "match-42");
+
+// Give up on an interrupted upload and release its storage
+await aws.Storage.AbortLargeUploadAsync("match-42");
+
+// Asset helpers
+Texture2D tex  = await aws.Storage.DownloadTextureAsync("img/logo.png");
+AudioClip clip = await aws.Storage.DownloadAudioClipAsync("sfx/hit.ogg", AudioType.OGG);</code></pre>
+      <p>WebGL needs a one-time bucket CORS rule allowing <code>GET</code>/<code>PUT</code>; the Doctor tab validates the live configuration and offers the sample rule.</p>
+    </section>
+
+    <section id="data">
+      <h2>DynamoDB data</h2>
+      <p>Models are plain <code>[Serializable]</code> classes whose public fields are named exactly like the attributes. The marshaller handles numbers, binary, sets, lists and nested maps.</p>
+      <pre><code>[Serializable]
+public sealed class PlayerRow { public string UserId; public int Score; }
+
+// CRUD with conditions
+await aws.Data.PutItemAsync("players",
+    new PlayerRow { UserId = "u1", Score = 10 },
+    condition: new DynamoFilter().NotExists("UserId"));
+
+var updated = await aws.Data.UpdateItemAsync&lt;PlayerRow&gt;("players",
+    DynamoKey.Of("UserId", AttributeValue.S("u1")),
+    new DynamoUpdate().Add("Score", AttributeValue.N(5)));
+
+// Query a GSI, descending, reserved words escaped automatically
+var top = await aws.Data.QueryAsync&lt;PlayerRow&gt;(new DynamoQueryRequest
+{
+    TableName = "players",
+    IndexName = "ScoreIndex",
+    KeyCondition = DynamoKeyCondition.HashEquals("Game", AttributeValue.S("g1"))
+        .RangeGreaterThan("Score", AttributeValue.N(100)),
+    ScanIndexForward = false,
+    Limit = 50,
+});
+
+// Project only the attributes you need — payloads stay in DynamoDB
+var slots = await aws.Data.QueryAsync&lt;CloudSaveRow&gt;(new DynamoQueryRequest
+{
+    TableName = "GameSaves",
+    KeyCondition = DynamoKeyCondition.HashEquals("UserId", AttributeValue.S(userId)),
+    Projection = DynamoProjection.Of("Slot", "Revision", "UpdatedAt", "DeviceLabel"),
+});</code></pre>
+      <h3>Typed repositories</h3>
+      <p>The Generator tab can emit a repository beside the model — key-typed get/delete, put with an optional condition, and a partition-key query. Key names and scalar types come from <code>DescribeTable</code>, so numeric keys become <code>long</code> and the generated methods build the right <code>AttributeValue</code> factories.</p>
+      <pre><code>var saves = new SaveGameRepository(aws.Data);
+
+var row  = await saves.GetAsync(userId, slot);
+var page = await saves.QueryByUserIdAsync(userId, descending: true);
+await saves.PutAsync(row, new DynamoFilter().NotExists("UpdatedAt"));</code></pre>
+      <p>Also included: <code>ScanAsync</code> pagination, batch get/write with unprocessed-key retry, <code>TransactWriteAsync</code>, COUNT-only rank queries, and <code>ExecuteStatementAsync</code> for PartiQL.</p>
+    </section>
+
+    <section id="functions">
+      <h2>Lambda functions</h2>
+      <pre><code>// Signed data-plane invoke (desktop / mobile)
+var ack = await aws.Functions.InvokeAsync&lt;AckPayload&gt;("my-function", payloadJson);
+
+// Response streaming — chunks arrive as they are produced
+var full = await aws.Functions.InvokeStreamingAsync(
+    "stream-fn", payloadJson,
+    onChunk: chunk =&gt; AppendToUi(chunk));
+
+// WebGL path: function URL (authType NONE — validate input server-side)
+await aws.Functions.InvokeFunctionUrlAsync(url, payloadJson);</code></pre>
+      <p>Function-level failures surface as <code>AwsServiceException</code> with the inline error type; use <code>TryInvokeAsync</code> to inspect a failed invocation without an exception.</p>
+    </section>
+
+    <section id="realtime">
+      <h2>Realtime WebSockets</h2>
+      <p>Presence, chat, lobbies and live leaderboards over API Gateway WebSockets. Routes are yours — the client carries JSON strings, not a schema — and IAM-authorized APIs are reached with a presigned <code>wss://</code> URL (browsers cannot set handshake headers; SigV4 query parameters are the workaround).</p>
+      <pre><code>var url = await AwsRealtimeUrl.PresignAsync(
+    aws.Settings, aws.Credentials, "abc123", "dev");
+
+aws.Realtime.OnMessage += json =&gt; HandleServerEvent(json);
+aws.Realtime.OnDisconnected += ex =&gt; Debug.LogWarning(ex.Message);
+
+// API Gateway closes idle sockets after 10 minutes; ping to keep it open.
+aws.Realtime.Options.HeartbeatJson = "{\"action\":\"ping\"}";
+
+await aws.Realtime.ConnectAsync(url);
+await aws.Realtime.SendAsync("{\"action\":\"subscribe\",\"channel\":\"lobby-1\"}");</code></pre>
+      <p>While disconnected, sends queue up to <code>MaxQueuedSends</code> and flush after the next successful connect; reconnects use bounded exponential backoff. Editor, desktop and mobile use <code>ClientWebSocket</code>; WebGL uses the bundled browser bridge (needs a browser build to verify — tracked in the verification report).</p>
+    </section>
+
+    <section id="push">
+      <h2>Push registration</h2>
+      <p>Re-engage players with mobile push via Amazon Pinpoint. The device token comes from the platform (Firebase on Android, APNs on iOS); the toolkit registers it as a Pinpoint endpoint with the player's temporary credentials and keeps it in sync.</p>
+      <pre><code>var endpoint = new PinpointEndpoint
+{
+    Address = deviceToken,
+    Channel = PinpointChannel.Gcm,
+    UserId = userId,
+    Attributes = { ["tier"] = new List&lt;string&gt; { "gold" } },
+};
+
+await aws.Pinpoint.RegisterEndpointAsync(endpointId, endpoint); // idempotent upsert
+await aws.Pinpoint.SetOptOutAsync(endpointId, optOutAll: true); // "mute me"
+await aws.Pinpoint.DeleteEndpointAsync(endpointId);             // on sign-out</code></pre>
+      <p>Set <code>PinpointApplicationId</code> in the settings asset and grant the Identity Pool role <code>mobiletargeting:UpdateEndpoint</code> on the app. Channels: GCM, APNS, APNS_SANDBOX, ADM, BAIDU. WebGL has no device token, so push is a mobile/desktop feature.</p>
+    </section>
+
+    <section id="ui">
+      <h2>Drop-in panels</h2>
+      <p>Two panel kits ship and mirror each other's behaviour — pick by UI stack. Both bind to the client whenever it initializes (and rebind if it is replaced), so scene order doesn't matter.</p>
+      <ul>
+        <li><strong>uGUI</strong> — <code>AwsAuthPanel</code> and <code>AwsLeaderboardPanel</code>: wire the inspector fields and drop them in a scene.</li>
+        <li><strong>UI Toolkit</strong> — <code>AwsAuthPanelUIToolkit</code> and <code>AwsLeaderboardPanelUIToolkit</code> with UXML/USS: add a <code>UIDocument</code> whose PanelSettings assigns a theme style sheet, assign the panel's UXML, add the controller — no inspector wiring.</li>
+      </ul>
+      <p>The auth panel answers MFA and forced-password challenges through Confirm; the leaderboard waits for sign-in and refreshes automatically. Busy states dim the form, and errors surface as <code>ServerCode: Message</code>.</p>
+    </section>
+
+    <section id="game">
+      <h2>Game systems</h2>
+      <p>Five drop-in systems on DynamoDB, provisioned in one click from <strong>Packs</strong> (or step 5 of the Setup wizard).</p>
+      <pre><code>// Leaderboards — best-wins, with optional server-authoritative scoring
+var r     = await aws.Game.Leaderboards.SubmitScoreViaLambdaAsync("global", userId, 9001);
+var top   = await aws.Game.Leaderboards.GetTopAsync("global", 10);
+long rank = await aws.Game.Leaderboards.GetRankForScoreAsync("global", 9001);
+
+// Cloud saves with optimistic concurrency
+var row  = await aws.Game.Saves.LoadAsync(userId, "slotA");
+var save = await aws.Game.Saves.SaveAsync(userId, "slotA", json,
+    expectedRevision: row?.Revision ?? null);
+if (!save.Saved) { /* reload and merge */ }
+
+// Feature flags — deterministic percentage rollout per player
+if (await aws.Game.Flags.IsEnabledAsync("double_xp", userId)) { }
+var cfg = aws.Game.Flags.GetPayload("double_xp");
+
+// Analytics — buffered, batched by 25, TTL-retained
+aws.Game.Analytics.Track(userId, "level_complete", "{\"level\":3}");
+await aws.Game.Analytics.FlushAsync();
+
+// Player economy — transactional balances + ledger, idempotent replays
+var grant = await aws.Game.Economy.GrantAsync(userId, "gems", 100, idempotencyKey: "daily-2026-09-11");
+var spend = await aws.Game.Economy.SpendAsync(userId, "gems", 25, idempotencyKey: "revive-7f3a");
+long balance = await aws.Game.Economy.GetBalanceAsync(userId, "gems");
+var recent   = await aws.Game.Economy.GetLedgerAsync(userId); // newest first</code></pre>
+      <div class="note">Analytics flush automatically on application pause and quit, so events tracked just before a suspend are not lost. You can still call <code>FlushAsync()</code> at checkpoints. Balances and ledger move in one DynamoDB transaction, and replayed <code>idempotencyKey</code>s report <code>Duplicate</code> instead of double-crediting — a server-authoritative <code>game-grant-currency</code> template ships in Packs.</div>
+    </section>
+
+    <section id="offline">
+      <h2>Offline queue</h2>
+      <p>Durable mutations for players who lose connectivity mid-session. The journal survives restarts and marshals payloads immediately, so later edits cannot leak in.</p>
+      <pre><code>// While offline
+aws.Offline.EnqueuePut("players", row);
+aws.Offline.EnqueueDelete("players", key);
+
+// Key-aware enqueues coalesce repeated edits to one entity
+aws.Offline.EnqueuePut("GameSaves", slotRow, "UserId", "Slot");
+aws.Offline.EnqueueDelete("players", key, coalesce: true);
+
+// Strict order by default — stops on the first failure
+var report = await aws.Offline.ReplayAsync(aws.Data);
+
+// …or let independent tables skip-and-continue into a dead-letter list
+var options = new OfflineReplayOptions
+{
+    Strategy = OfflineReplayStrategy.SkipFailedAndContinue,
+};
+options.TableStrategies["GameFlags"] = OfflineReplayStrategy.SkipFailedAndContinue;
+var tolerant = await aws.Offline.ReplayAsync(aws.Data, options);
+
+// Inspect or retry dead letters
+aws.Offline.RetryFailed();
+aws.Offline.ClearFailed();</code></pre>
+      <p>Transport failures always stop a pass (the client is still offline); only permanent failures are dead-lettered, with the error text attached. The live queue — pending and failed entries with payloads — is visible while the game runs under <strong>AWS Toolkit → Diagnostics</strong>.</p>
+    </section>
+
+    <section id="ui">
+      <h2>Drop-in UI panels</h2>
+      <p>Two legacy uGUI panels ship in the runtime assembly. Wire the inspector fields, drop them in a scene, and they run:</p>
+      <div class="docs-prereq-grid">
+        <article><strong>AwsAuthPanel</strong><p>Username / password / confirmation-code fields, sign-in, sign-up, confirm and Hosted UI buttons, status text. Challenges (MFA, forced password change) pause on the confirm button automatically.</p></article>
+        <article><strong>AwsLeaderboardPanel</strong><p>Top-N display plus score submission, optional <code>serverAuthoritative</code> routing through the Lambda. Waits for sign-in, then loads and refreshes automatically.</p></article>
+        <article><strong>AwsDemoBootstrap</strong><p>Initializes the client from <code>Resources</code> and completes Hosted UI deep links on mobile and desktop.</p></article>
+      </div>
+      <p>Both panels rebind when the client is created or replaced, so execution order no longer matters. <strong>Tools → ShipIt → Create AWS Demo Scene</strong> wires all three into a playable scene.</p>
+    </section>
+
+    <section id="webgl">
+      <h2>WebGL &amp; platforms</h2>
+      <p>Every call is plain HTTPS through <code>UnityWebRequest</code>: no native plugins, managed SHA-256/HMAC only, works everywhere Unity does.</p>
+      <div class="table-wrap">
+        <table>
+          <tr><th>Surface</th><th>Desktop / console</th><th>Android / iOS</th><th>WebGL</th></tr>
+          <tr><td>Cognito User Pools</td><td>direct</td><td>direct</td><td>endpoints are CORS-enabled</td></tr>
+          <tr><td>Cognito Identity Pools</td><td>direct</td><td>direct</td><td>direct</td></tr>
+          <tr><td>S3 objects</td><td>direct</td><td>direct</td><td>after per-bucket CORS config</td></tr>
+          <tr><td>Lambda invoke</td><td>data plane</td><td>data plane</td><td>Function URLs</td></tr>
+          <tr><td>DynamoDB data plane</td><td>direct</td><td>direct</td><td>route through a Function URL / API Gateway proxy</td></tr>
+          <tr><td>API Gateway WebSockets</td><td>ClientWebSocket</td><td>ClientWebSocket</td><td>bundled jslib (verify in a browser build)</td></tr>
+          <tr><td>Pinpoint push registration</td><td>direct</td><td>direct</td><td>n/a — browsers have no device token</td></tr>
+        </table>
+      </div>
+      <h3>S3 bucket CORS</h3>
+      <pre><code>[
+  {
+    "AllowedHeaders": ["*"],
+    "AllowedMethods": ["GET", "PUT", "HEAD"],
+    "AllowedOrigins": ["https://your-game.example.com"],
+    "ExposeHeaders": ["ETag"],
+    "MaxAgeSeconds": 3000
+  }
+]</code></pre>
+      <h3>Lambda on WebGL</h3>
+      <p>Direct <code>lambda.&lt;region&gt;.amazonaws.com</code> calls have no CORS headers. Create a <strong>Function URL</strong>: with <code>authType NONE</code> call <code>InvokeFunctionUrlAsync(url, payload)</code> and validate input inside the function; with <code>authType AWS_IAM</code> pass <code>sign: true</code>.</p>
+      <h3>DynamoDB on WebGL</h3>
+      <p>Route reads and writes through an API Gateway HTTP API or a thin Function URL proxy that accepts your JSON and performs the DynamoDB call server-side. Keep the proxy minimal and validate claims there.</p>
+      <h3>IL2CPP &amp; code stripping</h3>
+      <p><code>link.xml</code> preserves the runtime assembly. Your own model classes also need preservation under Medium/High stripping:</p>
+      <pre><code>&lt;assembly fullname="Assembly-CSharp"&gt;
+  &lt;namespace fullname="YourGame.Models" preserve="all"/&gt;
+&lt;/assembly&gt;</code></pre>
+    </section>
+
+    <section id="iam">
+      <h2>IAM &amp; security</h2>
+      <ul>
+        <li><strong>No long-lived keys in clients.</strong> Every signed call uses temporary Identity Pool credentials.</li>
+        <li><strong>Player rows are scoped to the caller</strong> with <code>dynamodb:LeadingKeys</code> on <code>${cognito-identity.amazonaws.com:sub}</code> — cloud saves partition by identity.</li>
+        <li><strong>Leaderboard writes cannot be scoped per player</strong> through IAM (only the partition key, the board). Best-wins conditions stop honest clients lowering a score, not a modified client. For production, deploy the <code>game-submit-score</code> Lambda, call <code>SubmitScoreViaLambdaAsync</code>, and generate the player policy with client score writes disabled.</li>
+        <li><strong>App client secrets ship inside builds and are extractable.</strong> Prefer a secret-less public client; the Doctor flags a configured secret.</li>
+        <li><strong>WebGL DynamoDB proxies must validate claims</strong>, because the data plane is architecturally closed to browsers.</li>
+      </ul>
+      <p>The Packs tab generates player and admin IAM policies scoped to the four game tables. Attach the player policy to the Identity Pool's authenticated role; use the admin policy for one-time provisioning.</p>
+      <h3>Verification &amp; hardening</h3>
+      <p>The package ships a published verification report: offline suite counts per release, the external reference vectors every protocol path is pinned to (AWS docs, RFC 3526/5054/7636, boto3, botocore), and the explicit list of what is not yet live-verified. <code>SECURITY.md</code> carries the full threat model and a pre-ship checklist.</p>
+      <p>Live verification is a repeatable pass rather than a vibe: the <strong>device matrix</strong> documents how to run the Connection-tab smoke suite per platform, and each run produces a Markdown artifact — platform, OS, device model, Unity/app versions, region and every step's result — ready to attach to the verification record. On phones and in browsers, the runtime <code>AwsSmokeRunner</code> component runs the same suite with an on-screen pass/fail overlay and writes the same artifact, so a device pass needs no debugger.</p>
+    </section>
+
+    <section id="costs">
+      <h2>Cost awareness</h2>
+      <p>The toolkit is a client library, so the bill is your AWS account's. A built-in estimator turns coarse usage assumptions into a monthly per-service breakdown, with editable rates because AWS list prices drift.</p>
+      <pre><code>var estimate = AwsCostEstimator.Estimate(new AwsUsageEstimate
+{
+    MonthlyActiveUsers = 30_000,
+    DailyActiveUsers = 10_000,
+    DynamoWritesPerDauPerDay = 20,
+    DynamoReadsPerDauPerDay = 100,
+    DynamoStorageGb = 5,
+    LambdaInvocationsPerDauPerDay = 10,
+    S3StorageGb = 20,
+    S3EgressGb = 5,
+});
+
+Debug.Log($"~${estimate.MonthlyTotalUsd:0.00}/month");</code></pre>
+      <p>At 10,000 DAU that works out to roughly <strong>$128/month</strong> — and Cognito MAU (~$110) dominates, not the game data. The same estimator is inline on the <strong>Packs</strong> tab.</p>
+      <ul>
+        <li>On-demand DynamoDB and TTL-retained analytics rows by default.</li>
+        <li>Projections and key-aware offline coalescing cut transferred bytes and writes.</li>
+        <li>Presigned URLs keep downloads direct to S3 — there is no proxy tier to pay for.</li>
+      </ul>
+    </section>
+
+    <section id="troubleshooting">
+      <h2>Troubleshooting</h2>
+      <p>These are the strings the toolkit actually throws, so they are greppable in your logs.</p>
+      <div class="table-wrap">
+        <table>
+          <tr><th>What you see</th><th>Almost always means</th></tr>
+          <tr><td><code>AwsSettings is invalid. Ensure Region, UserPoolId and AppClientId are set.</code></td><td>A field is still blank. The Setup/Settings tab lists which.</td></tr>
+          <tr><td><code>Cognito did not return credentials.</code></td><td>Identity Pool roles are not attached, or its authenticated provider does not point at this User Pool + app client.</td></tr>
+          <tr><td><code>NotAuthorizedException</code> on sign-in</td><td>The auth flow is not enabled on the app client (<code>ALLOW_USER_PASSWORD_AUTH</code> / <code>ALLOW_USER_SRP_AUTH</code>).</td></tr>
+          <tr><td><code>InvalidParameterException</code> on sign-up</td><td>The pool was deployed with <code>SignInWith=Email</code>; usernames must be e-mail addresses.</td></tr>
+          <tr><td>Smoke suite reports <code>user not confirmed</code></td><td><code>EnableTestAutoConfirm</code> was <code>false</code> at deploy time.</td></tr>
+          <tr><td><code>AccessDenied</code> from flags or analytics</td><td>The authenticated role is missing those tables — re-copy the Player policy from the Packs tab.</td></tr>
+          <tr><td><code>UserPoolId must look like '&lt;region&gt;_&lt;poolName&gt;' for SRP.</code></td><td>Paste the User Pool <em>Id</em> (<code>us-east-1_AbC123</code>), not the pool name or ARN.</td></tr>
+          <tr><td><code>S3Bucket is not configured on AwsSettings.</code></td><td>Storage calls and the Doctor's CORS check need the bucket name from the stack outputs.</td></tr>
+          <tr><td>Browser blocks bucket reads in WebGL</td><td><code>AllowedCorsOrigin</code> does not match your page's origin. Confirm with Doctor → Check bucket CORS.</td></tr>
+          <tr><td>Stack ends in <code>ROLLBACK_COMPLETE</code>, a resource <code>already exists</code></td><td>A second stack in the same account and region: the bucket and four tables have fixed names. Update the existing stack, or delete it (empty the bucket first) and re-create.</td></tr>
+          <tr><td>403 with <code>SignatureDoesNotMatch</code> on a live call</td><td>Path/signature disagreement class of bug — update to 0.17.0 or later, which pinned every signing path against botocore vectors.</td></tr>
+        </table>
+      </div>
+      <div class="note">If a signed call fails against real AWS but passes the offline suite, reproduce it in <strong>Connection → Run live smoke test</strong> first: it exercises every service with one log you can share.</div>
+    </section>
+
+    <section id="support">
+      <h2>Support</h2>
+      <p>Email <a data-support-link href="mailto:shipit.unity@gmail.com">shipit.unity@gmail.com</a> with your Unity version, target platform and the relevant log lines. The complete engineering changelog ships inside the package as <code>CHANGELOG.md</code>; release highlights are on the <a href="updates.html">updates page</a>.</p>
+    </section>
+  </main>
+</div>
+
+<footer class="site-footer">
+  <div class="shell">
+    <div class="footer-grid">
+      <a class="brand" href="index.html" aria-label="ShipIt home"><span class="brand-mark" aria-hidden="true"></span><span>ShipIt</span></a>
+      <div class="footer-links">
+        <a href="index.html">Overview</a>
+        <a href="documentation.html">Supabase docs</a>
+        <a href="aws-toolkit.html">AWS Toolkit</a>
+        <a href="aws-documentation.html" aria-current="page">AWS docs</a>
+        <a href="updates.html">Updates</a>
+        <a href="privacy.html">Privacy</a>
+        <a data-support-link href="mailto:shipit.unity@gmail.com">Support</a>
+      </div>
+    </div>
+    <div class="legal"><span>Unity AWS Toolkit v0.33.0 — public preview</span><span>© 2026 ShipIt</span></div>
+  </div>
+</footer>
+</body>
+</html>
