@@ -262,7 +262,7 @@
   display: block;
   height: 10px;
   margin-top: 20px;
-  background-image: radial-gradient(circle at 2px 5px, var(--accent-line) 1.2px, transparent 1.4px);
+
   background-size: 8px 10px;
   background-repeat: repeat-x;
 }
@@ -369,14 +369,14 @@
    ------------------------------------------------------------ */
 .lp-deep {
   background-color: var(--code);
-  background-image: radial-gradient(72% 36% at 50% 0%, var(--accent-soft), transparent 72%);
+
 }
 
 .lp-main .section { padding: 128px 0; }
 
 /* The first band after the hero carries the bloom forward. */
 .lp-main > section:first-child {
-  background-image: radial-gradient(64% 40% at 50% 0%, var(--accent-soft), transparent 72%);
+
 }
 
 /* ------------------------------------------------------------
@@ -729,7 +729,7 @@
 .lp-step-line {
   flex: 1 1 auto;
   height: 1px;
-  background: linear-gradient(90deg, var(--accent-line), transparent);
+  background: var(--line-strong);
 }
 
 .lp-step-num {
@@ -1185,7 +1185,7 @@
 }
 
 .decision-card {
-  background: linear-gradient(135deg, var(--accent-soft), transparent 56%), var(--surface);
+  background: var(--surface);
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -1808,7 +1808,7 @@ body.lp .lp-hero { padding-top: 128px; }
   z-index: 0;
   pointer-events: none;
   opacity: .5;
-  background: radial-gradient(560px circle at var(--mx, 50%) var(--my, 40%), var(--accent-soft), transparent 65%);
+  background: none;
 }
 
 .lp-cta-center > * { position: relative; z-index: 1; }
@@ -1858,4 +1858,22 @@ body.lp .lp-hero { padding-top: 128px; }
   .lp-quote-anim { animation: none; }
   .lp-story-progress button.is-active > span { animation: none; width: 100%; }
   .lp-rotate-word { transition: none; }
+}
+
+
+/* Plain pass: flatten shared gradients on the landing */
+body.lp {
+  background: var(--bg);
+}
+
+body.lp::before {
+  content: none;
+}
+
+body.lp .cta-panel {
+  background: var(--surface);
+}
+
+body.lp .decision-card {
+  background: var(--surface);
 }
