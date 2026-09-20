@@ -2501,7 +2501,7 @@ tr:last-child td {
   font-weight: 400;
   font-size: 22px;
   font-variation-settings: "wdth" 177.27;
-  letter-spacing: -.02em;
+  letter-spacing: 0.01em;
 }
 
 /* Nav crowding guard: single-line chrome */
