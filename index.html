@@ -19,7 +19,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css?v=20260923" />
-  <link rel="stylesheet" href="landing.css?v=20260925" />
+  <link rel="stylesheet" href="landing.css?v=20260926" />
   <script>
     /* Flag the entrance-motion hidden state before first paint; the
        fallback timeout guarantees content if landing-motion.js fails. */
@@ -49,6 +49,7 @@
         <span>SHIPIT</span>
       </a>
       <div class="nav-links">
+        <a href="#toolkits">Toolkits</a>
         <a href="#features">Capabilities</a>
         <a href="#how-it-works">Process</a>
         <a href="#infra">Infra</a>
@@ -61,6 +62,7 @@
       <details class="mobile-nav">
         <summary>Menu</summary>
         <div class="mobile-nav-panel">
+          <a class="lp-mobile-link" href="#toolkits">Toolkits</a>
           <a class="lp-mobile-link" href="#features">Capabilities</a>
           <a class="lp-mobile-link" href="#how-it-works">Process</a>
           <a class="lp-mobile-link" href="#infra">Infra</a>
@@ -94,52 +96,85 @@
         </div>
       </div>
     </div>
-    <div class="lp-metrics lp-metrics--hero" aria-label="Toolkit facts">
-      <div class="shell">
-        <div class="lp-metric-grid">
-          <div>
-            <span class="lp-metric-value"><span data-count-to="34">34</span></span>
-            <span class="lp-metric-label">secure backend packs with RLS and C# services</span>
-          </div>
-          <div>
-            <span class="lp-metric-value"><span data-count-to="130">130</span>/130</span>
-            <span class="lp-metric-label">EditMode tests passing · August 2026</span>
-          </div>
-          <div>
-            <span class="lp-metric-value">0</span>
-            <span class="lp-metric-label">ShipIt proxy servers between you and Supabase</span>
-          </div>
-        </div>
-      </div>
-    </div>
   </header>
 
   <main class="lp-main" id="main-content">
+    <!-- Brand -->
+    <section class="section lp-brand" id="brand" aria-labelledby="brand-title">
+      <div class="shell">
+        <div class="lp-head">
+          <span class="section-label">The brand</span>
+          <h2 class="section-heading" id="brand-title">Independent tools for serious Unity work.</h2>
+          <p class="section-lead">ShipIt is a small studio building production-minded tools for Unity developers — the unglamorous parts of shipping games: backends, player data, live operations. Every toolkit ships with full C# source, editor workflows, and no hidden servers between you and your players.</p>
+        </div>
+        <div class="lp-toolkit-grid">
+          <article class="lp-toolkit-card">
+            <h3>Backends you own</h3>
+            <p>Your project talks straight to infrastructure under your control — no proxy, no lock-in, no black box.</p>
+          </article>
+          <article class="lp-toolkit-card">
+            <h3>Source in the box</h3>
+            <p>Full C# source and editor tooling ship with every toolkit. Read it, extend it, ship it.</p>
+          </article>
+          <article class="lp-toolkit-card">
+            <h3>Built to ship</h3>
+            <p>Focused tools that do one job properly — tested hard, documented, and maintained as Unity moves.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
     <!-- Toolkits lineup -->
     <section class="section lp-toolkits" id="toolkits" aria-labelledby="toolkits-title">
       <div class="shell">
         <div class="lp-head">
           <h2 class="section-heading" id="toolkits-title">The toolkits</h2>
-          <p class="section-lead">Production-minded Unity tooling, shipped as focused tools.</p>
+          <p class="section-lead">A growing line of Unity tools — each focused, shipped and maintained.</p>
         </div>
         <div class="lp-toolkit-grid">
           <article class="lp-toolkit-card">
-            <span class="lp-toolkit-tag">On the Asset Store</span>
+            <span class="lp-toolkit-tag">Available now</span>
             <h3>Unity Supabase Toolkit</h3>
             <p>Production backend for Unity — auth, data, realtime, storage and live-ops.</p>
             <a class="lp-text-link" href="store.html">Asset Store listing <span class="lp-arrow" aria-hidden="true">→</span></a>
           </article>
           <article class="lp-toolkit-card">
-            <span class="lp-toolkit-tag">Public preview</span>
+            <span class="lp-toolkit-tag">Coming soon</span>
             <h3>Unity AWS Toolkit</h3>
             <p>Pure-C# AWS for every Unity platform — Cognito, S3, DynamoDB, Lambda and game systems, WebGL included.</p>
-            <a class="lp-text-link" href="aws-toolkit.html">Explore the AWS Toolkit <span class="lp-arrow" aria-hidden="true">→</span></a>
           </article>
           <article class="lp-toolkit-card">
-            <span class="lp-toolkit-tag">In development</span>
-            <h3>Unity License Toolkit</h3>
-            <p>Licensing and entitlement tooling for Unity projects.</p>
+            <span class="lp-toolkit-tag">Coming soon</span>
+            <h3>Unity Firebase Toolkit</h3>
+            <p>Firebase for Unity, in the same pure-C# style — auth, data and more.</p>
           </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Flagship -->
+    <section class="section lp-flagship" id="flagship" aria-labelledby="flagship-title">
+      <div class="shell">
+        <div class="lp-head">
+          <span class="section-label">Currently shipping · The flagship</span>
+          <h2 class="section-heading" id="flagship-title">Unity Supabase Toolkit</h2>
+          <p class="section-lead">The first ShipIt toolkit — a production backend for Unity.</p>
+        </div>
+        <div class="lp-metrics lp-metrics--flagship" aria-label="Toolkit facts">
+          <div class="lp-metric-grid">
+            <div>
+              <span class="lp-metric-value"><span data-count-to="34">34</span></span>
+              <span class="lp-metric-label">secure backend packs with RLS and C# services</span>
+            </div>
+            <div>
+              <span class="lp-metric-value"><span data-count-to="130">130</span>/130</span>
+              <span class="lp-metric-label">EditMode tests passing · August 2026</span>
+            </div>
+            <div>
+              <span class="lp-metric-value">0</span>
+              <span class="lp-metric-label">ShipIt proxy servers between you and your backend</span>
+            </div>
+          </div>
         </div>
       </div>
     </section>
