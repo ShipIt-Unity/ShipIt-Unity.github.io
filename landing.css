@@ -1855,7 +1855,7 @@ body.lp .lp-hero { padding-top: 128px; }
 }
 
 @media (max-width: 1000px) {
-  .lp-infra-head { grid-template-columns: minmax(200px, 280px) minmax(0, 1fr); gap: 28px; }
+  .lp-infra-head { grid-template-columns: 1fr; gap: 28px; }
   .lp-plans { grid-template-columns: 1fr; max-width: 640px; }
   .lp-metrics-grid { grid-template-columns: 1fr 1fr; }
   .lp-metrics-grid .lp-stat-card:first-child { grid-column: 1 / -1; }
