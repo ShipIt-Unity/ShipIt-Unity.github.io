@@ -1241,7 +1241,7 @@ body.lp {
 body.lp .brand {
   font-family: var(--font-display);
   font-weight: 400;
-  font-size: 23px;
+  font-size: 22px;
   letter-spacing: 0;
 }
 
@@ -1299,7 +1299,7 @@ body.lp .site-nav {
   border-bottom-color: var(--line);
 }
 
-body.lp .lp-footer-brand-name { font-size: 26px; }
+body.lp .lp-footer-brand-name { font-size: 22px; }
 
 body.lp .lp-brand-sub {
   font-size: 10px;

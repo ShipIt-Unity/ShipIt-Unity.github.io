@@ -2499,6 +2499,7 @@ tr:last-child td {
 .brand > span:not(.brand-mark):not(.brand-product) {
   font-family: "Cubao Wide", var(--font-sans, sans-serif);
   font-weight: 400;
+  font-size: 22px;
   font-variation-settings: "wdth" 177.27;
   letter-spacing: -.02em;
 }
