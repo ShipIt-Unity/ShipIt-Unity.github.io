@@ -19,8 +19,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
 <script>try{if(localStorage.getItem("shipit-theme")==="light")document.documentElement.setAttribute("data-theme","light")}catch(e){}</script>
-<link rel="stylesheet" href="styles.css?v=20260939" />
-<link rel="stylesheet" href="accent-product.css?v=20260939" />
+<link rel="stylesheet" href="styles.css?v=20260940" />
+<link rel="stylesheet" href="accent-product.css?v=20260940" />
 <script src="site-config.js" defer></script>
 <script src="site.js" defer></script>
 </head>
@@ -82,6 +82,16 @@
     <div class="eyebrow">v1.46.3 · Unity 2022.3+</div>
     <h1>Unity Supabase Toolkit <span class="gradient-text">documentation.</span></h1>
     <p>Find setup steps, API examples, game backend patterns, security guidance and troubleshooting.</p>
+    <div class="docs-toolkit">
+      <label for="docs-toolkit-select">Toolkit</label>
+      <span class="docs-toolkit-control">
+        <select id="docs-toolkit-select" data-toolkit-select>
+          <option value="documentation.html" selected>Unity Supabase Toolkit</option>
+          <option value="aws-documentation.html">Unity AWS Toolkit</option>
+          <option value="" disabled>Unity Firebase Toolkit — Soon</option>
+        </select>
+      </span>
+    </div>
     <div class="docs-search">
       <label for="docs-search">Search documentation</label>
       <input id="docs-search" type="search" placeholder="Search auth, realtime, RLS, storage…" autocomplete="off" />

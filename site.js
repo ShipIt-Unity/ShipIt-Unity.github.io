@@ -42,6 +42,15 @@ document.querySelectorAll(".mobile-nav a").forEach(link => {
   });
 });
 
+// Documentation toolkit selector: jump to the chosen toolkit's docs.
+document.querySelectorAll("[data-toolkit-select]").forEach(select => {
+  select.addEventListener("change", () => {
+    try {
+      if (select.value) window.location.href = select.value;
+    } catch (error) { /* stay on the current page */ }
+  });
+});
+
 // Theme: dark by default, beige light on request. The choice is remembered
 // in localStorage and mirrored on the toggle buttons and theme-color meta.
 (function () {

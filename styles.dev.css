@@ -253,7 +253,9 @@ summary {
   left: 50%;
   transform: translateX(-50%);
   z-index: 6;
-  width: min(330px, calc(100vw - 32px));
+  width: max-content;
+  min-width: 380px;
+  max-width: calc(100vw - 32px);
   display: grid;
   gap: 2px;
   padding: 10px;
@@ -283,9 +285,10 @@ summary {
 
 .nav-drop-row {
   display: flex;
+  flex-wrap: nowrap;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: 16px;
   padding: 8px 10px;
   border-radius: 10px;
 }
@@ -295,14 +298,18 @@ summary {
 }
 
 .nav-drop-name {
+  flex: 0 0 auto;
   font-size: 13px;
+  white-space: nowrap;
   color: var(--text);
 }
 
 .nav-drop-acts {
+  flex: 0 0 auto;
   display: flex;
   align-items: center;
   gap: 6px;
+  white-space: nowrap;
 }
 
 .nav-drop-act {
@@ -324,15 +331,17 @@ summary {
 
 .nav-drop-store {
   width: auto;
-  padding: 0 12px;
-  border: 1px solid var(--line);
-  border-radius: 10px;
+  height: auto;
+  min-height: 30px;
+  padding: 6px 14px;
+  border: 1px solid transparent;
+  border-radius: 8px;
   background: var(--brand);
   color: var(--brand-ink);
   font-family: var(--font-sans);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: .02em;
+  font-size: 12px;
+  font-weight: 680;
+  letter-spacing: .01em;
   white-space: nowrap;
 }
 
@@ -390,7 +399,7 @@ summary {
   font-size: 14px;
 }
 
-.nav-links a:not(.button) {
+.nav-links a:not(.button):not(.nav-drop-act) {
   padding: 8px 0;
 }
 
@@ -1435,6 +1444,62 @@ summary {
   font-size: 16px;
 }
 
+/* Documentation toolkit selector */
+.docs-toolkit {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.docs-toolkit label {
+  color: var(--quiet);
+  font: 600 11px/1.2 ui-monospace, "SFMono-Regular", Consolas, monospace;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.docs-toolkit-control {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.docs-toolkit-control::after {
+  position: absolute;
+  right: 14px;
+  width: 7px;
+  height: 7px;
+  border-right: 1.5px solid var(--quiet);
+  border-bottom: 1.5px solid var(--quiet);
+  content: "";
+  transform: rotate(45deg) translateY(-2px);
+  pointer-events: none;
+}
+
+.docs-toolkit select {
+  min-height: 40px;
+  padding: 0 38px 0 14px;
+  border: 1px solid var(--line-strong);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  font-size: 14px;
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+}
+
+.docs-toolkit select:hover {
+  border-color: var(--brand-line);
+}
+
+.docs-toolkit-control:hover::after {
+  border-color: var(--text);
+}
+
 .docs-search {
   position: relative;
   max-width: 680px;
@@ -2187,6 +2252,14 @@ tr:last-child td {
 
   .brand-product {
     display: none;
+  }
+
+  .docs-toolkit-control {
+    flex: 1 1 auto;
+  }
+
+  .docs-toolkit select {
+    width: 100%;
   }
 
   .hero {
