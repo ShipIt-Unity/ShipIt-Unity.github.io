@@ -1344,6 +1344,10 @@ body.lp .site-nav {
   top: 0;
   left: 0;
   right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
   border-bottom-color: transparent;
   background: transparent;
   transition: background-color .3s var(--ease-out), border-color .3s var(--ease-out);
@@ -1362,7 +1366,8 @@ body.lp .site-nav {
 }
 
 body.lp .site-nav .shell.nav-inner {
-  width: min(1200px, calc(100% - 32px));
+  width: min(1200px, calc(100% - 32px - 68px));
+  margin-inline: 0;
   min-height: 56px;
   margin-top: 12px;
   margin-bottom: 12px;
@@ -1373,21 +1378,18 @@ body.lp .site-nav .shell.nav-inner {
   padding-inline: 20px;
 }
 
-/* Landing lockup only: the S tile is built into the pill's left end —
-   full height, flush left/top/bottom, square right edge, then SHIPIT.
-   The footer lockup and every other page keep the standalone tile. */
-body.lp .site-nav .brand {
-  margin-left: -20px;
-  align-self: stretch;
-}
-
-body.lp .site-nav .brand-mark {
-  width: 48px;
-  height: auto;
-  flex: 0 0 48px;
-  align-self: stretch;
-  border-radius: 15px 0 0 15px;
-  background-size: auto 48%;
+/* Landing lockup: the S is its own rounded square floating beside the
+   pill, vertically aligned with it (same 56px height, same 12px top
+   offset). The pill's interior brand is text-only. The footer lockup
+   and every other page keep the inline tile. */
+body.lp .site-nav .nav-mark {
+  flex: 0 0 56px;
+  width: 56px;
+  height: 56px;
+  margin: 12px 0;
+  border-radius: 16px;
+  background: #F6F1E7 url("assets/brand/shipit-mark.svg") center / 48% no-repeat;
+  box-shadow: var(--shadow-card);
 }
 
 body.lp .lp-footer-brand-name { font-size: 26px; }
@@ -1846,8 +1848,8 @@ body.lp .lp-hero { padding-top: 128px; }
 }
 
 @media (max-width: 720px) {
-  body.lp .site-nav .shell.nav-inner { width: calc(100% - 24px); margin-top: 8px; }
-  body.lp .site-nav .brand-mark { width: 44px; flex: 0 0 44px; }
+  body.lp .site-nav .shell.nav-inner { width: calc(100% - 24px - 72px); margin-top: 8px; }
+  body.lp .site-nav .nav-mark { flex: 0 0 60px; width: 60px; height: 60px; margin-top: 8px; }
   body.lp .lp-hero { padding-top: 110px; }
   .lp-story-arrows { display: none; }
   .lp-plan { padding: 28px; }
