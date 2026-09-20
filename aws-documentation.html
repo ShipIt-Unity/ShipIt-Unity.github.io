@@ -56,7 +56,7 @@
 
 <header class="docs-hero">
   <div class="shell">
-    <div class="eyebrow">v0.34.0 · Unity 2022.3 LTS and Unity 6</div>
+    <div class="eyebrow">v0.35.0 · Unity 2022.3 LTS and Unity 6</div>
     <h1>AWS Toolkit <span class="gradient-text">documentation.</span></h1>
     <p>Install the package, stand up a real AWS backend, call every service, and recognise the errors the toolkit actually throws.</p>
     <div class="docs-search">
@@ -96,7 +96,7 @@
         <a href="#ui">Drop-in panels</a>
         <a href="#game">Game systems</a>
         <a href="#offline">Offline queue</a>
-        <a href="#ui">Drop-in UI panels</a>
+        <a href="#ugui">Drop-in UI panels</a>
         <h4>Reference</h4>
         <a href="#webgl">WebGL &amp; platforms</a>
         <a href="#iam">IAM &amp; security</a>
@@ -202,7 +202,7 @@ await aws.Auth.RestoreSessionAsync();</code></pre>
           <tr><td><code>aws_create_settings</code> · <code>aws_release_check</code> · <code>aws_export_package</code></td><td>Settings-asset creation, the release gate and the store export.</td></tr>
         </table>
       </div>
-      <p>Mutations are gated: without <code>confirm=true</code> they refuse, and <code>dry_run</code> previews the change. The command assembly is version-guarded — it compiles only when the Pipeline package is present, so Unity 2022.3 projects and runtime players are unaffected.</p>
+      <p>Mutations are gated: without <code>confirm=true</code> they refuse, and <code>dry_run</code> previews the change. The command assembly is version-guarded — it compiles only when the Pipeline package is present, so Unity 2022.3 projects and runtime players are unaffected. The bundled skills can be installed into a project's <code>.claude/skills/</code> folder from <strong>Tools → ShipIt → AWS Toolkit → Install Agent Skills</strong>.</p>
       <div class="note">Live commands use the credentials you already configured — Identity Pool via the settings asset for verification and generation, your AWS CLI profile for deploys. The toolkit never stores long-lived keys.</div>
     </section>
 
@@ -458,7 +458,7 @@ aws.Offline.ClearFailed();</code></pre>
       <p>Transport failures always stop a pass (the client is still offline); only permanent failures are dead-lettered, with the error text attached. The live queue — pending and failed entries with payloads — is visible while the game runs under <strong>AWS Toolkit → Diagnostics</strong>.</p>
     </section>
 
-    <section id="ui">
+    <section id="ugui">
       <h2>Drop-in UI panels</h2>
       <p>Two legacy uGUI panels ship in the runtime assembly. Wire the inspector fields, drop them in a scene, and they run:</p>
       <div class="docs-prereq-grid">
@@ -587,7 +587,7 @@ Debug.Log($"~${estimate.MonthlyTotalUsd:0.00}/month");</code></pre>
               <a data-support-link href="mailto:shipit.unity@gmail.com">Support</a>
       </div>
     </div>
-    <div class="legal"><span>Unity AWS Toolkit v0.34.0 — public preview</span><span>© 2026 ShipIt</span></div>
+    <div class="legal"><span>Unity AWS Toolkit v0.35.0 — public preview</span><span>© 2026 ShipIt</span></div>
   </div>
 </footer>
 </body>
