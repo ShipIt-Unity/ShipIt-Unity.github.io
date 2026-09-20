@@ -13,16 +13,110 @@
   --quiet: #8A8477;
   --brand: #F6F1E7;
   --brand-hover: #FFFDF6;
+  --brand-press: #EFE9DC;
+  --brand-ink: #0B0A08;
   --brand-soft: rgba(246, 241, 231, .11);
   --brand-line: rgba(246, 241, 231, .28);
   --info: #CFC9BC;
   --warning: #D9D2C4;
   --danger: #C9C3B6;
+
+  /* Accent aliases: the landing and product contexts read these */
+  --accent: var(--brand);
+  --accent-hover: var(--brand-hover);
+  --accent-press: var(--brand-press);
+  --accent-soft: var(--brand-soft);
+  --accent-line: var(--brand-line);
+  --accent-ink: var(--brand-ink);
+
+  /* Chrome, glass and grid layers that flip with the theme */
+  --nav-bg: rgba(18, 17, 15, .84);
+  --nav-glass: rgba(18, 17, 15, .72);
+  --pill-bg: rgba(18, 17, 15, .82);
+  --panel-bg: rgba(18, 17, 15, .98);
+  --control-bg: rgba(26, 24, 20, .94);
+  --atmosphere: rgba(246, 241, 231, .08);
+  --grid-ink: rgba(246, 241, 231, .018);
+  --grid-line: rgba(246, 241, 231, .05);
+  --glass-soft: rgba(246, 241, 231, .04);
+  --glass: rgba(246, 241, 231, .08);
+  --glass-strong: rgba(246, 241, 231, .06);
+  --overlay-faint: rgba(246, 241, 231, .02);
+  --overlay-soft: rgba(246, 241, 231, .025);
+  --overlay: rgba(246, 241, 231, .035);
+  --overlay-strong: rgba(246, 241, 231, .015);
+  --overlay-raised: rgba(246, 241, 231, .014);
+
+  /* Reading ink for docs, code and syntax tokens */
+  --ink-2: #BCB6A9;
+  --ink-3: #C4BEB1;
+  --ink-code: #D8D2C5;
+  --gradient-ink: #E8E1D3;
+  --tok-key: #CFC9BC;
+  --tok-string: #D6D0C2;
+  --tok-type: #C4BEB1;
+  --dot: #403C35;
+
+  /* Brand marks: beige tile with the ink S, inverted in light */
+  --mark-bg: #F6F1E7;
+  --mark-svg: url("assets/brand/shipit-mark.svg");
+
   --radius-sm: 8px;
   --radius: 16px;
   --radius-lg: 24px;
   --shadow-card: 0 16px 48px rgba(0, 0, 0, .24);
   --shadow-float: 0 32px 96px rgba(0, 0, 0, .48);
+}
+
+/* Light theme: beige surfaces, off-black ink, accent inverts */
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg: #F6F1E7;
+  --bg-soft: #F1EBDE;
+  --surface: #EFE9DC;
+  --surface-raised: #F9F5EB;
+  --surface-soft: #E8E2D5;
+  --code: #EDE7DA;
+  --line: rgba(18, 17, 15, .14);
+  --line-strong: rgba(18, 17, 15, .26);
+  --text: #12110F;
+  --muted: #5C574D;
+  --quiet: #6E6858;
+  --brand: #12110F;
+  --brand-hover: #2A2721;
+  --brand-press: #3E3A33;
+  --brand-ink: #F6F1E7;
+  --brand-soft: rgba(18, 17, 15, .07);
+  --brand-line: rgba(18, 17, 15, .18);
+  --info: #5C574D;
+  --warning: #8A8477;
+  --danger: #3E3A33;
+  --nav-bg: rgba(246, 241, 231, .84);
+  --nav-glass: rgba(246, 241, 231, .72);
+  --pill-bg: rgba(246, 241, 231, .82);
+  --panel-bg: rgba(246, 241, 231, .98);
+  --control-bg: rgba(246, 241, 231, .94);
+  --atmosphere: rgba(18, 17, 15, .05);
+  --grid-ink: rgba(18, 17, 15, .035);
+  --grid-line: rgba(18, 17, 15, .06);
+  --glass-soft: rgba(18, 17, 15, .05);
+  --glass: rgba(18, 17, 15, .08);
+  --glass-strong: rgba(18, 17, 15, .06);
+  --overlay-faint: rgba(18, 17, 15, .025);
+  --overlay-soft: rgba(18, 17, 15, .03);
+  --overlay: rgba(18, 17, 15, .05);
+  --overlay-strong: rgba(18, 17, 15, .02);
+  --overlay-raised: rgba(18, 17, 15, .02);
+  --ink-2: #3E3A33;
+  --ink-3: #2A2721;
+  --ink-code: #262219;
+  --gradient-ink: #262219;
+  --tok-key: #3E3A33;
+  --tok-string: #5C574D;
+  --tok-type: #403C35;
+  --dot: #C9C3B6;
+  --mark-bg: #12110F;
+  --mark-svg: url("assets/brand/shipit-mark-cream.svg");
 }
 
 * {
@@ -43,7 +137,7 @@ body {
   min-width: 320px;
   color: var(--text);
   background:
-    radial-gradient(circle at 78% 4%, rgba(246, 241, 231, .08), transparent 32rem),
+    radial-gradient(circle at 78% 4%, var(--atmosphere), transparent 32rem),
     linear-gradient(var(--bg), var(--bg));
   font-family: "Instrument Sans", Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   font-size: 16px;
@@ -60,8 +154,8 @@ body::before {
   pointer-events: none;
   opacity: .22;
   background-image:
-    linear-gradient(rgba(246, 241, 231, .018) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(246, 241, 231, .018) 1px, transparent 1px);
+    linear-gradient(var(--grid-ink) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-ink) 1px, transparent 1px);
   background-size: 64px 64px;
   mask-image: linear-gradient(to bottom, black, transparent 72%);
 }
@@ -119,7 +213,7 @@ summary {
   top: 0;
   z-index: 40;
   border-bottom: 1px solid var(--line);
-  background: rgba(18, 17, 15, .84);
+  background: var(--nav-bg);
   backdrop-filter: blur(20px);
 }
 
@@ -147,7 +241,7 @@ summary {
   width: 34px;
   height: 34px;
   flex: 0 0 34px;
-  background: #F6F1E7 url("assets/brand/shipit-mark.svg") center / 56% no-repeat;
+  background: var(--mark-bg) var(--mark-svg) center / 56% no-repeat;
   border-radius: 11px 0 0 11px;
 }
 
@@ -171,6 +265,43 @@ summary {
 
 .nav-links a[aria-current="page"] {
   color: var(--text);
+}
+
+/* Theme toggle: quiet icon button in the nav and mobile panel */
+.theme-toggle {
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  transition: border-color .16s ease, color .16s ease;
+}
+
+.theme-toggle:hover {
+  border-color: var(--brand-line);
+  color: var(--text);
+}
+
+.theme-toggle svg {
+  display: block;
+}
+
+.theme-toggle .icon-sun {
+  display: none;
+}
+
+:root[data-theme="light"] .theme-toggle .icon-moon {
+  display: none;
+}
+
+:root[data-theme="light"] .theme-toggle .icon-sun {
+  display: block;
 }
 
 .mobile-nav {
@@ -215,7 +346,7 @@ summary {
   padding: 8px;
   border: 1px solid var(--line-strong);
   border-radius: 12px;
-  background: rgba(18, 17, 15, .98);
+  background: var(--panel-bg);
   box-shadow: var(--shadow-float);
 }
 
@@ -249,7 +380,7 @@ summary {
   border: 1px solid transparent;
   border-radius: var(--radius-sm);
   background: var(--brand);
-  color: #0B0A08;
+  color: var(--brand-ink);
   font: inherit;
   font-size: 14px;
   font-weight: 760;
@@ -258,14 +389,14 @@ summary {
 }
 
 .button:hover {
-  color: #0B0A08;
+  color: var(--brand-ink);
   background: var(--brand-hover);
   transform: translateY(-1px);
 }
 
 .button:active {
   transform: translateY(0);
-  background: #EFE9DC;
+  background: var(--brand-press);
 }
 
 .button[disabled],
@@ -277,17 +408,17 @@ summary {
 
 .button.secondary {
   border-color: var(--line-strong);
-  background: rgba(246, 241, 231, .04);
+  background: var(--glass-soft);
   color: var(--text);
 }
 
 .button.secondary:hover {
-  background: rgba(246, 241, 231, .08);
+  background: var(--glass);
   color: var(--text);
 }
 
 .button.secondary:active {
-  background: rgba(246, 241, 231, .06);
+  background: var(--glass-strong);
 }
 
 .button.small {
@@ -346,7 +477,7 @@ summary {
 }
 
 .gradient-text {
-  color: #E8E1D3;
+  color: var(--gradient-ink);
 }
 
 .hero-copy {
@@ -415,7 +546,7 @@ summary {
 
 .proof-strip {
   border-block: 1px solid var(--line);
-  background: rgba(246, 241, 231, .015);
+  background: var(--overlay-strong);
 }
 
 .proof-grid {
@@ -461,7 +592,7 @@ summary {
 }
 
 .section-tinted {
-  background: rgba(246, 241, 231, .014);
+  background: var(--overlay-raised);
 }
 
 .section-label {
@@ -500,7 +631,7 @@ summary {
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background:
-    linear-gradient(135deg, rgba(246, 241, 231, .08), transparent 56%),
+    linear-gradient(135deg, var(--glass), transparent 56%),
     var(--surface);
   box-shadow: var(--shadow-card);
 }
@@ -544,7 +675,7 @@ summary {
 
 .muted-checks li::before {
   border-color: var(--line-strong);
-  background: rgba(246, 241, 231, .035);
+  background: var(--overlay);
   color: var(--quiet);
   content: "–";
 }
@@ -586,7 +717,7 @@ summary {
   border: 1px solid var(--line);
   border-radius: var(--radius-sm);
   background: var(--code);
-  color: #C1BBAE;
+  color: var(--ink-2);
   font: 12px/1.65 ui-monospace, "SFMono-Regular", Consolas, monospace;
 }
 
@@ -697,8 +828,8 @@ summary {
   padding: 6px 10px;
   border: 1px solid var(--line);
   border-radius: 999px;
-  background: rgba(246, 241, 231, .025);
-  color: #BAB4A7;
+  background: var(--overlay-soft);
+  color: var(--muted);
   font-size: 11px;
 }
 
@@ -801,7 +932,7 @@ summary {
   padding: 22px;
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  background: rgba(246, 241, 231, .02);
+  background: var(--overlay-faint);
 }
 
 .compatibility-panel strong {
@@ -866,7 +997,7 @@ summary {
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: #403C35;
+  background: var(--dot);
 }
 
 .window-title {
@@ -883,15 +1014,15 @@ summary {
 }
 
 .tok-key {
-  color: #CFC9BC;
+  color: var(--tok-key);
 }
 
 .tok-string {
-  color: #D6D0C2;
+  color: var(--tok-string);
 }
 
 .tok-type {
-  color: #C4BEB1;
+  color: var(--ink-3);
 }
 
 .cta-panel {
@@ -900,7 +1031,7 @@ summary {
   padding: 56px;
   border: 1px solid var(--brand-line);
   border-radius: var(--radius-lg);
-  background: linear-gradient(135deg, var(--brand-soft), rgba(246, 241, 231, .02));
+  background: linear-gradient(135deg, var(--brand-soft), var(--overlay-faint));
 }
 
 .cta-panel h2 {
@@ -1230,7 +1361,7 @@ summary {
   padding: 8px;
   border: 1px solid var(--line-strong);
   border-radius: 10px;
-  background: rgba(18, 17, 15, .98);
+  background: var(--panel-bg);
   box-shadow: var(--shadow-float);
 }
 
@@ -1267,8 +1398,8 @@ summary {
   padding: 7px 12px;
   border: 1px solid var(--line);
   border-radius: 999px;
-  background: rgba(246, 241, 231, .025);
-  color: #BEB8AB;
+  background: var(--overlay-soft);
+  color: var(--ink-2);
   font-size: 12px;
 }
 
@@ -1397,7 +1528,7 @@ summary {
 
 .doc-page p,
 .doc-page li {
-  color: #BCB6A9;
+  color: var(--ink-2);
 }
 
 .doc-page p {
@@ -1429,7 +1560,7 @@ td code {
   border: 1px solid var(--line);
   border-radius: 6px;
   background: var(--surface-raised);
-  color: #D8D2C5;
+  color: var(--ink-code);
   font-size: .86em;
 }
 
@@ -1441,7 +1572,7 @@ pre {
   border: 1px solid var(--line);
   border-radius: 12px;
   background: var(--code);
-  color: #C4BEB1;
+  color: var(--ink-3);
   font-size: 13px;
   line-height: 1.7;
 }
@@ -1554,7 +1685,7 @@ tr:last-child td {
   padding: 0 12px;
   border: 1px solid var(--line-strong);
   border-radius: var(--radius-sm);
-  background: rgba(26, 24, 20, .94);
+  background: var(--control-bg);
   color: var(--muted);
   font: 700 11px/1 ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   cursor: pointer;
@@ -1697,7 +1828,7 @@ tr:last-child td {
   border: 1px solid var(--brand-line);
   border-radius: 12px;
   background: var(--brand-soft);
-  color: #C9C3B6;
+  color: var(--ink-2);
 }
 
 .error-page {

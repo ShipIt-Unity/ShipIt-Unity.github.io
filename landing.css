@@ -4,40 +4,19 @@
    New classes are prefixed lp-; overrides of shared components
    (.button, .decision-card, .cta-panel and the hero accent word)
    are scoped to this page and documented below.
-   Accent architecture: the umbrella is neutral; .ctx-product
-   re-declares the six --accent* tokens for the toolkit.
+   Accent architecture: the palette is monochrome, so the accent
+   tokens in styles.css :root serve every context, and its
+   [data-theme="light"] block flips them for the light theme.
    Section layouts mirror the reference site one-to-one; content,
    copy and figures stay ours.
    ============================================================ */
 
 /* ------------------------------------------------------------
-   Accent architecture (BRAND.md section 5)
-   Umbrella = neutral. The five --accent* tokens are the only
-   place a product colour is declared; one context class swaps
-   them and every accent-dependent rule follows.
-
-   The shared components in styles.css still consume the legacy
-   --brand* names, so this page re-points those aliases — but as
-   explicit values, not `var(--accent)`: custom properties resolve
-   var() at computed-value time, so a chain would never follow a
-   descendant's context override. Each context therefore declares
-   the five accent tokens plus the four legacy aliases.
+   Landing-only tokens. The --accent* / --brand* families come
+   from styles.css :root so they follow the theme; this page only
+   adds timing, display-scale and page-local ink.
    ------------------------------------------------------------ */
 :root {
-  /* Umbrella (studio neutral) */
-  --accent: #F6F1E7;
-  --accent-hover: #FFFDF6;
-  --accent-press: #E8E2D5;
-  --accent-soft: rgba(246, 241, 231, .11);
-  --accent-line: rgba(246, 241, 231, .28);
-  --accent-ink: #12110F;
-
-  /* Legacy aliases, same values */
-  --brand: #F6F1E7;
-  --brand-hover: #FFFDF6;
-  --brand-soft: rgba(246, 241, 231, .11);
-  --brand-line: rgba(246, 241, 231, .28);
-
   /* Shared hover timing and lift shadow for cards */
   --lp-hover-time: .22s;
   --lp-hover-shadow: 0 24px 60px -34px rgba(0, 0, 0, .7);
@@ -58,21 +37,6 @@
   /* Low-emphasis ink for the metrics numerals: large text, so the
      contrast floor is 3:1, and it measures 3.8:1 on --code. */
   --lp-metric-ink: rgba(246, 241, 231, .42);
-}
-
-/* Unity Supabase Toolkit — product context */
-.ctx-product {
-  --accent: #F6F1E7;
-  --accent-hover: #FFFDF6;
-  --accent-press: #EFE9DC;
-  --accent-soft: rgba(246, 241, 231, .11);
-  --accent-line: rgba(246, 241, 231, .28);
-  --accent-ink: #0B0A08;
-
-  --brand: #F6F1E7;
-  --brand-hover: #FFFDF6;
-  --brand-soft: rgba(246, 241, 231, .11);
-  --brand-line: rgba(246, 241, 231, .28);
 }
 
 /* ------------------------------------------------------------
@@ -882,7 +846,7 @@
   padding: 22px;
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  background: rgba(246, 241, 231, .02);
+  background: var(--overlay-faint);
 }
 
 .lp-fact span {
@@ -961,8 +925,8 @@
   padding: 6px 10px;
   border: 1px solid var(--line);
   border-radius: 999px;
-  background: rgba(246, 241, 231, .025);
-  color: #BAB4A7;
+  background: var(--overlay-soft);
+  color: var(--muted);
   font-size: 12px;
   line-height: 1.4;
 }
@@ -1357,7 +1321,7 @@ body.lp .site-nav .nav-inner {
 }
 
 body.lp .site-nav {
-  background: rgba(18, 17, 15, .72);
+  background: var(--nav-glass);
   border-bottom-color: var(--line);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
@@ -1371,7 +1335,7 @@ body.lp .site-nav .shell.nav-inner {
   margin-bottom: 12px;
   border: 1px solid var(--line);
   border-radius: 16px;
-  background: rgba(18, 17, 15, .82);
+  background: var(--pill-bg);
   box-shadow: var(--shadow-card);
   padding-inline: 20px;
 }
@@ -1386,7 +1350,7 @@ body.lp .site-nav .nav-mark {
   height: 56px;
   margin: 12px 0;
   border-radius: 16px;
-  background: #F6F1E7 url("assets/brand/shipit-mark.svg") center / 48% no-repeat;
+  background: var(--mark-bg) var(--mark-svg) center / 48% no-repeat;
   box-shadow: var(--shadow-card);
 }
 
@@ -1427,8 +1391,8 @@ body.lp .lp-hero { padding-top: 128px; }
   pointer-events: none;
   opacity: .5;
   background-image:
-    linear-gradient(rgba(246, 241, 231, .05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(246, 241, 231, .05) 1px, transparent 1px);
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
   background-size: 12.5% 100%, 8.333% 100%;
   mask-image: linear-gradient(to bottom, black 30%, transparent 90%);
   -webkit-mask-image: linear-gradient(to bottom, black 30%, transparent 90%);
@@ -1522,7 +1486,7 @@ body.lp .lp-hero { padding-top: 128px; }
   place-items: center;
   border: 1px solid var(--line-strong);
   border-radius: 10px;
-  background: rgba(246, 241, 231, .02);
+  background: var(--overlay-faint);
   font-family: var(--font-mono);
   font-size: 11px;
   font-weight: 700;
@@ -1876,4 +1840,48 @@ body.lp .cta-panel {
 
 body.lp .decision-card {
   background: var(--surface);
+}
+
+/* ============================================================
+   Light theme (index only) — the hero mesh, the inverted story
+   band and the page-local inks flip to their beige / off-black
+   counterparts. Everything else follows the styles.css tokens.
+   ============================================================ */
+:root[data-theme="light"] {
+  /* Low-emphasis numerals: large text, so the floor is 3:1. */
+  --lp-metric-ink: rgba(18, 17, 15, .45);
+}
+
+/* The hero surface is var(--bg) and flips on its own; only the
+   dark shade needs a beige counterpart. */
+:root[data-theme="light"] .lp-hero-shade {
+  background:
+    radial-gradient(92% 72% at 14% 96%, var(--code) 0%, rgba(237, 231, 218, .88) 42%, rgba(237, 231, 218, 0) 78%),
+    linear-gradient(180deg, rgba(237, 231, 218, 0) 58%, rgba(237, 231, 218, .96) 100%),
+    radial-gradient(118% 96% at 70% 34%, rgba(237, 231, 218, 0) 55%, rgba(237, 231, 218, .55) 100%);
+}
+
+/* The story band is inverted in dark — keep it inverted here too */
+:root[data-theme="light"] .lp-stories {
+  --text: #F6F1E7;
+  --muted: #B8B2A5;
+  --quiet: #8A8477;
+  --line: rgba(246, 241, 231, .14);
+  --line-strong: rgba(246, 241, 231, .26);
+  background: #171510;
+}
+
+:root[data-theme="light"] .lp-stories .section-label { color: #F6F1E7; }
+:root[data-theme="light"] .lp-stories .section-label::before { background: #F6F1E7; }
+:root[data-theme="light"] .lp-story-arrow:hover { background: rgba(246, 241, 231, .08); }
+:root[data-theme="light"] .lp-quote-mark { color: rgba(246, 241, 231, .16); }
+:root[data-theme="light"] .lp-story-avatar { background: rgba(246, 241, 231, .1); }
+:root[data-theme="light"] .lp-story-metric { background: rgba(246, 241, 231, .05); }
+:root[data-theme="light"] .lp-story-progress button { background: rgba(246, 241, 231, .22); }
+:root[data-theme="light"] .lp-story-progress button > span { background: #F6F1E7; }
+
+:root[data-theme="light"] .lp-banner::after {
+  background:
+    linear-gradient(to bottom, transparent 30%, var(--bg) 100%),
+    linear-gradient(to right, rgba(246, 241, 231, .55), transparent 30%, transparent 70%, rgba(246, 241, 231, .55));
 }

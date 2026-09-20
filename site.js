@@ -42,6 +42,42 @@ document.querySelectorAll(".mobile-nav a").forEach(link => {
   });
 });
 
+// Theme: dark by default, beige light on request. The choice is remembered
+// in localStorage and mirrored on the toggle buttons and theme-color meta.
+(function () {
+  try {
+    const STORAGE_KEY = "shipit-theme";
+    const root = document.documentElement;
+    const meta = document.querySelector('meta[name="theme-color"]');
+    const buttons = document.querySelectorAll("[data-theme-toggle]");
+
+    const isLight = () => root.getAttribute("data-theme") === "light";
+
+    const paint = () => {
+      const light = isLight();
+      buttons.forEach(button => {
+        button.setAttribute("aria-pressed", light ? "true" : "false");
+        button.setAttribute("aria-label", light ? "Switch to dark mode" : "Switch to light mode");
+      });
+      if (meta) meta.setAttribute("content", light ? "#F6F1E7" : "#12110F");
+    };
+
+    paint();
+
+    buttons.forEach(button => {
+      button.addEventListener("click", () => {
+        try {
+          const next = isLight() ? "dark" : "light";
+          if (next === "light") root.setAttribute("data-theme", "light");
+          else root.removeAttribute("data-theme");
+          localStorage.setItem(STORAGE_KEY, next);
+        } catch (error) { /* keep the current theme */ }
+        try { paint(); } catch (error) { /* labels stay as they are */ }
+      });
+    });
+  } catch (error) { /* the head script's choice stays */ }
+})();
+
 document.addEventListener("keydown", event => {
   if (event.key !== "Escape") return;
   document.querySelectorAll(".mobile-nav[open]").forEach(menu => {

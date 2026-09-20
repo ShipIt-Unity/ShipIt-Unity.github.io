@@ -19,26 +19,14 @@
      rule 7): the mark is not an accent.
    ============================================================ */
 
-:root {
-  /* Umbrella (studio neutral) */
-  --accent: #F6F1E7;
-  --accent-hover: #FFFDF6;
-  --accent-press: #E8E2D5;
-  --accent-soft: rgba(246, 241, 231, .11);
-  --accent-line: rgba(246, 241, 231, .28);
-  --accent-ink: #12110F;
-
-  /* Legacy aliases, same values */
-  --brand: #F6F1E7;
-  --brand-hover: #FFFDF6;
-  --brand-soft: rgba(246, 241, 231, .11);
-  --brand-line: rgba(246, 241, 231, .28);
-}
+/* The accent and legacy alias families now live in styles.css :root,
+   where the [data-theme="light"] block flips them with the theme — so
+   this file needs no declarations of its own. */
 
 /* The radial atmosphere is an accent decoration: neutral here. */
 body {
   background:
-    radial-gradient(circle at 78% 4%, rgba(246, 241, 231, .08), transparent 32rem),
+    radial-gradient(circle at 78% 4%, var(--atmosphere), transparent 32rem),
     linear-gradient(var(--bg), var(--bg));
 }
 

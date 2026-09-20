@@ -8,27 +8,22 @@
    buttons and the documentation sidebar. Two things follow the
    umbrella instead:
 
-   1. Global chrome. The top nav and the footer adopt the neutral
-      studio family, matching privacy.html and 404.html. The
-      family is declared explicitly on the chrome scopes rather
-      than as `--brand: var(--accent)` chains: custom properties
-      resolve var() at computed-value time, so a chain would not
-      follow the override.
+   1. Global chrome. The top nav and the footer use the neutral
+      studio accent, matching privacy.html and 404.html. Both
+      contexts share the single monochrome family in styles.css
+      :root, which the [data-theme="light"] block flips, so the
+      chrome needs no declarations of its own.
    2. Headings. Hero headings are solid; the accent never fills a
       heading. `.gradient-text` inherits the heading colour
       instead of painting itself in the accent.
 
-   The shared primary button also gains the sixth accent token,
-   with the accent value these pages already used (#EFE9DC).
+   The shared primary button uses the sixth accent token
+   (--accent-press) from styles.css :root.
 
    Apart from the scoped release-row list repair at the end of
    this file, every rule here changes colour only: no geometry,
    so no layout shift is possible from the language pass.
    ============================================================ */
-
-:root {
-  --accent-press: #EFE9DC;
-}
 
 /* Content buttons keep the product accent, including the press state */
 .button:active {
@@ -38,23 +33,6 @@
 /* ------------------------------------------------------------
    Global chrome — umbrella (studio neutral)
    ------------------------------------------------------------ */
-.site-nav,
-.site-footer {
-  /* Umbrella accent family */
-  --accent: #F6F1E7;
-  --accent-hover: #FFFDF6;
-  --accent-press: #E8E2D5;
-  --accent-soft: rgba(246, 241, 231, .11);
-  --accent-line: rgba(246, 241, 231, .28);
-  --accent-ink: #12110F;
-
-  /* Legacy aliases, same values */
-  --brand: #F6F1E7;
-  --brand-hover: #FFFDF6;
-  --brand-soft: rgba(246, 241, 231, .11);
-  --brand-line: rgba(246, 241, 231, .28);
-}
-
 /* Scoped to the nav containers and the footer so the rule outranks
    `.nav-links a[aria-current="page"]` (0,2,1) and keeps the button
    label readable even when the store CTA is marked as current. */
