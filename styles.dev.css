@@ -147,9 +147,7 @@ summary {
   width: 32px;
   height: 32px;
   flex: 0 0 32px;
-  border-radius: var(--radius-sm);
-  background: #F6F1E7 url("assets/brand/shipit-mark.svg") center / 100% no-repeat;
-  box-shadow: 0 8px 24px rgba(246, 241, 231, .12);
+  background: url("assets/brand/shipit-mark-cream.svg") center / 100% no-repeat;
 }
 
 .brand-product {
@@ -2166,5 +2164,5 @@ tr:last-child td {
   font-family: "Cubao Wide", var(--font-sans, sans-serif);
   font-weight: 400;
   font-variation-settings: "wdth" 177.27;
-  letter-spacing: -.05em;
+  letter-spacing: -.02em;
 }
