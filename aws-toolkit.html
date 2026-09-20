@@ -18,8 +18,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
 <script>try{if(localStorage.getItem("shipit-theme")==="light")document.documentElement.setAttribute("data-theme","light")}catch(e){}</script>
-<link rel="stylesheet" href="styles.css?v=20260938" />
-<link rel="stylesheet" href="accent-product.css?v=20260938" />
+<link rel="stylesheet" href="styles.css?v=20260939" />
+<link rel="stylesheet" href="accent-product.css?v=20260939" />
 <script src="site-config.js" defer></script>
 <script src="site.js" defer></script>
 </head>
@@ -30,32 +30,49 @@
   <div class="shell nav-inner">
     <a class="brand" href="index.html" aria-label="ShipIt home"><span>SHIPIT</span></a>
     <div class="nav-links">
-      <a href="index.html">Overview</a>
-      <a href="documentation.html">Supabase docs</a>
-      <a href="aws-toolkit.html" aria-current="page">AWS Toolkit</a>
-      <a href="aws-documentation.html">AWS docs</a>
+      <div class="nav-drop">
+        <a href="index.html#toolkits">Toolkits</a>
+        <div class="nav-drop-panel">
+          <div class="nav-drop-row">
+            <span class="nav-drop-name">Unity Supabase Toolkit</span>
+            <span class="nav-drop-acts">
+              <a class="nav-drop-act nav-drop-store" data-store-link href="store.html" aria-label="Unity Supabase Toolkit on the Unity Asset Store">Unity Asset Store</a>
+              <a class="nav-drop-act" href="documentation.html" aria-label="Supabase Toolkit documentation"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><path d="M4.2 2.2h4.9l3 3v8.6H4.2Z" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M9.1 2.2v3h3M6.3 8.4h3.6M6.3 10.8h3.6" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg></a>
+            </span>
+          </div>
+          <div class="nav-drop-row">
+            <span class="nav-drop-name">Unity AWS Toolkit</span>
+            <span class="nav-drop-acts">
+              <a class="nav-drop-act" href="aws-documentation.html" aria-label="AWS Toolkit documentation"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><path d="M4.2 2.2h4.9l3 3v8.6H4.2Z" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M9.1 2.2v3h3M6.3 8.4h3.6M6.3 10.8h3.6" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg></a>
+            </span>
+          </div>
+          <div class="nav-drop-row">
+            <span class="nav-drop-name">Unity Firebase Toolkit</span>
+            <span class="nav-drop-soon">Soon</span>
+          </div>
+        </div>
+      </div>
+      <a href="documentation.html">Documentation</a>
       <a href="updates.html">Updates</a>
-      <a href="live-ops.html">Live-Ops</a>
-      <a href="privacy.html">Privacy</a>
-            <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to light mode" aria-pressed="false"><svg class="icon-moon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg><svg class="icon-sun" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6 7 7M17 17l1.4 1.4M18.4 5.6 17 7M7 17l-1.4 1.4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
-            <a data-support-link href="mailto:shipit.unity@gmail.com">Support</a>
+      <a data-support-link href="mailto:shipit.unity@gmail.com">Support</a>
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to light mode" aria-pressed="false"><svg class="icon-moon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg><svg class="icon-sun" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6 7 7M17 17l1.4 1.4M18.4 5.6 17 7M7 17l-1.4 1.4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
       <a class="button small" data-store-link href="store.html"><span data-store-label>Asset Store listing</span></a>
-    </div>
-    <details class="mobile-nav">
+    </div><details class="mobile-nav">
       <summary>Menu</summary>
       <div class="mobile-nav-panel">
+        <a href="index.html#toolkits">Toolkits</a>
+        <a href="documentation.html">Documentation</a>
+        <a href="updates.html">Updates</a>
+        <a data-support-link href="mailto:shipit.unity@gmail.com">Email support</a>
         <a href="index.html">Overview</a>
-        <a href="documentation.html">Supabase docs</a>
         <a href="aws-toolkit.html" aria-current="page">AWS Toolkit</a>
         <a href="aws-documentation.html">AWS docs</a>
-        <a href="updates.html">Updates</a>
         <a href="live-ops.html">Live-Ops</a>
         <a href="privacy.html">Privacy</a>
-                <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to light mode" aria-pressed="false"><svg class="icon-moon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg><svg class="icon-sun" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6 7 7M17 17l1.4 1.4M18.4 5.6 17 7M7 17l-1.4 1.4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
-                <a data-support-link href="mailto:shipit.unity@gmail.com">Email support</a>
+        <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to light mode" aria-pressed="false"><svg class="icon-moon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg><svg class="icon-sun" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6 7 7M17 17l1.4 1.4M18.4 5.6 17 7M7 17l-1.4 1.4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
         <a class="button" data-store-link href="store.html"><span data-store-label>Asset Store listing</span></a>
       </div>
-    </details>
+</details>
   </div>
 </nav>
 
