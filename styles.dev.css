@@ -2306,3 +2306,10 @@ tr:last-child td {
   font-variation-settings: "wdth" 177.27;
   letter-spacing: -.02em;
 }
+
+/* Nav crowding guard: single-line chrome */
+.brand,
+.nav-links,
+.button {
+  white-space: nowrap;
+}
