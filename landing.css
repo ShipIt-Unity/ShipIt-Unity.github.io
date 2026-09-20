@@ -566,7 +566,7 @@
 @media (hover: hover) and (pointer: fine) {
   .lp-card,
   .lp-step {
-    transition: transform var(--lp-hover-time) var(--ease-out), border-color var(--lp-hover-time) var(--ease-out), box-shadow var(--lp-hover-time) var(--ease-out);
+    transition: transform var(--lp-hover-time) var(--ease-out), border-color var(--lp-hover-time) var(--ease-out);
   }
   .lp-card:hover,
   .lp-step:hover {
