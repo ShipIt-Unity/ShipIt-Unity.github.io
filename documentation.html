@@ -222,12 +222,6 @@ var members = await db.From&lt;GuildMemberRow&gt;("guild_members")
     .ExecuteAsync();</code></pre>
       <div class="note"><strong>Update</strong> and <strong>Delete</strong> require a <code>.Where(...)</code>
         filter — the toolkit refuses to mutate the whole table by accident.</div>
-      <figure class="doc-figure">
-        <a class="doc-figure-link" href="assets/toolkit-database.png" target="_blank" rel="noopener" aria-label="Open the Database playground screenshot at full size">
-          <img src="assets/toolkit-database.png" width="1400" height="955" loading="lazy" alt="Database query playground inside the Unity Editor" />
-        </a>
-        <figcaption><span>Build a query, inspect its URL and review the response without leaving Unity.</span><span>Open full size ↗</span></figcaption>
-      </figure>
     </section>
 
     <section id="realtime">
@@ -247,12 +241,6 @@ var priv = SupabaseClient.Instance.Realtime.Channel("room:42", isPrivate: true);
 await priv.SubscribeAsync();</code></pre>
       <p class="muted">The client reconnects with bounded exponential backoff, rejoins known channels and pushes refreshed
         session tokens to private channels automatically. WebGL uses the browser's native WebSocket.</p>
-      <figure class="doc-figure">
-        <a class="doc-figure-link" href="assets/toolkit-realtime.png" target="_blank" rel="noopener" aria-label="Open the Realtime workspace screenshot at full size">
-          <img src="assets/toolkit-realtime.png" width="1400" height="955" loading="lazy" alt="Realtime channel workspace inside the Unity Editor" />
-        </a>
-        <figcaption><span>Exercise Postgres changes, broadcast and presence while watching connection health.</span><span>Open full size ↗</span></figcaption>
-      </figure>
     </section>
 
     <section id="storage">
@@ -307,12 +295,6 @@ var rows = await SupabaseClient.Instance.Rpc
         <tr><td>AI</td><td>Semantic Search (pgvector)</td></tr>
         <tr><td>Security</td><td>Realtime Authorization (private channels), Rate Limiting / Abuse Guard, Idempotency Keys, Audit Log / Admin Action Trail</td></tr>
       </table>
-      <figure class="doc-figure">
-        <a class="doc-figure-link" href="assets/toolkit-game-patterns.png" target="_blank" rel="noopener" aria-label="Open the Game Patterns screenshot at full size">
-          <img src="assets/toolkit-game-patterns.png" width="1400" height="955" loading="lazy" alt="Game backend patterns inside the Unity Supabase Toolkit" />
-        </a>
-        <figcaption><span>The package includes grounded implementation patterns for the systems the backend packs create.</span><span>Open full size ↗</span></figcaption>
-      </figure>
     </section>
 
     <section id="provision">
