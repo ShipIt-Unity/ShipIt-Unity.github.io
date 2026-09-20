@@ -367,7 +367,7 @@ summary {
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 16px;
+  gap: 20px;
   color: var(--text);
   font-weight: 700;
   letter-spacing: -.02em;
