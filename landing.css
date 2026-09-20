@@ -1373,6 +1373,23 @@ body.lp .site-nav .shell.nav-inner {
   padding-inline: 20px;
 }
 
+/* Landing lockup only: the S tile is built into the pill's left end —
+   full height, flush left/top/bottom, square right edge, then SHIPIT.
+   The footer lockup and every other page keep the standalone tile. */
+body.lp .site-nav .brand {
+  margin-left: -20px;
+  align-self: stretch;
+}
+
+body.lp .site-nav .brand-mark {
+  width: 48px;
+  height: auto;
+  flex: 0 0 48px;
+  align-self: stretch;
+  border-radius: 15px 0 0 15px;
+  background-size: auto 48%;
+}
+
 body.lp .lp-footer-brand-name { font-size: 26px; }
 
 body.lp .lp-brand-sub {
@@ -1830,6 +1847,7 @@ body.lp .lp-hero { padding-top: 128px; }
 
 @media (max-width: 720px) {
   body.lp .site-nav .shell.nav-inner { width: calc(100% - 24px); margin-top: 8px; }
+  body.lp .site-nav .brand-mark { width: 44px; flex: 0 0 44px; }
   body.lp .lp-hero { padding-top: 110px; }
   .lp-story-arrows { display: none; }
   .lp-plan { padding: 28px; }
