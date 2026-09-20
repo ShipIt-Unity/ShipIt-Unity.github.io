@@ -458,52 +458,6 @@ channel.OnUpdate&lt;<span class="tok-type">PlayerProfile</span>&gt;(Render);
       </div>
     </section>
 
-    <!-- 10 · Stories (testimonials port: use-case field notes) -->
-    <section class="section lp-stories" id="stories" aria-labelledby="stories-title">
-      <div class="shell">
-        <div class="lp-stories-head">
-          <div>
-            <span class="section-label">Field notes</span>
-            <h2 class="section-heading" id="stories-title" style="margin-top:16px">Built for games<br />that stay up.</h2>
-          </div>
-          <div class="lp-story-arrows">
-            <button class="lp-story-arrow" type="button" data-story-prev aria-label="Previous note">←</button>
-            <button class="lp-story-arrow" type="button" data-story-next aria-label="Next note">→</button>
-          </div>
-        </div>
-        <div class="lp-stories-grid">
-          <div>
-            <span class="lp-quote-mark" aria-hidden="true">&ldquo;</span>
-            <blockquote class="lp-quote" id="story-quote" aria-live="polite">Authentication that survives review — OAuth PKCE, MFA and session restore are handled, not hand-rolled.</blockquote>
-            <div class="lp-story-author">
-              <span class="lp-story-avatar" id="story-avatar" aria-hidden="true">A</span>
-              <div><strong id="story-context">Authentication pack</strong><span>Unity Supabase Toolkit</span></div>
-            </div>
-          </div>
-          <div class="lp-story-side">
-            <div class="lp-story-metric">
-              <span class="lp-story-metric-value" id="story-metric-value">9</span>
-              <span class="lp-story-metric-label" id="story-metric-label">auth methods</span>
-            </div>
-            <div class="lp-story-progress" role="tablist" aria-label="Choose a note">
-              <button type="button" role="tab" aria-label="Note 1" data-story-go="0"><span></span></button>
-              <button type="button" role="tab" aria-label="Note 2" data-story-go="1"><span></span></button>
-              <button type="button" role="tab" aria-label="Note 3" data-story-go="2"><span></span></button>
-              <button type="button" role="tab" aria-label="Note 4" data-story-go="3"><span></span></button>
-            </div>
-            <span class="lp-story-kicker">Tracks</span>
-            <div class="lp-story-list">
-              <button class="lp-story-chip is-active" type="button" data-story-go="0">Authentication</button>
-              <button class="lp-story-chip" type="button" data-story-go="1">Economy</button>
-              <button class="lp-story-chip" type="button" data-story-go="2">Live-ops</button>
-              <button class="lp-story-chip" type="button" data-story-go="3">Editor tooling</button>
-            </div>
-            <span class="lp-story-progress-note">ONE PACKAGE · FULL C# SOURCE</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- 11 · Pricing -->
     <section class="section lp-deep" id="pricing" aria-labelledby="pricing-title">
       <div class="shell">
@@ -626,12 +580,11 @@ channel.OnUpdate&lt;<span class="tok-type">PlayerProfile</span>&gt;(Render);
   </footer>
 
   <script>
-    /* Index-only interactions: hero word rotation, stories carousel,
+    /* Index-only interactions: hero word rotation,
        CTA spotlight. All guarded; the page reads fine without them. */
     (function () {
       "use strict";
       try { rotateWord(); } catch (e) { /* static word stays */ }
-      try { storiesCarousel(); } catch (e) { /* first note stays */ }
       try { ctaSpotlight(); } catch (e) { /* static glow stays */ }
 
       function prefersReduced() {
@@ -653,70 +606,6 @@ channel.OnUpdate&lt;<span class="tok-type">PlayerProfile</span>&gt;(Render);
             slot.classList.remove("is-fading");
           }, 280);
         }, 2500);
-      }
-
-      function storiesCarousel() {
-        var quote = document.getElementById("story-quote");
-        var context = document.getElementById("story-context");
-        var avatar = document.getElementById("story-avatar");
-        var metricValue = document.getElementById("story-metric-value");
-        var metricLabel = document.getElementById("story-metric-label");
-        var buttons = Array.prototype.slice.call(document.querySelectorAll("[data-story-go]"));
-        var prev = document.querySelector("[data-story-prev]");
-        var next = document.querySelector("[data-story-next]");
-        if (!quote || !buttons.length) return;
-        var notes = [
-          { q: "Authentication that survives review — OAuth PKCE, MFA and session restore are handled, not hand-rolled.", c: "Authentication pack", a: "A", v: "9", l: "auth methods" },
-          { q: "Scores and wallets change through server functions, so client reports stay untrusted by default.", c: "Economy + leaderboards", a: "E", v: "0", l: "trusted client writes" },
-          { q: "Designers tune flags and announcements while the game is live. No emergency build.", c: "Live-ops console", a: "L", v: "8", l: "operator screens" },
-          { q: "Gameplay code starts from models generated against the real schema, not guessed types.", c: "Editor tooling", a: "T", v: "130", l: "EditMode tests" }
-        ];
-        var active = 0;
-        var timer = 0;
-        var progress = Array.prototype.slice.call(document.querySelectorAll(".lp-story-progress button"));
-
-        function render(i) {
-          active = (i + notes.length) % notes.length;
-          var n = notes[active];
-          quote.textContent = n.q;
-          if (context) context.textContent = n.c;
-          if (avatar) avatar.textContent = n.a;
-          if (metricValue) metricValue.textContent = n.v;
-          if (metricLabel) metricLabel.textContent = n.l;
-          quote.classList.remove("lp-quote-anim");
-          void quote.offsetWidth;
-          if (!prefersReduced()) quote.classList.add("lp-quote-anim");
-          buttons.forEach(function (b) {
-            var on = b.getAttribute("data-story-go") === String(active);
-            b.classList.toggle("is-active", on);
-            b.setAttribute("aria-selected", on ? "true" : "false");
-          });
-          progress.forEach(function (p, pi) {
-            p.classList.toggle("is-active", pi === active);
-            p.classList.toggle("is-done", pi < active);
-            var bar = p.firstChild;
-            if (bar) { bar.style.animation = "none"; if (pi === active && !prefersReduced()) { void p.offsetWidth; bar.style.animation = ""; } }
-          });
-        }
-
-        function auto() {
-          stop();
-          if (prefersReduced()) return;
-          timer = window.setTimeout(function () { render(active + 1); auto(); }, 8000);
-        }
-
-        function stop() { if (timer) { window.clearTimeout(timer); timer = 0; } }
-
-        buttons.forEach(function (b) {
-          b.addEventListener("click", function () {
-            render(parseInt(b.getAttribute("data-story-go"), 10) || 0);
-            auto();
-          });
-        });
-        if (prev) prev.addEventListener("click", function () { render(active - 1); auto(); });
-        if (next) next.addEventListener("click", function () { render(active + 1); auto(); });
-        render(0);
-        auto();
       }
 
       function ctaSpotlight() {
