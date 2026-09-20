@@ -23,13 +23,6 @@
    where the [data-theme="light"] block flips them with the theme — so
    this file needs no declarations of its own. */
 
-/* The radial atmosphere is an accent decoration: neutral here. */
-body {
-  background:
-    radial-gradient(circle at 78% 4%, var(--atmosphere), transparent 32rem),
-    linear-gradient(var(--bg), var(--bg));
-}
-
 /* Primary buttons follow the umbrella accent, including the press state */
 .button {
   background: var(--accent);
