@@ -78,8 +78,8 @@
   --line: rgba(18, 17, 15, .14);
   --line-strong: rgba(18, 17, 15, .26);
   --text: #12110F;
-  --muted: #5C574D;
-  --quiet: #6E6858;
+  --muted: #45403A;
+  --quiet: #555047;
   --brand: #12110F;
   --brand-hover: #2A2721;
   --brand-press: #3E3A33;
@@ -87,7 +87,7 @@
   --brand-soft: rgba(18, 17, 15, .07);
   --brand-line: rgba(18, 17, 15, .18);
   --info: #5C574D;
-  --warning: #8A8477;
+  --warning: #555047;
   --danger: #3E3A33;
   --nav-bg: rgba(246, 241, 231, .84);
   --nav-glass: rgba(246, 241, 231, .72);
@@ -110,7 +110,7 @@
   --ink-code: #262219;
   --gradient-ink: #262219;
   --tok-key: #3E3A33;
-  --tok-string: #5C574D;
+  --tok-string: #45403A;
   --tok-type: #403C35;
   --dot: #C9C3B6;
   --mark-bg: #12110F;
