@@ -42,30 +42,6 @@ document.querySelectorAll(".mobile-nav a").forEach(link => {
   });
 });
 
-// Landing pill nav (index only): float a compact bar once scrolled.
-(function () {
-  if (!document.body || !document.body.classList.contains("lp")) return;
-  const nav = document.querySelector(".site-nav");
-  if (!nav) return;
-  const onScroll = () => {
-    nav.classList.toggle("scrolled", window.scrollY > 20);
-  };
-  if ("requestAnimationFrame" in window) {
-    let ticking = false;
-    window.addEventListener("scroll", () => {
-      if (ticking) return;
-      ticking = true;
-      window.requestAnimationFrame(() => {
-        onScroll();
-        ticking = false;
-      });
-    }, { passive: true });
-  } else {
-    window.addEventListener("scroll", onScroll);
-  }
-  onScroll();
-})();
-
 document.addEventListener("keydown", event => {
   if (event.key !== "Escape") return;
   document.querySelectorAll(".mobile-nav[open]").forEach(menu => {

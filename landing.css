@@ -309,6 +309,62 @@
 }
 
 /* ------------------------------------------------------------
+   Toolkits lineup — the brand's product cards, directly after
+   the hero. Dark cards, hairline borders, quiet hover.
+   ------------------------------------------------------------ */
+.lp-toolkits { scroll-margin-top: 88px; }
+
+.lp-toolkits .lp-head { margin-bottom: 48px; }
+.lp-toolkits .section-lead { margin-top: 16px; }
+
+.lp-toolkit-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.lp-toolkit-card {
+  display: flex;
+  flex-direction: column;
+  padding: 28px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  transition: border-color var(--lp-hover-time) var(--ease-out);
+}
+
+.lp-toolkit-tag {
+  font: 600 11px/1.4 ui-monospace, "SFMono-Regular", Consolas, monospace;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--quiet);
+}
+
+.lp-toolkit-card h3 {
+  margin: 16px 0 10px;
+  font-size: 20px;
+  letter-spacing: -.025em;
+  line-height: 1.25;
+}
+
+.lp-toolkit-card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.65;
+}
+
+.lp-toolkit-card .lp-text-link {
+  align-self: flex-start;
+  margin-top: auto;
+  padding-top: 24px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .lp-toolkit-card:hover { border-color: var(--line-strong); }
+}
+
+/* ------------------------------------------------------------
    Bands — every second section drops to the deepest token
    (#0C0B09) so the page keeps reading as true black, and the
    landing runs one step more generous than the base site.
@@ -472,13 +528,14 @@
 
 .lp-steps-heading {
   margin: 20px 0 0;
+  font-family: var(--font-sans);
   font-size: clamp(36px, 4.2vw, 56px);
-  font-weight: 650;
-  letter-spacing: -.045em;
-  line-height: 1.02;
+  font-weight: 700;
+  letter-spacing: -.03em;
+  line-height: 1.08;
 }
 
-.lp-steps-heading span { display: block; }
+.lp-steps-heading span { display: block; opacity: 1; }
 .lp-fade-2 { opacity: .42; }
 .lp-fade-3 { opacity: .14; }
 
@@ -1146,6 +1203,7 @@
   .lp-feature-card { grid-template-columns: 1fr; }
   .lp-feature-visual { min-height: 320px; }
   .lp-process-head { grid-template-columns: 1fr; gap: 32px; }
+  .lp-toolkit-grid { grid-template-columns: 1fr; }
   .lp-infra-grid { grid-template-columns: 1fr; }
   .lp-fact-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .lp-tiles { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -1251,7 +1309,6 @@ body.lp .brand .brand-product {
 
 /* Display serif: hero, giant section headings, numerals, quotes */
 body.lp .lp-hero h1,
-body.lp .lp-steps-heading,
 body.lp .lp-main .section-heading,
 body.lp .lp-metric-value,
 body.lp .lp-stat-value,
@@ -1278,9 +1335,9 @@ body.lp :is(code, pre, .eyebrow, .section-label, .lp-num, .lp-tag,
 }
 
 /* ------------------------------------------------------------
-   Pill navigation (index only) — transparent over the hero,
-   floating rounded bar once scrolled. Mobile keeps the
-   <details> mechanics from site.js with an overlay-style panel.
+   Pill navigation (index only) — the floating, blurred pill bar
+   is the nav's default state (no scroll toggle). Mobile keeps
+   the <details> mechanics from site.js with an overlay panel.
    ------------------------------------------------------------ */
 body.lp .site-nav {
   position: fixed;
@@ -1297,14 +1354,14 @@ body.lp .site-nav .nav-inner {
   transition: min-height .3s var(--ease-out);
 }
 
-body.lp .site-nav.scrolled {
+body.lp .site-nav {
   background: rgba(18, 17, 15, .72);
   border-bottom-color: var(--line);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
 }
 
-body.lp .site-nav.scrolled .shell.nav-inner {
+body.lp .site-nav .shell.nav-inner {
   width: min(1200px, calc(100% - 32px));
   min-height: 56px;
   margin-top: 12px;
@@ -1772,7 +1829,7 @@ body.lp .lp-hero { padding-top: 128px; }
 }
 
 @media (max-width: 720px) {
-  body.lp .site-nav.scrolled .shell.nav-inner { width: calc(100% - 24px); margin-top: 8px; }
+  body.lp .site-nav .shell.nav-inner { width: calc(100% - 24px); margin-top: 8px; }
   body.lp .lp-hero { padding-top: 110px; }
   .lp-story-arrows { display: none; }
   .lp-plan { padding: 28px; }

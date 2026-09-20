@@ -18,8 +18,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=20260922" />
-  <link rel="stylesheet" href="landing.css?v=20260922" />
+  <link rel="stylesheet" href="styles.css?v=20260923" />
+  <link rel="stylesheet" href="landing.css?v=20260923" />
   <script>
     /* Flag the entrance-motion hidden state before first paint; the
        fallback timeout guarantees content if landing-motion.js fails. */
@@ -86,11 +86,11 @@
     <div class="lp-hero-inner">
       <div class="shell">
         <p class="eyebrow">Unity-native · Full C# source</p>
-        <h1>Supabase for Unity,<br />backend that <span class="lp-rotate-word" data-rotate data-words="connects,syncs,saves,ships">ships</span>.</h1>
-        <p class="lp-hero-lede">Authentication, player data, realtime, storage and live operations against infrastructure you own. Editor tooling and secure game systems included — no proxy, no black box.</p>
+        <h1>Unity tools,<br />built to <span class="lp-rotate-word" data-rotate data-words="ship,scale,last">ship</span>.</h1>
+        <p class="lp-hero-lede">Production-minded Unity tooling — auth, data, storage, live-ops and game systems. Full C# source, editor workflows and backends you own. No proxy, no black box.</p>
         <div class="hero-actions">
           <a class="button" data-store-link href="store.html"><span data-store-label>Asset Store listing</span></a>
-          <a class="button secondary" href="documentation.html">Explore documentation</a>
+          <a class="button secondary" href="#toolkits">Explore the toolkits</a>
         </div>
       </div>
     </div>
@@ -115,6 +115,35 @@
   </header>
 
   <main class="lp-main" id="main-content">
+    <!-- Toolkits lineup -->
+    <section class="section lp-toolkits" id="toolkits" aria-labelledby="toolkits-title">
+      <div class="shell">
+        <div class="lp-head">
+          <h2 class="section-heading" id="toolkits-title">The toolkits</h2>
+          <p class="section-lead">Production-minded Unity tooling, shipped as focused tools.</p>
+        </div>
+        <div class="lp-toolkit-grid">
+          <article class="lp-toolkit-card">
+            <span class="lp-toolkit-tag">On the Asset Store</span>
+            <h3>Unity Supabase Toolkit</h3>
+            <p>Production backend for Unity — auth, data, realtime, storage and live-ops.</p>
+            <a class="lp-text-link" href="store.html">Asset Store listing <span class="lp-arrow" aria-hidden="true">→</span></a>
+          </article>
+          <article class="lp-toolkit-card">
+            <span class="lp-toolkit-tag">Public preview</span>
+            <h3>Unity AWS Toolkit</h3>
+            <p>Pure-C# AWS for every Unity platform — Cognito, S3, DynamoDB, Lambda and game systems, WebGL included.</p>
+            <a class="lp-text-link" href="aws-toolkit.html">Explore the AWS Toolkit <span class="lp-arrow" aria-hidden="true">→</span></a>
+          </article>
+          <article class="lp-toolkit-card">
+            <span class="lp-toolkit-tag">In development</span>
+            <h3>Unity License Toolkit</h3>
+            <p>Licensing and entitlement tooling for Unity projects.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
     <!-- 03 · Features -->
     <section class="section" id="features" aria-labelledby="features-title">
       <div class="shell">

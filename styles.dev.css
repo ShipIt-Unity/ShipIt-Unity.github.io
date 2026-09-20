@@ -133,7 +133,7 @@ summary {
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 12px;
+  gap: 16px;
   color: var(--text);
   font-weight: 700;
   letter-spacing: -.02em;
@@ -144,10 +144,11 @@ summary {
 }
 
 .brand-mark {
-  width: 32px;
-  height: 32px;
-  flex: 0 0 32px;
-  background: url("assets/brand/shipit-mark-cream.svg") center / 100% no-repeat;
+  width: 34px;
+  height: 34px;
+  flex: 0 0 34px;
+  background: #F6F1E7 url("assets/brand/shipit-mark.svg") center / 56% no-repeat;
+  border-radius: 11px 0 0 11px;
 }
 
 .brand-product {
