@@ -53,7 +53,7 @@
 
 <header class="docs-hero">
   <div class="shell">
-    <div class="eyebrow">v0.33.0 · Unity 2022.3 LTS and Unity 6</div>
+    <div class="eyebrow">v0.34.0 · Unity 2022.3 LTS and Unity 6</div>
     <h1>AWS Toolkit <span class="gradient-text">documentation.</span></h1>
     <p>Install the package, stand up a real AWS backend, call every service, and recognise the errors the toolkit actually throws.</p>
     <div class="docs-search">
@@ -81,6 +81,7 @@
         <a href="#setup">Guided setup</a>
         <a href="#backend">Backend quickstart</a>
         <a href="#verify">Verification order</a>
+        <a href="#agents">AI agents &amp; Unity CLI</a>
         <h4>Runtime services</h4>
         <a href="#auth">Auth (Cognito)</a>
         <a href="#identity">Identity Pools</a>
@@ -146,7 +147,7 @@ await aws.Auth.RestoreSessionAsync();</code></pre>
         <article><strong>Diagnostics</strong><p>The runtime log ring buffer, streamed from the player.</p></article>
         <article><strong>Smoke suite</strong><p>Signs up a test user, exercises every service, deletes its own user.</p></article>
       </div>
-      <div class="note">Need a legacy import artifact? <strong>Tools → ShipIt → AWS Toolkit → Export .unitypackage</strong> stages a fresh-GUID copy (tests, internal docs and <code>package.json</code> excluded; <code>link.xml</code> and the license notices included) and writes <code>ShipIt-Aws-Toolkit-&lt;version&gt;.unitypackage</code> to the project root. Use the UPM package or the exported artifact in a project — not both, or the assemblies collide.</div>
+      <div class="note">Need a legacy import artifact? <strong>Tools → ShipIt → AWS Toolkit → Export .unitypackage</strong> stages a fresh-GUID copy (tests and <code>package.json</code> excluded; the documentation set — including the agent bundle — plus <code>link.xml</code> and the license notices included) and writes <code>ShipIt-Aws-Toolkit-&lt;version&gt;.unitypackage</code> to the project root. Use the UPM package or the exported artifact in a project — not both, or the assemblies collide.</div>
     </section>
 
     <section id="backend">
@@ -182,6 +183,24 @@ await aws.Auth.RestoreSessionAsync();</code></pre>
         </table>
       </div>
       <p>The smoke suite signs a user up and immediately signs in, so deploy with <code>EnableTestAutoConfirm=true</code> and <code>SignInWith=Username</code> while testing; turn auto-confirm off afterwards.</p>
+    </section>
+
+    <section id="agents">
+      <h2>AI agents &amp; the Unity CLI</h2>
+      <p>The package ships an <strong>agent bundle</strong> so coding agents work from the correct patterns instead of guessing: <code>Documentation~/agent/AGENTS.md</code> (ground rules), five task skills under <code>Documentation~/agent/skills/</code> (setup, auth, WebGL, data, troubleshooting), and <code>Documentation~/llms.txt</code> as the documentation index.</p>
+      <p>With Unity's Pipeline package installed (<code>com.unity.pipeline</code>, Unity 6+), the toolkit also registers <strong>eleven <code>aws_*</code> Unity CLI commands</strong> for agents and CI:</p>
+      <div class="table-wrap">
+        <table>
+          <tr><th>Command</th><th>What it does</th></tr>
+          <tr><td><code>aws_doctor</code> · <code>aws_verify</code></td><td>Static checks, then a live verification pass (credentials, ListTables, doctor, bucket CORS).</td></tr>
+          <tr><td><code>aws_deploy</code> · <code>aws_import_outputs</code></td><td>Deploy the bundled stack and write its outputs into <code>AwsSettings</code>.</td></tr>
+          <tr><td><code>aws_generate</code> · <code>aws_provision_tables</code></td><td>Model + typed repository from a live table; create any missing game tables.</td></tr>
+          <tr><td><code>aws_iam_policy</code> · <code>aws_cost_estimate</code></td><td>Scoped player/admin IAM JSON; monthly cost estimate from usage assumptions.</td></tr>
+          <tr><td><code>aws_create_settings</code> · <code>aws_release_check</code> · <code>aws_export_package</code></td><td>Settings-asset creation, the release gate and the store export.</td></tr>
+        </table>
+      </div>
+      <p>Mutations are gated: without <code>confirm=true</code> they refuse, and <code>dry_run</code> previews the change. The command assembly is version-guarded — it compiles only when the Pipeline package is present, so Unity 2022.3 projects and runtime players are unaffected.</p>
+      <div class="note">Live commands use the credentials you already configured — Identity Pool via the settings asset for verification and generation, your AWS CLI profile for deploys. The toolkit never stores long-lived keys.</div>
     </section>
 
     <section id="auth">
@@ -565,7 +584,7 @@ Debug.Log($"~${estimate.MonthlyTotalUsd:0.00}/month");</code></pre>
         <a data-support-link href="mailto:shipit.unity@gmail.com">Support</a>
       </div>
     </div>
-    <div class="legal"><span>Unity AWS Toolkit v0.33.0 — public preview</span><span>© 2026 ShipIt</span></div>
+    <div class="legal"><span>Unity AWS Toolkit v0.34.0 — public preview</span><span>© 2026 ShipIt</span></div>
   </div>
 </footer>
 </body>

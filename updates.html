@@ -72,6 +72,19 @@
         <div class="release-list">
 
           <article class="release-row">
+            <span class="release-index">AWS Toolkit<br />Sep 20, 2026</span>
+            <div>
+              <h2>v0.34.0 — agent-ready toolkit</h2>
+              <p>The toolkit now ships an <strong>agent bundle</strong> — <code>llms.txt</code>, a package agent guide and five task skills (setup, auth, WebGL, data, troubleshooting) — and machine-readable diagnostics: doctor findings and smoke reports come as JSON as well as Markdown. With Unity's Pipeline package (Unity 6+), eleven <code>aws_*</code> Unity CLI commands let an agent or CI run the doctor, deploy the stack, import outputs, verify the backend, generate models and repositories, provision tables, render IAM policies, estimate cost, check the release gate and export the store artifact — every mutation gated behind <code>confirm=true</code> with <code>dry_run</code> previews.</p>
+              <ul class="check-list">
+                <li>The command assembly is version-guarded on <code>com.unity.pipeline</code>, so the Unity 2022.3 floor and the runtime player are untouched.</li>
+                <li>The exported <code>.unitypackage</code> now ships the documentation set and the agent bundle under <code>Documentation/</code>; tests and <code>package.json</code> stay excluded.</li>
+                <li>384 EditMode + 2 PlayMode tests pass, zero warnings, gate green.</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="release-row">
             <span class="release-index">AWS Toolkit<br />Sep 10, 2026</span>
             <div>
               <h2>v0.33.0 — player economy</h2>

@@ -1,21 +1,38 @@
-# ShipIt Unity Supabase Toolkit
+# ShipIt Unity Toolkits
 
-> The most complete Supabase integration for Unity: 38 RLS-hardened backend
-> packs, full C# source, editor tooling, a multi-provider AI assistant and an
-> operator web console. Built by ShipIt.
+> ShipIt builds production-grade Unity backends with full C# source, editor
+> tooling and evidence-published verification. Works with Unity 2022.3 LTS or
+> newer.
 
-Works with any Supabase project (hosted or self-hosted). Requires Unity
-2022.3 LTS or newer. Distributed with full C# source — no DLLs, no NuGet.
+## Products
 
-## Main pages
+- [ShipIt Unity Supabase Toolkit](https://shipit-unity.github.io/index.html):
+  the most complete Supabase integration for Unity — 38 RLS-hardened backend
+  packs, full C# source, editor tooling, a multi-provider AI assistant and an
+  operator web console. Works with any Supabase project, hosted or
+  self-hosted.
+  - [Documentation](https://shipit-unity.github.io/documentation.html) · [Live-Ops console](https://shipit-unity.github.io/live-ops.html)
+- [ShipIt AWS Toolkit](https://shipit-unity.github.io/aws-toolkit.html):
+  AWS for every Unity platform, WebGL included — pure-C# Cognito (SRP + MFA),
+  Identity Pools, S3, DynamoDB, Lambda, realtime and game systems; no
+  aws-sdk-net DLLs, IL2CPP/AOT-safe.
+  - [Documentation](https://shipit-unity.github.io/aws-documentation.html)
+  - Agent-ready: the package ships `llms.txt`, an agent guide and five task
+    skills (setup, auth, WebGL, data, troubleshooting). With Unity's Pipeline
+    package (Unity 6+) eleven `aws_*` Unity CLI commands cover the doctor,
+    deploy, verify, generation, provisioning, IAM, cost, release and export —
+    mutations require `confirm=true`; `dry_run` previews.
 
-- [Overview](https://shipit-unity.github.io/index.html): product position, pack cloud, workflow, hardening notes.
-- [Documentation](https://shipit-unity.github.io/documentation.html): setup, auth/database/realtime/storage/edge-function examples, all 38 backend packs, game services table, AI & MCP server, security model, troubleshooting.
-- [Release notes](https://shipit-unity.github.io/updates.html): per-version changelog highlights; the package also ships a full CHANGELOG.md.
-- [Live-Ops console](https://shipit-unity.github.io/live-ops.html): self-hostable operator dashboard — overview KPIs, analytics with CSV export, pgmq queues, pg_cron jobs, announcements, feature flags, remote config, rewards/mail, moderation, leaderboard, players.
-- [Privacy](https://shipit-unity.github.io/privacy.html): no analytics, no cookies, no telemetry.
+## Shared pages
 
-## Core API surface (C#)
+- [Release notes](https://shipit-unity.github.io/updates.html): per-version
+  changelog highlights for both toolkits; each package also ships a full
+  CHANGELOG.md.
+- [Privacy](https://shipit-unity.github.io/privacy.html): no analytics, no
+  cookies, no telemetry.
+- [Store](https://shipit-unity.github.io/store.html): Asset Store listings.
+
+## Supabase Toolkit — core API surface (C#)
 
 - Initialize: `SupabaseClient.InitializeFromResources();`
 - Auth: email/password, magic link, phone OTP, anonymous, OAuth PKCE deep links,
@@ -39,7 +56,24 @@ Works with any Supabase project (hosted or self-hosted). Requires Unity
   AchievementService, DailyRewardService, CloudSaveHistoryService,
   SemanticSearchService, RagService, AiChatClient, AiEmbeddingClient.
 
-## Security model
+## AWS Toolkit — core API surface (C#)
+
+- Initialize: `ShipIt.Aws.AwsClient.InitializeFromResources();`
+- Auth: password, SRP (the password never leaves the device), MFA/challenge
+  continuation, phone OTP (custom auth), Hosted UI OAuth2 + PKCE.
+- Identity: `aws.Credentials.GetAsync()` mints short-lived SigV4 credentials.
+- Storage: `aws.Storage` upload/download/head/delete, ListObjectsV2,
+  presigned GET/PUT URLs, resumable multipart with progress.
+- Data: `aws.Data` typed models, reserved-word-safe expression builders,
+  Query/Scan, batch and transactional writes, PartiQL.
+- Functions: `aws.Functions` signed invokes, response streaming, Function URLs
+  for WebGL.
+- Game systems: `aws.Game` leaderboards (server-authoritative option), cloud
+  saves, feature flags, analytics and the player economy.
+- Realtime: `aws.Realtime` IAM-signed `wss://` with an offline send queue and
+  bounded reconnect. Offline: `aws.Offline` durable mutation queue.
+
+## Supabase Toolkit — security model
 
 Ship only the anon/publishable key in clients. Service-role keys stay in
 machine-local editor preferences and are never written to runtime assets or
@@ -47,6 +81,13 @@ builds. Privileged mutations (economy grants, quest progress, battle-pass XP)
 are service-role-only Postgres functions. Every bundled pack enables RLS with
 explicit policies and function execute allowlists.
 
+## AWS Toolkit — security model
+
+No long-lived keys ever ship in clients: signed calls use temporary Identity
+Pool credentials, player rows are scoped to the caller with
+`dynamodb:LeadingKeys`, scoring moves server-side with the shipped Lambda
+template, and the doctor flags extractable app-client secrets.
+
 ## Support
 
-Email shipit.unity@gmail.com. Asset Store listing: see store.html.
+Email shipit.unity@gmail.com. Asset Store listings: see store.html.
