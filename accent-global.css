@@ -47,7 +47,7 @@ body {
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .button:hover { box-shadow: 0 12px 30px -16px var(--accent-line); }
+  .button:hover { }
 }
 
 /* Focus rings read the accent on these pages */

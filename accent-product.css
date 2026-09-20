@@ -61,7 +61,6 @@
   .site-nav .nav-links .button:hover,
   .site-nav .mobile-nav-panel .button:hover,
   .site-footer .button:hover {
-    box-shadow: 0 12px 30px -16px var(--accent-line);
   }
 }
 

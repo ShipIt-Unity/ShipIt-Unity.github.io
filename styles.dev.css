@@ -64,8 +64,6 @@
   --radius-sm: 8px;
   --radius: 16px;
   --radius-lg: 24px;
-  --shadow-card: 0 16px 48px rgba(0, 0, 0, .24);
-  --shadow-float: 0 32px 96px rgba(0, 0, 0, .48);
 }
 
 /* Light theme: beige surfaces, off-black ink, accent inverts */
@@ -347,7 +345,6 @@ summary {
   border: 1px solid var(--line-strong);
   border-radius: 12px;
   background: var(--panel-bg);
-  box-shadow: var(--shadow-float);
 }
 
 .mobile-nav-panel a:not(.button) {
@@ -524,7 +521,6 @@ summary {
   border: 1px solid var(--line-strong);
   border-radius: var(--radius);
   background: var(--surface);
-  box-shadow: var(--shadow-float);
 }
 
 .hero-shot {
@@ -633,7 +629,6 @@ summary {
   background:
     linear-gradient(135deg, var(--glass), transparent 56%),
     var(--surface);
-  box-shadow: var(--shadow-card);
 }
 
 .decision-card h3 {
@@ -735,7 +730,6 @@ summary {
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: var(--surface);
-  box-shadow: var(--shadow-card);
 }
 
 .tour-card.wide {
@@ -755,7 +749,6 @@ summary {
 }
 
 .tour-card-link:hover {
-  box-shadow: inset 0 0 0 1px var(--brand-line);
 }
 
 .tour-card img {
@@ -796,7 +789,6 @@ summary {
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: var(--surface);
-  box-shadow: var(--shadow-card);
 }
 
 .bento-card.large {
@@ -871,7 +863,6 @@ summary {
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: var(--surface);
-  box-shadow: var(--shadow-card);
 }
 
 .workflow-grid article > span {
@@ -906,7 +897,6 @@ summary {
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: var(--surface);
-  box-shadow: var(--shadow-card);
 }
 
 .trust-grid strong {
@@ -980,7 +970,6 @@ summary {
   border: 1px solid var(--line-strong);
   border-radius: var(--radius);
   background: var(--code);
-  box-shadow: var(--shadow-float);
 }
 
 .window-bar {
@@ -1080,7 +1069,6 @@ summary {
   border: 1px solid var(--line-strong);
   border-radius: var(--radius);
   background: var(--surface);
-  box-shadow: var(--shadow-float);
 }
 
 .ops-ui {
@@ -1232,7 +1220,6 @@ summary {
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: var(--surface);
-  box-shadow: var(--shadow-card);
 }
 
 .ops-model-grid strong {
@@ -1349,7 +1336,6 @@ summary {
 
 .docs-search input:focus {
   border-color: var(--brand-line);
-  box-shadow: 0 0 0 3px var(--brand-soft);
 }
 
 .docs-search-results {
@@ -1362,7 +1348,6 @@ summary {
   border: 1px solid var(--line-strong);
   border-radius: 10px;
   background: var(--panel-bg);
-  box-shadow: var(--shadow-float);
 }
 
 .docs-search-results a {
@@ -1596,7 +1581,6 @@ pre {
   border: 1px solid var(--line);
   border-radius: 12px;
   background: var(--surface-raised);
-  box-shadow: var(--shadow-card);
 }
 
 .doc-figure-link {
@@ -1715,7 +1699,6 @@ tr:last-child td {
   border: 1px solid var(--brand-line);
   border-radius: var(--radius-sm);
   background: var(--surface-raised);
-  box-shadow: var(--shadow-float);
   color: var(--text);
   font-size: 13px;
   transform: translateY(16px);
@@ -1765,7 +1748,6 @@ tr:last-child td {
   border: 1px solid var(--line-strong);
   border-radius: var(--radius);
   background: var(--surface);
-  box-shadow: var(--shadow-card);
 }
 
 .store-card > div {

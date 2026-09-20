@@ -381,7 +381,6 @@
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: var(--surface);
-  box-shadow: var(--shadow-card);
 }
 
 .lp-feature-list {
@@ -509,7 +508,6 @@
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: var(--surface);
-  box-shadow: var(--shadow-card);
   overflow: hidden;
 }
 
@@ -541,7 +539,6 @@
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: var(--surface);
-  box-shadow: var(--shadow-card);
   overflow: hidden;
 }
 
@@ -575,7 +572,6 @@
   .lp-step:hover {
     transform: translateY(-3px);
     border-color: var(--accent-line);
-    box-shadow: var(--lp-hover-shadow);
   }
 }
 
@@ -616,7 +612,6 @@
   border: 1px solid var(--line-strong);
   border-radius: var(--radius);
   background: var(--bg-soft);
-  box-shadow: var(--shadow-float);
 }
 
 .lp-product-shot img {
@@ -680,7 +675,6 @@
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: var(--surface);
-  box-shadow: var(--shadow-card);
 }
 
 .lp-step-top {
@@ -745,7 +739,6 @@
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: var(--surface);
-  box-shadow: var(--shadow-card);
 }
 
 .lp-infra-line {
@@ -766,7 +759,6 @@
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: var(--surface);
-  box-shadow: var(--shadow-card);
 }
 
 .lp-stat-value {
@@ -956,7 +948,6 @@
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: var(--surface);
-  box-shadow: var(--shadow-card);
 }
 
 .lp-security-large p {
@@ -1153,7 +1144,7 @@
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .button:hover { box-shadow: 0 12px 30px -16px var(--accent-line); }
+  .button:hover { }
 }
 
 /* ------------------------------------------------------------
@@ -1336,7 +1327,6 @@ body.lp .site-nav .shell.nav-inner {
   border: 1px solid var(--line);
   border-radius: 16px;
   background: var(--pill-bg);
-  box-shadow: var(--shadow-card);
   padding-inline: 20px;
 }
 
@@ -1351,7 +1341,6 @@ body.lp .site-nav .nav-mark {
   margin: 12px 0;
   border-radius: 16px;
   background: var(--mark-bg) var(--mark-svg) center / 48% no-repeat;
-  box-shadow: var(--shadow-card);
 }
 
 body.lp .lp-footer-brand-name { font-size: 26px; }
@@ -1425,7 +1414,6 @@ body.lp .lp-hero { padding-top: 128px; }
   border: 1px solid var(--line-strong);
   border-radius: var(--radius);
   background: var(--bg-soft);
-  box-shadow: var(--shadow-card);
 }
 
 .lp-infra-emblem img { width: 100%; height: auto; }
@@ -1678,7 +1666,6 @@ body.lp .lp-hero { padding-top: 128px; }
     transform: scale(1.045);
     border-radius: 16px;
     border-color: var(--accent-line);
-    box-shadow: var(--lp-hover-shadow);
   }
 }
 
@@ -1690,7 +1677,6 @@ body.lp .lp-hero { padding-top: 128px; }
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: var(--surface);
-  box-shadow: var(--shadow-card);
 }
 
 .lp-plan--highlight { background: var(--surface-raised); border-color: var(--accent-line); }
