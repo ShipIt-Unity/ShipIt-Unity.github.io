@@ -430,7 +430,7 @@
    ------------------------------------------------------------ */
 .lp-feature-card {
   display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr);
+  grid-template-columns: 1fr;
   overflow: hidden;
   border: 1px solid var(--line);
   border-radius: var(--radius);
@@ -1467,7 +1467,7 @@ body.lp .lp-hero { padding-top: 128px; }
    ------------------------------------------------------------ */
 .lp-infra-head {
   display: grid;
-  grid-template-columns: minmax(200px, 320px) minmax(0, 1fr);
+  grid-template-columns: 1fr;
   gap: 40px;
   align-items: center;
   margin-bottom: 64px;
